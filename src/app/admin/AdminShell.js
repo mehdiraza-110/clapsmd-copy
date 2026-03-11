@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -167,16 +168,25 @@ export default function AdminShell({ children }) {
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-        <div className="h-20 px-6 border-b border-white/10 flex items-center justify-between">
-          <div>
-            <p className="text-primary text-xs uppercase tracking-[0.2em] font-black">
+        <div className="min-h-[132px] px-6 py-5 border-b border-white/10 flex items-start justify-between">
+          <div className="flex-1 flex flex-col items-center text-center">
+            <div className="relative h-14 w-40">
+              <Image
+                src="/images/clapsmd-logo-high-res.svg"
+                alt="CLAPS MD logo"
+                fill
+                priority
+                className="object-cover rounded-xl"
+              />
+            </div>
+            <p className="mt-3 text-primary text-xs uppercase tracking-[0.2em] font-black">
               Admin Panel
             </p>
             <p className="text-xl font-black tracking-tight">CLAPS MD</p>
           </div>
           <button
             type="button"
-            className="lg:hidden text-white/80 hover:text-white"
+            className="lg:hidden text-white/80 hover:text-white ml-3"
             onClick={() => setMobileOpen(false)}
           >
             <X className="w-5 h-5" />

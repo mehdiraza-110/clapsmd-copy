@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import {
   BadgeDollarSign,
   CreditCard,
@@ -16,20 +17,70 @@ const PATIENT_PORTAL_URL =
   "https://phr.charmtracker.com/login.sas?FACILITY_ID=3a3047be28b32bf95dac27bd660a2fb90a976cc644c8922b2e62fe42203ae47ddda3124f8ffc5ce6";
 
 const insuranceCarriers = [
-  "Aetna (most commercial plans)",
-  "Horizon BCBS",
-  "Horizon NJ Health (Medicaid)",
-  "Cigna",
-  "United Healthcare (commercial)",
-  "Wellpoint / Amerigroup (Medicaid)",
-  "Magnacare",
-  "1199 SEIU Benefit and Pension Funds",
-  "Meritain Health",
-  "AmeriHealth",
-  "Tricare",
-  "Commercial plans accepted by contract",
-  "Medicaid plans accepted by contract",
-  "Additional participating plans may apply",
+  {
+    name: "Aetna (most commercial plans)",
+    logo: "/logos/aetna.webp",
+    logoAlt: "Aetna logo",
+  },
+  {
+    name: "Horizon BCBS",
+    logo: "/logos/HBCBS.webp",
+    logoAlt: "Horizon BCBS logo",
+  },
+  {
+    name: "Horizon NJ Health (Medicaid)",
+    logo: "/logos/HNJH.webp",
+    logoAlt: "Horizon NJ Health logo",
+  },
+  {
+    name: "Cigna",
+    logo: "/logos/cigna.webp",
+    logoAlt: "Cigna logo",
+  },
+  {
+    name: "United Healthcare (commercial)",
+    logo: "/logos/united.webp",
+    logoAlt: "United Healthcare logo",
+  },
+  {
+    name: "Wellpoint / Amerigroup (Medicaid)",
+    logo: "/logos/wellpoint.webp",
+    logoAlt: "Wellpoint logo",
+  },
+  {
+    name: "Magnacare",
+    logo: "/logos/magnacare.webp",
+    logoAlt: "Magnacare logo",
+  },
+  {
+    name: "1199 SEIU Benefit and Pension Funds",
+    logo: "/logos/1199seiu.webp",
+    logoAlt: "1199 SEIU logo",
+  },
+  {
+    name: "Meritain Health",
+    logo: "/logos/meritain.webp",
+    logoAlt: "Meritain Health logo",
+  },
+  {
+    name: "AmeriHealth",
+    logo: "/logos/amerihealth.webp",
+    logoAlt: "AmeriHealth logo",
+  },
+  {
+    name: "Tricare",
+    logo: "/logos/tricare.webp",
+    logoAlt: "Tricare logo",
+  },
+  {
+    name: "Commercial plans accepted by contract",
+  },
+  {
+    name: "Medicaid plans accepted by contract",
+  },
+  {
+    name: "Additional participating plans may apply",
+  },
 ];
 
 const selfPayRows = [
@@ -127,11 +178,13 @@ export default function InsuranceBillingPage() {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="grid grid-cols-1 xl:grid-cols-[0.95fr,1.05fr] gap-8">
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+          <div className="rounded-[2rem] bg-white border border-slate-100 p-6 sm:p-8 lg:p-10 shadow-sm">
+            <div className="max-w-3xl">
               <div className="flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-primary" />
-                <h2 className="text-3xl font-black text-secondary tracking-tight">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-secondary">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
                   Accepted Insurance Carriers
                 </h2>
               </div>
@@ -139,52 +192,87 @@ export default function InsuranceBillingPage() {
                 Coverage varies by plan and product. Please verify your benefits directly with
                 your insurance carrier before the visit.
               </p>
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {insuranceCarriers.map((carrier) => (
-                  <div
-                    key={carrier}
-                    className="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3 font-semibold text-secondary"
-                  >
-                    {carrier}
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {insuranceCarriers.map((carrier) => (
+                <div
+                  key={carrier.name}
+                  className="rounded-3xl bg-gradient-to-b from-white to-slate-50 border border-slate-200 px-5 py-6 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all"
+                >
+                  <div className="flex flex-col items-center text-center min-h-[180px]">
+                    {carrier.logo ? (
+                      <div className="relative h-16 w-full max-w-[168px] overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+                        <Image
+                          src={carrier.logo}
+                          alt={carrier.logoAlt || `${carrier.name} logo`}
+                          fill
+                          className="object-contain p-3"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex h-16 w-full max-w-[168px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-4">
+                        <span className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+                          Insurance
+                        </span>
+                      </div>
+                    )}
+
+                    <span className="mt-4 text-lg font-black leading-snug text-secondary">
+                      {carrier.name}
+                    </span>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 sm:pb-18">
+          <div className="rounded-[2rem] bg-white border border-slate-100 p-6 sm:p-8 lg:p-10 shadow-sm">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+              <div className="max-w-3xl">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-secondary">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                    Self-Pay Fee Schedule
+                  </h2>
+                </div>
+                <p className="mt-4 text-gray-600 leading-8">
+                  Our self-pay options are for patients without insurance or those who choose not
+                  to bill insurance. Placeholder pricing is shown below and will be finalized by
+                  the client.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600">
+                Rates are subject to confirmation at the time of visit.
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
-              <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-primary" />
-                <h2 className="text-3xl font-black text-secondary tracking-tight">
-                  Self-Pay Fee Schedule
-                </h2>
-              </div>
-              <p className="mt-4 text-gray-600 leading-8">
-                Our self-pay options are for patients without insurance or those who choose not
-                to bill insurance. Placeholder pricing is shown below and will be finalized by
-                the client.
-              </p>
-              <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200">
-                <table className="min-w-full text-sm">
-                  <thead className="bg-slate-50">
-                    <tr>
-                      <th className="px-4 py-3 text-left font-bold text-secondary">Category</th>
-                      <th className="px-4 py-3 text-left font-bold text-secondary">Amount</th>
+            <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
+              <table className="min-w-full text-sm sm:text-base">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-5 py-4 text-left font-black text-secondary">Category</th>
+                    <th className="px-5 py-4 text-left font-black text-secondary">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 bg-white">
+                  {selfPayRows.map(([label, amount]) => (
+                    <tr key={label} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="px-5 py-4 text-gray-700">{label}</td>
+                      <td className="px-5 py-4 font-black text-secondary">{amount}</td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 bg-white">
-                    {selfPayRows.map(([label, amount]) => (
-                      <tr key={label}>
-                        <td className="px-4 py-3 text-gray-700">{label}</td>
-                        <td className="px-4 py-3 font-black text-secondary">{amount}</td>
-                      </tr>
-                    ))}
-                    <tr>
-                      <td className="px-4 py-3 text-gray-700">Other Diagnostic Procedures</td>
-                      <td className="px-4 py-3 font-semibold text-secondary">Please inquire</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                  <tr className="hover:bg-slate-50/80 transition-colors">
+                    <td className="px-5 py-4 text-gray-700">Other Diagnostic Procedures</td>
+                    <td className="px-5 py-4 font-semibold text-secondary">Please inquire</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

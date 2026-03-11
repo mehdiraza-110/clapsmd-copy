@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ConditionsWeTreatSection from "@/components/ConditionsWeTreatSection";
 import Image from "next/image";
 import { buildPageMetadata } from "@/lib/seoMetadata";
 
@@ -10,16 +11,6 @@ export const metadata = buildPageMetadata({
   path: "/about",
   ogImage: "/images/SHADE_FARRI.jpg",
 });
-
-const conditions = [
-  "Asthma",
-  "Chronic Cough",
-  "Wheezing",
-  "Exercise-Induced Breathing Problems",
-  "Sleep-Related Breathing Concerns",
-  "Recurrent Respiratory Infections",
-  "Other Complex Respiratory Conditions",
-];
 
 export default function AboutPage() {
   return (
@@ -192,30 +183,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section id="conditions" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <h2 className="text-3xl md:text-4xl font-black text-secondary uppercase tracking-tight mb-4">
-                Conditions We Treat
-              </h2>
-              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-                CLAPS MD provides specialized evaluation and care for a wide range of pediatric respiratory concerns.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              {conditions.map((condition) => (
-                <div
-                  key={condition}
-                  className="bg-slate-50 border border-slate-100 p-6 rounded-xl flex items-center"
-                >
-                  <span className="w-2 h-2 bg-primary rounded-full mr-4" />
-                  <span className="text-xl font-bold tracking-tight text-secondary">{condition}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ConditionsWeTreatSection />
       </main>
       <Footer />
     </>

@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { blogPosts, getBlogPostBySlug } from "@/lib/blogPosts";
-import { getSiteUrl } from "@/lib/siteUrl";
+import { cache } from "react";
 import { getAbsoluteUrl } from "@/lib/seoMetadata";
+import { getSiteUrl } from "@/lib/siteUrl";
+import { getBlogById, getBlogs } from "@/lib/authClient";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookingButton from "@/components/BookingButton";
@@ -9,12 +10,80 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+export const revalidate = 300;
+
+function formatDate(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
 }
 
-export function generateMetadata({ params }) {
-  const post = getBlogPostBySlug(params.slug);
+function estimateReadMinutes(html) {
+  const plainText = String(html || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!plainText) return 1;
+  return Math.max(1, Math.ceil(plainText.split(" ").length / 200));
+}
+
+function escapeRegExp(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function stripDuplicateLeadingTitle(html, title) {
+  if (!html || !title) return html;
+
+  const normalizedTitle = escapeRegExp(String(title).trim());
+  if (!normalizedTitle) return html;
+
+  const leadingTitlePattern = new RegExp(
+    `^\\s*<h[1-6][^>]*>\\s*${normalizedTitle}\\s*<\\/h[1-6]>\\s*`,
+    "i",
+  );
+
+  return String(html).replace(leadingTitlePattern, "");
+}
+
+const getPublishedBlogBySlug = cache(async (slug) => {
+  const response = await getBlogs(undefined, { cache: "no-store" });
+  const blogs = Array.isArray(response?.blogs) ? response.blogs : [];
+  const matchedBlog = blogs.find((blog) => {
+    return (
+      (blog?.status || "").toLowerCase() === "published" &&
+      String(blog?.slug || "").toLowerCase() === String(slug || "").toLowerCase()
+    );
+  });
+
+  if (!matchedBlog) {
+    return null;
+  }
+
+  try {
+    const detailResponse = await getBlogById(undefined, matchedBlog.id, { cache: "no-store" });
+    const detailedBlog = detailResponse?.blog;
+
+    if (!detailedBlog) {
+      return matchedBlog;
+    }
+
+    if (
+      (detailedBlog?.status || "").toLowerCase() !== "published" ||
+      String(detailedBlog?.slug || "").toLowerCase() !== String(slug || "").toLowerCase()
+    ) {
+      return null;
+    }
+
+    return detailedBlog;
+  } catch (_error) {
+    return matchedBlog;
+  }
+});
+
+export async function generateMetadata({ params }) {
+  const post = await getPublishedBlogBySlug(params.slug);
 
   if (!post) {
     return {
@@ -25,22 +94,24 @@ export function generateMetadata({ params }) {
 
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/blog/${post.slug}`;
-  const ogImage = getAbsoluteUrl(post.coverImage || "/images/clapsmd-logo-high-res.jpg");
+  const ogImage = getAbsoluteUrl(post.featured_image || "/images/clapsmd-logo-high-res.jpg");
+  const description =
+    post.meta_description || "Educational article from the CLAPS MD pediatric pulmonology team.";
 
   return {
     title: `${post.title} | C.L.A.P.S. MD`,
-    description: post.description,
+    description,
     alternates: {
       canonical,
     },
     openGraph: {
       title: `${post.title} | C.L.A.P.S. MD`,
-      description: post.description,
+      description,
       url: canonical,
       siteName: "C.L.A.P.S. MD",
       type: "article",
-      publishedTime: post.publishedAt || undefined,
-      modifiedTime: post.updatedAt || post.publishedAt || undefined,
+      publishedTime: post.publish_time || undefined,
+      modifiedTime: post.updated_at || post.publish_time || undefined,
       images: [
         {
           url: ogImage,
@@ -51,33 +122,19 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function BlogPostPage({ params }) {
-  const post = getBlogPostBySlug(params.slug);
+export default async function BlogPostPage({ params }) {
+  const post = await getPublishedBlogBySlug(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const formatDate = (value) => {
-    if (!value) {
-      return null;
-    }
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) {
-      return null;
-    }
-    return new Intl.DateTimeFormat("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-  };
+  const renderedContent = stripDuplicateLeadingTitle(post.content, post.title);
 
   return (
     <>
       <Header />
       <main className="flex-grow bg-white">
-        {/* Post Header */}
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <Link
             href="/blog"
@@ -92,88 +149,42 @@ export default function BlogPostPage({ params }) {
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-6 text-gray-500 font-medium">
-              {formatDate(post.publishedAt) && (
+              {formatDate(post.publish_time || post.created_at) ? (
                 <div className="flex items-center">
                   <Calendar className="w-5 h-5 mr-2 text-primary" />
-                  {formatDate(post.publishedAt)}
+                  {formatDate(post.publish_time || post.created_at)}
                 </div>
-              )}
+              ) : null}
               <div className="flex items-center">
                 <Clock className="w-5 h-5 mr-2 text-primary" />
-                {Math.ceil((post.content?.length || 0) * 0.5 + 1)} min read
+                {estimateReadMinutes(post.content)} min read
               </div>
             </div>
           </header>
 
-          {post.coverImage && (
+          {post.featured_image ? (
             <div className="relative w-full h-[400px] mb-12 rounded-3xl overflow-hidden shadow-lg border border-gray-100 bg-slate-50">
               <Image
-                src={post.coverImage}
+                src={post.featured_image}
                 alt={post.title}
                 fill
                 className="object-contain p-8"
                 priority
               />
             </div>
-          )}
+          ) : null}
 
-          {post.description && (
+          {/* {post.meta_description ? (
             <div className="bg-primary/5 border-l-4 border-primary p-6 mb-12 rounded-r-lg">
               <p className="text-xl text-secondary font-medium leading-relaxed italic">
-                {post.description}
+                {post.meta_description}
               </p>
             </div>
-          )}
+          ) : null} */}
 
-          <div className="space-y-8 text-lg text-gray-700 leading-relaxed font-normal">
-            {post.content?.length ? (
-              <div className="blog-content">
-                {post.content.map((block, index) => {
-                  if (block.type === "list") {
-                    return (
-                      <ul
-                        key={`list-${index}`}
-                        className="list-disc pl-6 space-y-4 my-6"
-                      >
-                        {block.items.map((item, itemIndex) => (
-                          <li
-                            key={`list-${index}-${itemIndex}`}
-                            className="text-gray-700"
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  }
-
-                  if (block.type === "image") {
-                    return (
-                      <figure key={`image-${index}`} className="my-12">
-                        <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-md">
-                          <Image
-                            src={block.src}
-                            alt={block.alt}
-                            fill
-                            className="object-contain bg-gray-50"
-                          />
-                        </div>
-                        {block.alt && (
-                          <figcaption className="text-center text-sm text-gray-500 mt-4 italic font-medium">
-                            {block.alt}
-                          </figcaption>
-                        )}
-                      </figure>
-                    );
-                  }
-
-                  return (
-                    <p key={`paragraph-${index}`} className="mb-6">
-                      {block.text}
-                    </p>
-                  );
-                })}
-              </div>
+          <div className="blog-content text-lg text-gray-700 leading-relaxed font-normal">
+            {renderedContent ? (
+              <div dangerouslySetInnerHTML={{ __html: renderedContent }} />
             ) : (
               <p className="text-gray-600">Content coming soon.</p>
             )}

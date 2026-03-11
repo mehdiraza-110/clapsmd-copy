@@ -1,4 +1,4 @@
-import { UserPlus } from "lucide-react";
+import Image from "next/image";
 import { buildPageMetadata } from "@/lib/seoMetadata";
 import RegisterForm from "./RegisterForm";
 
@@ -21,8 +21,16 @@ export default function AdminRegisterPage() {
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-lg">
           <div className="bg-white rounded-3xl border border-gray-100 shadow-xl p-8 sm:p-10">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/15 text-primary mb-6">
-              <UserPlus className="w-7 h-7" />
+            <div className="mb-6 flex justify-center">
+              <div className="relative h-16 w-52">
+                <Image
+                  src="/images/clapsmd-logo-high-res.svg"
+                  alt="CLAPS MD logo"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+              </div>
             </div>
 
             <h1 className="text-3xl font-black text-secondary tracking-tight">

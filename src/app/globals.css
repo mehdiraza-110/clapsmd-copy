@@ -28,6 +28,76 @@ body {
   display: list-item !important;
 }
 
+.blog-content {
+  line-height: 1.8;
+}
+
+.blog-content > * + * {
+  margin-top: 1.5rem;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  color: #003d5b;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+}
+
+.blog-content p {
+  margin-top: 1rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 1.5rem 0;
+  padding-left: 1.75rem;
+}
+
+.blog-content ul {
+  list-style: disc;
+}
+
+.blog-content ol {
+  list-style: decimal;
+}
+
+.blog-content li + li {
+  margin-top: 0.75rem;
+}
+
+.blog-content a {
+  color: #003d5b;
+  text-decoration: underline;
+}
+
+.blog-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  margin: 2rem 0;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #94d12c;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #003d5b;
+}
+
 @layer components {
   .btn-primary {
     @apply bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors font-medium;

@@ -88,9 +88,11 @@ export async function getActivityLogs(token, { page = 1, pageSize = 20 } = {}) {
 export async function getServices(token) {
   return request("/services", {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
   });
 }
 
@@ -179,21 +181,27 @@ export async function deleteAnnouncement(token, id) {
   });
 }
 
-export async function getBlogs(token) {
+export async function getBlogs(token, options = {}) {
   return request("/blogs", {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+    ...options,
   });
 }
 
-export async function getBlogById(token, id) {
+export async function getBlogById(token, id, options = {}) {
   return request(`/blogs/${id}`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+    ...options,
   });
 }
 
