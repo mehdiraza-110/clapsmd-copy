@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #94d12c;
+  --secondary: #003d5b;
+}
+
+body {
+  color: #333;
+  background: #fff;
+}
+
+.jodit-wysiwyg ul {
+  list-style-type: disc !important;
+  padding-left: 40px !important;
+  margin-left: 0 !important;
+}
+
+.jodit-wysiwyg ol {
+  list-style-type: decimal !important;
+  padding-left: 40px !important;
+  margin-left: 0 !important;
+}
+
+.jodit-wysiwyg li {
+  display: list-item !important;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors font-medium;
+  }
+
+  .btn-secondary {
+    @apply bg-primary-darker text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors font-medium;
+  }
+}
