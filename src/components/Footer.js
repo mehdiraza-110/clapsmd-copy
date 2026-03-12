@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/shade.farri/?fbclid=IwY2xjawP5kw9leHRuA2FlbQIxMQBicmlkETE0TXBDR2xyVDlZYVl6VHk0c3J0YwZhcHBfaWQBMAABHnN5NqxqHeHvr77zOv5uIz65wkt2CQgHMHGe-YZZE00xONxT5gO_FBqhILJK_aem_0FN07TUHhPbC0KuG3tIPOw';
+const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61567195066725';
+const YOUTUBE_URL = 'https://www.youtube.com/@CLAPS_MD';
 
 const Footer = () => {
   return (
@@ -68,7 +70,14 @@ const Footer = () => {
           <div>
             <p className="text-white font-semibold">Follow Us</p>
             <div className="mt-3 flex flex-wrap gap-4 text-gray-400 text-sm">
-              <span className="opacity-70">Facebook</span>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Facebook
+              </a>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
@@ -77,7 +86,14 @@ const Footer = () => {
               >
                 Instagram
               </a>
-              <span className="opacity-70">YouTube</span>
+              <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                YouTube
+              </a>
             </div>
           </div>
           <p className="text-gray-400">&copy; {new Date().getFullYear()} C.L.A.P.S. MD. All rights reserved.</p>

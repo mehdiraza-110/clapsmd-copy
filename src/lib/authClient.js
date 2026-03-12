@@ -137,18 +137,22 @@ export async function deleteService(token, id) {
 export async function getAnnouncements(token) {
   return request("/announcements", {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
   });
 }
 
 export async function getAnnouncementById(token, id) {
   return request(`/announcements/${id}`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
   });
 }
 

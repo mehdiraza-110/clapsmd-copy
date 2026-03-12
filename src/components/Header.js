@@ -73,7 +73,7 @@ const Header = () => {
               className="btn-primary whitespace-nowrap"
               onClick={() => setIsBookingOpen(true)}
             >
-              Book Appointment
+              Request Appointment
             </button>
           </div>
 
@@ -108,7 +108,7 @@ const Header = () => {
                 setIsBookingOpen(true);
               }}
             >
-              Book Appointment
+              Request Appointment
             </button>
             <a
               href={PATIENT_PORTAL_URL}

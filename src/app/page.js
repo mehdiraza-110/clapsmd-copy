@@ -3,8 +3,9 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BookingButton from '@/components/BookingButton';
+import PatientActionButtons from '@/components/PatientActionButtons';
 import { motion } from 'framer-motion';
-import { ArrowRight, CalendarCheck, CheckCircle2, ClipboardCheck, Stethoscope, Wind, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CalendarCheck, CheckCircle2, ClipboardCheck, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,6 +14,28 @@ export default function Home() {
     { title: 'Asthma Management', icon: <Wind className="w-6 h-6" />, description: 'Personalized asthma care and treatment plans for children.' },
     { title: 'Respiratory Evaluation', icon: <Stethoscope className="w-6 h-6" />, description: 'Comprehensive clinical assessments for respiratory concerns.' },
     { title: 'Diagnostic Testing', icon: <ShieldCheck className="w-6 h-6" />, description: 'Advanced testing including spirometry and FeNO testing.' },
+  ];
+  const testimonials = [
+    {
+      quote: 'The office explained every step clearly and made the test feel much less stressful for our family.',
+      author: 'Parent of pediatric patient',
+    },
+    {
+      quote: 'Having testing done in the clinic instead of the hospital made the process much easier and more comfortable.',
+      author: 'Adult patient',
+    },
+  ];
+  const successStories = [
+    {
+      title: 'From frequent flare-ups to confident school days',
+      summary: 'A parent came to CLAPS MD looking for answers after repeated coughing episodes, urgent visits, and missed class time.',
+      challenge:
+        'Their child was having recurring asthma symptoms during exercise and at night, making routines unpredictable for the entire family.',
+      approach:
+        'After a thorough evaluation, the family received a clearer diagnosis, an individualized treatment plan, and practical education on triggers, inhaler technique, and what to do when symptoms changed.',
+      outcome:
+        'With a structured plan and close follow-up, symptoms became more manageable, school attendance improved, and the parent felt more confident handling flare-ups early.',
+    },
   ];
 
   return (
@@ -170,6 +193,25 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="bg-secondary py-14">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+              <div className="max-w-2xl">
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">Mid-Page Appointment Options</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-white">
+                  Ready to schedule care or speak with the office?
+                </h2>
+                <p className="mt-4 text-white/80 leading-8">
+                  Choose the fastest next step for office visits, pulmonary testing, telehealth scheduling, referrals, or direct phone support.
+                </p>
+              </div>
+              <PatientActionButtons
+                items={['request_appointment', 'schedule_pft']}
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Meet the Doctor Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -198,10 +240,106 @@ export default function Home() {
                 <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                   At CLAPS MD, we believe in a collaborative approach, working closely with families and primary care physicians to ensure the best possible outcomes for our young patients.
                 </p>
-                <Link href="/about" className="btn-primary inline-flex items-center">
-                  Learn More About Dr. Farri <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/about" className="btn-primary inline-flex items-center">
+                    Learn More About Dr. Farri <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                  <BookingButton className="btn-secondary inline-flex items-center">
+                    Request Appointment <ArrowRight className="ml-2 w-5 h-5" />
+                  </BookingButton>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <h2 className="text-3xl font-bold text-primary-darker mb-4">What Families Are Saying</h2>
+              <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Families value clear communication, a comfortable visit experience, and care that feels personal from start to finish.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {testimonials.map((item, index) => (
+                <motion.blockquote
+                  key={item.author}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative h-full rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+                >
+                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Quote className="w-5 h-5" />
+                  </div>
+                  <p className="text-lg leading-8 text-gray-700">&ldquo;{item.quote}&rdquo;</p>
+                  <footer className="mt-6 border-t border-slate-100 pt-5 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+                    {item.author}
+                  </footer>
+                </motion.blockquote>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-14">
+              <h2 className="text-3xl font-bold text-primary-darker mb-4">Parent Success Stories</h2>
+              <div className="w-20 h-1 bg-primary mb-6"></div>
+              <p className="text-gray-600 text-lg leading-8">
+                Representative care journeys that reflect the kind of support, clarity, and follow-through families look for when their child is dealing with ongoing breathing concerns.
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              {successStories.map((story, index) => (
+                <motion.article
+                  key={story.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="rounded-3xl border border-slate-200 bg-slate-50/70 p-8 md:p-10 shadow-sm"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,1.4fr] gap-8">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+                        Success Story
+                      </p>
+                      <h3 className="text-2xl font-bold text-primary-darker leading-tight mb-4">
+                        {story.title}
+                      </h3>
+                      <p className="text-gray-700 text-lg leading-8">{story.summary}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
+                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
+                          Challenge
+                        </p>
+                        <p className="text-gray-600 leading-7">{story.challenge}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
+                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
+                          Approach
+                        </p>
+                        <p className="text-gray-600 leading-7">{story.approach}</p>
+                      </div>
+                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
+                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
+                          Outcome
+                        </p>
+                        <p className="text-gray-600 leading-7">{story.outcome}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
             </div>
           </div>
         </section>

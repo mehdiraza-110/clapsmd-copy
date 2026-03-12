@@ -2,6 +2,7 @@ import './globals.css';
 import "jodit/es2021/jodit.min.css";
 import { Inter } from 'next/font/google';
 import { buildPageMetadata } from '@/lib/seoMetadata';
+import AnnouncementsWidget from '@/components/AnnouncementsWidget';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         <div className="flex flex-col min-h-screen">
           {children}
         </div>
+        <AnnouncementsWidget />
       </body>
     </html>
   );
