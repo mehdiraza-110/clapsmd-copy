@@ -258,8 +258,12 @@ export default function ServicesCrudClient() {
 
         {error ? <p className="mt-4 text-sm font-semibold text-red-600">{error}</p> : null}
 
-        <div className="mt-6 overflow-hidden rounded-2xl border border-gray-100">
-          <table className="min-w-full text-sm">
+        <p className="mt-6 mb-2 text-xs font-semibold text-gray-500 sm:hidden">
+          Swipe horizontally to view the full table.
+        </p>
+
+        <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-gray-100 touch-pan-x">
+          <table className="min-w-[920px] w-full text-sm">
             <thead className="bg-slate-50 text-left">
               <tr>
                 <th className="px-4 py-3 font-bold text-secondary">ID</th>

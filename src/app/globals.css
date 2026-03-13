@@ -7,6 +7,12 @@
   --secondary: #003d5b;
 }
 
+html,
+body {
+  width: 100%;
+  margin: 0;
+}
+
 body {
   color: #333;
   background: #fff;

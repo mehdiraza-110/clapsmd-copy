@@ -39,14 +39,31 @@ function toDatetimeLocalValue(value) {
 
 function toIsoFromLocal(value) {
   if (!value) return "";
-  const date = new Date(value);
+
+  const match = String(value).match(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/,
+  );
+
+  if (!match) return "";
+
+  const [, year, month, day, hours, minutes, seconds = "0"] = match;
+  const date = new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hours),
+    Number(minutes),
+    Number(seconds),
+  );
+
   if (Number.isNaN(date.getTime())) return "";
   return date.toISOString();
 }
 
 const statusStyles = {
-  publish: "bg-primary/15 text-secondary",
+  published: "bg-primary/15 text-secondary",
   scheduled: "bg-blue-100 text-blue-700",
+  expired: "bg-slate-200 text-slate-700",
 };
 
 export default function NoticesClient() {
@@ -65,6 +82,7 @@ export default function NoticesClient() {
     message: "",
     status: "published",
     scheduled_time: "",
+    expiry_time: "",
   });
 
   const token = getToken();
@@ -123,6 +141,7 @@ export default function NoticesClient() {
       message: "",
       status: "published",
       scheduled_time: "",
+      expiry_time: "",
     });
     setEditingId(null);
     setFormError("");
@@ -153,6 +172,10 @@ export default function NoticesClient() {
       payload.scheduled_time = toIsoFromLocal(form.scheduled_time);
     }
 
+    if (form.expiry_time) {
+      payload.expiry_time = toIsoFromLocal(form.expiry_time);
+    }
+
     return payload;
   };
 
@@ -160,12 +183,25 @@ export default function NoticesClient() {
     if (!payload.title) return "Title is required.";
     if (!payload.message) return "Message is required.";
     if (!payload.status) return "Status is required.";
-    if (!["published", "scheduled"].includes(payload.status)) {
-      return "Status must be either published or scheduled.";
+    if (!["published", "scheduled", "expired"].includes(payload.status)) {
+      return "Status must be published, scheduled, or expired.";
     }
 
     if (payload.status === "scheduled" && !payload.scheduled_time) {
-      return "Scheduled time is required when status is Schedule.";
+      return "Scheduled time is required when status is scheduled.";
+    }
+
+    if (form.expiry_time && !payload.expiry_time) {
+      return "Expiry time must be a valid datetime.";
+    }
+
+    if (
+      payload.status === "scheduled" &&
+      payload.scheduled_time &&
+      payload.expiry_time &&
+      new Date(payload.expiry_time).getTime() <= new Date(payload.scheduled_time).getTime()
+    ) {
+      return "Expiry time must be later than scheduled time.";
     }
 
     return "";
@@ -185,6 +221,10 @@ export default function NoticesClient() {
     if (validationError) {
       setFormError(validationError);
       return;
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Announcement payload", payload);
     }
 
     setSubmitting(true);
@@ -237,6 +277,7 @@ export default function NoticesClient() {
         message: target.message || "",
         status: target.status || "published",
         scheduled_time: toDatetimeLocalValue(target.scheduled_time),
+        expiry_time: toDatetimeLocalValue(target.expiry_time),
       });
     } catch (requestError) {
       if (isAuthError(requestError)) {
@@ -248,6 +289,7 @@ export default function NoticesClient() {
         message: announcement.message || "",
         status: announcement.status || "published",
         scheduled_time: toDatetimeLocalValue(announcement.scheduled_time),
+        expiry_time: toDatetimeLocalValue(announcement.expiry_time),
       });
       setFormError(requestError?.message || "Unable to refresh announcement details");
     }
@@ -283,7 +325,7 @@ export default function NoticesClient() {
               Announcements
             </h1>
             <p className="text-gray-600 mt-2">
-              Publish now or schedule announcements for later publishing.
+              Publish, schedule, and expire announcements with precise timing.
             </p>
           </div>
           <button
@@ -317,21 +359,27 @@ export default function NoticesClient() {
               className="h-11 px-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
             >
               <option value="all">All</option>
-              <option value="publish">Publish</option>
+              <option value="published">Published</option>
               <option value="scheduled">Scheduled</option>
+              <option value="expired">Expired</option>
             </select>
           </div>
         </div>
 
         {error ? <p className="mt-4 text-sm font-semibold text-red-600">{error}</p> : null}
 
-        <div className="mt-6 overflow-hidden rounded-2xl border border-gray-100">
-          <table className="min-w-full text-sm">
+        <p className="mt-6 mb-2 text-xs font-semibold text-gray-500 sm:hidden">
+          Swipe horizontally to view the full table.
+        </p>
+
+        <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-gray-100 touch-pan-x">
+          <table className="min-w-[1020px] w-full text-sm">
             <thead className="bg-slate-50 text-left">
               <tr>
                 <th className="px-4 py-3 font-bold text-secondary">Announcement</th>
                 <th className="px-4 py-3 font-bold text-secondary">Status</th>
                 <th className="px-4 py-3 font-bold text-secondary">Scheduled Time</th>
+                <th className="px-4 py-3 font-bold text-secondary">Expiry Time</th>
                 <th className="px-4 py-3 font-bold text-secondary">Publish Time</th>
                 <th className="px-4 py-3 font-bold text-secondary">Actions</th>
               </tr>
@@ -339,13 +387,13 @@ export default function NoticesClient() {
             <tbody className="bg-white divide-y divide-gray-100">
               {loading ? (
                 <tr>
-                  <td className="px-4 py-8 text-center text-gray-500" colSpan={5}>
+                  <td className="px-4 py-8 text-center text-gray-500" colSpan={6}>
                     <CircularLoader label="Loading announcements..." />
                   </td>
                 </tr>
               ) : filteredAnnouncements.length === 0 ? (
                 <tr>
-                  <td className="px-4 py-8 text-center text-gray-500" colSpan={5}>
+                  <td className="px-4 py-8 text-center text-gray-500" colSpan={6}>
                     No announcements found.
                   </td>
                 </tr>
@@ -366,6 +414,7 @@ export default function NoticesClient() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-600">{formatDateTime(announcement.scheduled_time)}</td>
+                    <td className="px-4 py-3 text-gray-600">{formatDateTime(announcement.expiry_time)}</td>
                     <td className="px-4 py-3 text-gray-600">{formatDateTime(announcement.publish_time)}</td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-2">
@@ -452,6 +501,7 @@ export default function NoticesClient() {
                 >
                   <option value="published">Publish now</option>
                   <option value="scheduled">Schedule</option>
+                  <option value="expired">Mark as expired</option>
                 </select>
               </div>
 
@@ -466,6 +516,21 @@ export default function NoticesClient() {
                   />
                 </div>
               ) : null}
+
+              <div>
+                <label className="block text-sm font-semibold text-secondary mb-2">
+                  Expiry Time
+                </label>
+                <input
+                  type="datetime-local"
+                  value={form.expiry_time}
+                  onChange={(event) => handleFormChange("expiry_time", event.target.value)}
+                  className="w-full h-11 px-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
+                />
+                <p className="mt-2 text-xs text-gray-500">
+                  Optional. If set, the announcement will expire automatically at this time.
+                </p>
+              </div>
 
               <div className="lg:col-span-2 flex flex-wrap gap-3 justify-end">
                 <button type="button" onClick={closeModal} className="btn-secondary">

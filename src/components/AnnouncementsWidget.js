@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Bell, ChevronRight, Loader2, Megaphone, X } from 'lucide-react';
-import { getAnnouncementById, getAnnouncements } from '@/lib/authClient';
+import { getActiveAnnouncements } from '@/lib/authClient';
 
 const READ_STORAGE_KEY = 'clapsmd-read-announcements';
 const POLL_INTERVAL_MS = 60_000;
@@ -37,10 +37,7 @@ function sortAnnouncements(items) {
 function normalizeAnnouncements(items, existingItems = []) {
   return sortAnnouncements(items).map((item) => {
     const previous = existingItems.find((existingItem) => String(existingItem.id) === String(item.id));
-    return {
-      ...item,
-      detailLoaded: previous?.detailLoaded || false,
-    };
+    return previous ? { ...previous, ...item } : item;
   });
 }
 
@@ -68,7 +65,6 @@ export default function AnnouncementsWidget() {
   const [readIds, setReadIds] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [loadingList, setLoadingList] = useState(true);
-  const [loadingDetailId, setLoadingDetailId] = useState(null);
   const [listError, setListError] = useState('');
 
   const isAdminRoute = pathname?.startsWith('/admin');
@@ -88,23 +84,13 @@ export default function AnnouncementsWidget() {
           setListError('');
         }
 
-        const response = await getAnnouncements();
+        const response = await getActiveAnnouncements();
         if (cancelled) return;
 
-        const now = Date.now();
         const items = Array.isArray(response?.announcements) ? response.announcements : [];
-        const publishedOnly = items.filter((item) => {
-          const status = String(item?.status || '').toLowerCase();
-          const timestamp = getPrimaryTimestamp(item);
-          const publishMs = timestamp ? new Date(timestamp).getTime() : 0;
-
-          if (status && status !== 'published') return false;
-          if (publishMs && publishMs > now) return false;
-          return true;
-        });
 
         setAnnouncements((current) => {
-          const normalized = normalizeAnnouncements(publishedOnly, current);
+          const normalized = normalizeAnnouncements(items, current);
           if (!activeId && normalized[0]?.id != null) {
             setActiveId(String(normalized[0].id));
           }
@@ -155,43 +141,10 @@ export default function AnnouncementsWidget() {
     const selectedId = String(announcement.id);
     setActiveId(selectedId);
 
-    if (announcement?.detailLoaded) {
-      if (!readIds.includes(selectedId)) {
-        const nextReadIds = [...new Set([...readIds, selectedId])];
-        setReadIds(nextReadIds);
-        persistReadIds(nextReadIds);
-      }
-      return;
-    }
-
-    try {
-      setLoadingDetailId(selectedId);
-      const response = await getAnnouncementById(undefined, announcement.id);
-      const detailedAnnouncement = response?.announcement;
-
-      if (detailedAnnouncement) {
-        setAnnouncements((current) =>
-          current.map((item) =>
-            String(item.id) === selectedId
-              ? { ...item, ...detailedAnnouncement, detailLoaded: true }
-              : item,
-          ),
-        );
-      }
-
-      if (!readIds.includes(selectedId)) {
-        const nextReadIds = [...new Set([...readIds, selectedId])];
-        setReadIds(nextReadIds);
-        persistReadIds(nextReadIds);
-      }
-    } catch (_error) {
-      if (!readIds.includes(selectedId)) {
-        const nextReadIds = [...new Set([...readIds, selectedId])];
-        setReadIds(nextReadIds);
-        persistReadIds(nextReadIds);
-      }
-    } finally {
-      setLoadingDetailId(null);
+    if (!readIds.includes(selectedId)) {
+      const nextReadIds = [...new Set([...readIds, selectedId])];
+      setReadIds(nextReadIds);
+      persistReadIds(nextReadIds);
     }
   };
 
@@ -323,11 +276,7 @@ export default function AnnouncementsWidget() {
                   <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                     <div className="flex items-center gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-secondary">
-                        {loadingDetailId === String(activeAnnouncement.id) ? (
-                          <Loader2 className="h-5 w-5 animate-spin" />
-                        ) : (
-                          <Megaphone className="h-5 w-5" />
-                        )}
+                        <Megaphone className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">

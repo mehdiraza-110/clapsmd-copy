@@ -145,6 +145,12 @@ export async function getAnnouncements(token) {
   });
 }
 
+export async function getActiveAnnouncements() {
+  return request("/announcements/active", {
+    method: "GET",
+  });
+}
+
 export async function getAnnouncementById(token, id) {
   return request(`/announcements/${id}`, {
     method: "GET",

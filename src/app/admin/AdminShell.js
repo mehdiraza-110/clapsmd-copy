@@ -153,7 +153,7 @@ export default function AdminShell({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex">
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-slate-100 flex">
       {mobileOpen && (
         <button
           type="button"
@@ -215,7 +215,7 @@ export default function AdminShell({ children }) {
         </nav>
       </aside>
 
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 w-full">
         <header className="h-20 bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -257,7 +257,7 @@ export default function AdminShell({ children }) {
           </div>
         </header>
 
-        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
+        <div className="w-full p-4 sm:p-6 lg:p-8">{children}</div>
       </div>
     </div>
   );

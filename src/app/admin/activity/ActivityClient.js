@@ -130,8 +130,12 @@ export default function ActivityClient() {
           </div>
         </div>
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-gray-100">
-          <table className="min-w-full text-sm">
+        <p className="mt-8 mb-2 text-xs font-semibold text-gray-500 sm:hidden">
+          Swipe horizontally to view the full table.
+        </p>
+
+        <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-gray-100 touch-pan-x">
+          <table className="min-w-[1080px] w-full text-sm">
             <thead className="bg-slate-50 text-left">
               <tr>
                 <th className="px-4 py-3 font-bold text-secondary">ID</th>

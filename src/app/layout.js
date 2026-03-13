@@ -6,6 +6,11 @@ import AnnouncementsWidget from '@/components/AnnouncementsWidget';
 
 const inter = Inter({ subsets: ['latin'] });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = buildPageMetadata({
   title: "Children's Lung Asthma & Pulmonary Specialists | C.L.A.P.S. MD",
   description:
