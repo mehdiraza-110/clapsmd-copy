@@ -384,16 +384,38 @@ export default function ServicesCrudClient() {
                 <label className="block text-sm font-semibold text-secondary mb-2">
                   Visibility Status
                 </label>
-                <select
-                  value={String(form.visibility_status)}
-                  onChange={(event) =>
-                    handleChange("visibility_status", event.target.value === "true")
-                  }
-                  className="w-full h-11 px-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
+                <button
+                  type="button"
+                  onClick={() => handleChange("visibility_status", !form.visibility_status)}
+                  className={`w-full rounded-2xl border px-4 py-4 transition-colors ${
+                    form.visibility_status
+                      ? "border-primary/40 bg-primary/10"
+                      : "border-gray-200 bg-slate-50"
+                  }`}
+                  aria-pressed={form.visibility_status}
                 >
-                  <option value="true">Visible</option>
-                  <option value="false">Hidden</option>
-                </select>
+                  <span className="flex items-center justify-between gap-4">
+                    <span className="text-left">
+                      <span className="block text-sm font-semibold text-secondary">
+                        {form.visibility_status ? "Visible on site" : "Hidden from site"}
+                      </span>
+                      <span className="mt-1 block text-xs text-gray-500">
+                        Toggle to control whether this service appears publicly.
+                      </span>
+                    </span>
+                    <span
+                      className={`relative inline-flex h-7 w-12 flex-shrink-0 items-center rounded-full transition-colors ${
+                        form.visibility_status ? "bg-primary" : "bg-slate-300"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
+                          form.visibility_status ? "translate-x-6" : "translate-x-1"
+                        }`}
+                      />
+                    </span>
+                  </span>
+                </button>
               </div>
 
               <div className="flex items-end ml-auto gap-3">
