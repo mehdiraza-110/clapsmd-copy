@@ -22,7 +22,7 @@ export default function AboutPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex flex-col border-l-4 border-primary pl-6">
                 <h2 className="text-white font-black tracking-tight text-xl md:text-3xl leading-tight max-w-xl">
-                  Children's Lung Asthma <br className="hidden lg:block" /> & Pulmonary Specialists
+                  Children&apos;s Lung Asthma <br className="hidden lg:block" /> & Pulmonary Specialists
                 </h2>
               </div>
               <div className="flex flex-col items-start md:items-end">
@@ -34,140 +34,225 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <section className="py-20 bg-white border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl md:text-5xl font-black text-primary-darker uppercase tracking-tight mb-10">
-              About Us
-            </h1>
-            <div className="max-w-5xl space-y-6 text-lg text-gray-700 leading-relaxed">
-              <p>
-                At CLAPS MD, we provide high-quality pediatric pulmonology care while ensuring every child and family feels truly seen, heard, and supported.
-              </p>
-              <p>
-                Our team is committed to clinical excellence, wrapped in compassion. We take a clear, step-by-step approach to care, with a strong focus on health education, so parents feel confident and informed at every stage.
-              </p>
-              <p>
-                We also harness modern technology to support testing, monitoring, and ongoing care, helping families breathe easier knowing CLAPS MD stays closely connected to their child&apos;s health and progress.
-              </p>
+        <section className="bg-white border-b border-slate-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-10 items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                  Meet Dr. Farri
+                </p>
+                <h1 className="mt-4 text-4xl sm:text-5xl font-black text-secondary tracking-tight leading-tight">
+                  Dr. Folashade Farri, MD, MPH
+                </h1>
+                <p className="mt-6 text-lg text-gray-700 leading-8">
+                  Dr. Folashade Farri is a dedicated Pediatric Pulmonologist and the Specialty
+                  Practice Owner of Children&apos;s Lung, Asthma & Pulmonary Specialists in Wayne,
+                  New Jersey. With a deep passion for helping children breathe easier and stay
+                  active, she combines extensive clinical expertise with a public health
+                  background to provide comprehensive, compassionate care to her patients and
+                  their families.
+                </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  At CLAPS MD, families can expect thoughtful evaluation, clear communication, and
+                  care that balances medical excellence with genuine warmth. Dr. Farri believes
+                  that when parents understand what is happening, they feel more confident,
+                  children feel more supported, and outcomes improve.
+                </p>
+              </div>
+
+              <div className="rounded-[2rem] border border-primary/15 bg-slate-50 p-4 shadow-sm">
+                <div className="relative h-[420px] sm:h-[520px] w-full overflow-hidden rounded-[1.5rem] bg-white">
+                  <Image
+                    src="/images/Dr Farri_white coat.jpeg"
+                    alt="Dr. Folashade Farri"
+                    fill
+                    className="object-cover object-top"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="py-20 bg-slate-50 border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 md:p-12">
-              <h2 className="text-3xl md:text-4xl font-black text-secondary uppercase tracking-tight mb-6">
-                Philosophy of Care
-              </h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                At CLAPS MD, our philosophy of care is simple, yet profound:
-              </p>
-              <ul className="space-y-4 text-lg text-gray-700">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-primary mt-3 mr-3 flex-shrink-0" />
-                  We care sincerely.
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-primary mt-3 mr-3 flex-shrink-0" />
-                  We prioritize health education as a core part of prevention and treatment.
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-primary mt-3 mr-3 flex-shrink-0" />
-                  We blend medical excellence, empathy, and personalized care in every interaction.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+        <section className="bg-slate-50 border-b border-slate-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-6">
+              <div className="rounded-[2rem] border border-slate-200 bg-white p-8 sm:p-10 shadow-sm">
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                  Our Philosophy of Care
+                </p>
+                <p className="mt-6 text-lg text-gray-700 leading-8">
+                  At CLAPS MD, our philosophy of care is simple, yet profound. We care sincerely,
+                  treating every family with respect, warmth, and attentiveness from the very first
+                  conversation. We prioritize health education because understanding leads to
+                  confidence, and confidence leads to better outcomes for children and their
+                  caregivers.
+                </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  We also believe the best pediatric pulmonology care blends medical excellence with
+                  empathy. Every child&apos;s story is different, so our approach is personalized,
+                  evidence-based, and family-centered in every interaction, whether we are guiding a
+                  new diagnosis, reviewing testing, or supporting long-term respiratory management.
+                </p>
+              </div>
 
-        <section className="py-20 bg-white border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-              <div className="lg:col-span-1">
-                <div className="rounded-3xl border border-primary/20 bg-slate-50 p-3 shadow-sm">
-                  <div className="relative h-[420px] w-full overflow-hidden rounded-2xl bg-white">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-[2rem] border border-primary/15 bg-secondary p-6 text-white shadow-sm">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-primary">
+                    How We Care
+                  </p>
+                  <p className="mt-4 text-2xl font-black leading-tight">
+                    Evidence-based care delivered with warmth and clarity.
+                  </p>
+                </div>
+                <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm">
+                  <div className="relative h-full min-h-[220px]">
                     <Image
-                      src="/images/Dr Farri_blazer.jpeg"
-                      alt="Dr. Folashade Farri"
+                      src="/images/blog/pediatrician-with-child-and-parent.png"
+                      alt="Pediatric pulmonologist with child and parent"
                       fill
-                      className="object-cover object-top"
-                      priority
+                      className="object-cover"
                     />
                   </div>
                 </div>
+                <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm">
+                  <div className="relative h-full min-h-[220px]">
+                    <Image
+                      src="/images/blog/Cartoon pediatric pulmonologist examining a child with a parent in the room.jpg"
+                      alt="Pediatric pulmonologist examining a child with parent present"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-primary">
+                    Family Focus
+                  </p>
+                  <p className="mt-4 text-base leading-7 text-gray-700">
+                    We combine careful diagnosis, parent education, and long-term respiratory
+                    support so families feel informed, equipped, and genuinely cared for.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white border-b border-slate-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="rounded-[2rem] border border-slate-100 bg-white p-8 sm:p-10 shadow-sm">
+                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                  Clinical Leadership & Experience
+                </h2>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  Throughout her career, Dr. Farri has held several prominent leadership roles in
+                  pediatric respiratory care. She previously served as the Director of the Cystic
+                  Fibrosis Foundation affiliate center at RWJ-Barnabas Health, where she helped lead
+                  advanced respiratory care for children with complex chronic needs.
+                </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  Prior to that, she was the Director of the Technology Dependent Children&apos;s
+                  Program at Montefiore Medical Center, leading a multidisciplinary outpatient
+                  program for medically complex patients. Today, she continues to extend her impact
+                  beyond the walls of the clinic as the Chief Medical Advisor for AIRnyc, bringing
+                  her expertise to broader asthma and respiratory health initiatives.
+                </p>
               </div>
 
-              <div className="lg:col-span-2 space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-black text-secondary uppercase tracking-tight mb-4">
-                    Dr. Farri Bio
-                  </h2>
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    Dr. Farri is the founder of CLAPS MD and a double board-certified Pediatric Pulmonologist dedicated to compassionate, evidence-based respiratory care for children.
+                <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm">
+                  <div className="relative h-full min-h-[320px]">
+                    <Image
+                      src="/images/SHADE_FARRI.jpg"
+                      alt="Dr. Farri portrait"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+
+              <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm">
+                <div className="relative h-full min-h-[320px]">
+                  <Image
+                    src="/images/hero-image.webp"
+                    alt="CLAPS MD family care"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-[2rem] border border-slate-100 bg-slate-50 p-8 sm:p-10 shadow-sm">
+                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                  Education & Credentials
+                </h2>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  Dr. Farri&apos;s medical training reflects both international depth and elite public
+                  health and specialty preparation in the United States. She earned her medical
+                  degree from Obafemi Awolowo University in Nigeria and later completed a Master of
+                  Public Health at Columbia University in New York, strengthening her ability to
+                  care not only for individual patients, but also to think broadly about systems,
+                  prevention, and long-term outcomes.
+                </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  She completed her Pediatric Residency at Bronx Lebanon Hospital in New York,
+                  followed by a Pediatric Pulmonology Fellowship at Westchester Medical Center. Dr.
+                  Farri is a dual board-certified Fellow of the American Board of Pediatrics and the
+                  American Board of Pediatric Pulmonology, and she holds active professional medical
+                  licenses in both New Jersey and New York.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-6">
+              <div className="rounded-[2rem] border border-slate-100 bg-white p-8 sm:p-10 shadow-sm">
+                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                  Awards & Professional Recognition
+                </h2>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  Dr. Farri is highly regarded by her peers and the broader medical community. She
+                  is a Fellow of the American Academy of Pediatrics and is professionally connected
+                  with the American Thoracic Society, the New Jersey chapter of the American Academy
+                  of Pediatrics, and the American Academy of Asthma, Allergy & Immunology. She also
+                  serves as a Board Member of the Asthma & Allergy Foundation of America, reflecting
+                  her continued leadership in respiratory advocacy and education.
+                </p>
+                <p className="mt-5 text-lg text-gray-700 leading-8">
+                  Her dedication to academic medicine and trainee development has also been
+                  recognized through the Best Faculty Award from the RWJ Barnabas Department of
+                  Pediatrics in both 2021 and 2022, a meaningful reflection of the respect she has
+                  earned as both a clinician and mentor.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                <div className="rounded-[2rem] border border-primary/15 bg-secondary p-8 text-white shadow-sm">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-primary">
+                    Recognition
+                  </p>
+                  <p className="mt-4 text-3xl font-black leading-tight">
+                    Respected clinician, educator, advisor, and advocate in pediatric respiratory care.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
-                    <h3 className="text-xl font-black text-secondary mb-4">Career</h3>
-                    <ul className="space-y-3 text-gray-700">
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Assistant Professor at Montefiore
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Clinical Assistant Professor at Rutgers NJMS
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Director of CF Foundation affiliate center at RWJ-Barnabas
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
-                    <h3 className="text-xl font-black text-secondary mb-4">Education</h3>
-                    <ul className="space-y-3 text-gray-700">
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        MPH from Columbia University
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Residency at Bronx Lebanon
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Fellowship at Westchester Medical Center
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
-                    <h3 className="text-xl font-black text-secondary mb-4">Awards</h3>
-                    <ul className="space-y-3 text-gray-700">
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Best Faculty Award 2021 from RWJ Barnabas Dept of Pediatrics
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Best Faculty Award 2022 from RWJ Barnabas Dept of Pediatrics
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
-                    <h3 className="text-xl font-black text-secondary mb-4">Current Roles</h3>
-                    <ul className="space-y-3 text-gray-700">
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Board Member of Asthma &amp; Allergy Foundation of America
-                      </li>
-                      <li className="flex items-start">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2.5 mr-3 flex-shrink-0" />
-                        Chief Medical Advisor for AIRnyc
-                      </li>
-                    </ul>
-                  </div>
+                <div className="rounded-[2rem] border border-slate-100 bg-slate-50 p-8 sm:p-10 shadow-sm">
+                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                    Beyond the Clinic
+                  </h2>
+                  <p className="mt-5 text-lg text-gray-700 leading-8">
+                    Dr. Farri believes deeply in community health and meaningful engagement beyond the
+                    exam room. In addition to treating patients and helping scale asthma quality
+                    improvement efforts across healthcare systems, she volunteers her time locally with
+                    the Bethany Community Center in Washington Township and the Special Olympics of
+                    New Jersey.
+                  </p>
+                  <p className="mt-5 text-lg text-gray-700 leading-8">
+                    Her commitment to service also extends internationally through medical missions.
+                    That same spirit of outreach, compassion, and advocacy shapes the way she cares
+                    for families at CLAPS MD every day.
+                  </p>
                 </div>
               </div>
             </div>

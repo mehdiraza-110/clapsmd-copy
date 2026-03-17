@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import BookingButton from '@/components/BookingButton';
 import PatientActionButtons from '@/components/PatientActionButtons';
 import { motion } from 'framer-motion';
-import { ArrowRight, CalendarCheck, CheckCircle2, ClipboardCheck, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ClipboardCheck, HeartHandshake, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -76,9 +76,12 @@ export default function Home() {
                   Helping Kids Breathe Easier&mdash;Every Day
                 </h1>
                 <p className="text-xl text-gray-700 mb-10 leading-relaxed">
-                  Pediatric pulmonology care in Wayne, NJ led by Dr. Farri. Thorough evaluation,
-                  diagnosis, personalized plans for breathing concerns: asthma, chronic cough, wheezing, and
-                  exercise-induced asthma.
+                  At CLAPS MD, we care for children with recurrent breathing problems&mdash;frequent
+                  cough, wheezing, asthma flare-ups, and unexplained respiratory symptoms. We help
+                  families move from repeated urgent care visits and uncertainty to a clear
+                  diagnosis, a personalized treatment plan, and long-term stability. Our goal is
+                  simple: fewer emergencies, fewer oral steroids, stronger lungs, and children who
+                  can breathe easier and play without limits.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <BookingButton className="btn-primary text-lg px-8 py-4 flex items-center justify-center">
@@ -91,16 +94,16 @@ export default function Home() {
 
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="bg-white border border-gray-100 rounded-xl p-4 flex items-center shadow-sm">
-                    <Wind className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">Asthma &amp; breathing expertise</span>
+                    <Stethoscope className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-sm font-semibold text-secondary">State-of-the-Art Respiratory Medicine</span>
                   </div>
                   <div className="bg-white border border-gray-100 rounded-xl p-4 flex items-center shadow-sm">
                     <ClipboardCheck className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">Thorough evaluation</span>
+                    <span className="text-sm font-semibold text-secondary">Comprehensive, Root-Cause Evaluations</span>
                   </div>
                   <div className="bg-white border border-gray-100 rounded-xl p-4 flex items-center shadow-sm">
-                    <CalendarCheck className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">Easy scheduling</span>
+                    <HeartHandshake className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                    <span className="text-sm font-semibold text-secondary">Compassionate, Family-Centered Support</span>
                   </div>
                 </div>
               </motion.div>
@@ -114,7 +117,7 @@ export default function Home() {
               >
                 <div className="relative w-full h-[350px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image 
-                    src="/images/hero-image.webp"
+                    src="/images/hero-image.png"
                     alt="Pediatric Pulmonology Care"
                     fill
                     className="object-cover"
@@ -132,31 +135,55 @@ export default function Home() {
         <section className="bg-white border-y border-gray-100 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex items-center space-x-4">
-                <div className="bg-lime-50 p-3 rounded-full text-primary">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
+                  <PlayCircle className="w-10 h-10 text-primary" />
+                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+                    Video
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-primary-darker text-lg">Board Certified</h3>
-                  <p className="text-gray-500">Pediatric Pulmonology</p>
+                <div className="flex items-center space-x-4">
+                  <div className="bg-lime-50 p-3 rounded-full text-primary">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-primary-darker text-lg">Board Certified</h3>
+                    <p className="text-gray-500">Pediatric Pulmonology</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
-                <div className="bg-lime-50 p-3 rounded-full text-primary">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
+                  <PlayCircle className="w-10 h-10 text-primary" />
+                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+                    Video
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-primary-darker text-lg">Personalized Care</h3>
-                  <p className="text-gray-500">Tailored Treatment Plans</p>
+                <div className="flex items-center space-x-4">
+                  <div className="bg-lime-50 p-3 rounded-full text-primary">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-primary-darker text-lg">Personalized Care</h3>
+                    <p className="text-gray-500">Tailored Treatment Plans</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
-                <div className="bg-lime-50 p-3 rounded-full text-primary">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
+                  <PlayCircle className="w-10 h-10 text-primary" />
+                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
+                    Video
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-primary-darker text-lg">Modern Diagnostics</h3>
-                  <p className="text-gray-500">Advanced Respiratory Testing</p>
+                <div className="flex items-center space-x-4">
+                  <div className="bg-lime-50 p-3 rounded-full text-primary">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-primary-darker text-lg">Modern Diagnostics</h3>
+                    <p className="text-gray-500">Advanced Respiratory Testing</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -289,7 +316,7 @@ export default function Home() {
         <section className="bg-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-14">
-              <h2 className="text-3xl font-bold text-primary-darker mb-4">Parent Success Stories</h2>
+              <h2 className="text-3xl font-bold text-primary-darker mb-4">Patient Success Stories</h2>
               <div className="w-20 h-1 bg-primary mb-6"></div>
               <p className="text-gray-600 text-lg leading-8">
                 Representative care journeys that reflect the kind of support, clarity, and follow-through families look for when their child is dealing with ongoing breathing concerns.

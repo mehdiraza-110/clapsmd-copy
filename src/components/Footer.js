@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
+import { resourceLinks } from '@/lib/navigation';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/shade.farri/?fbclid=IwY2xjawP5kw9leHRuA2FlbQIxMQBicmlkETE0TXBDR2xyVDlZYVl6VHk0c3J0YwZhcHBfaWQBMAABHnN5NqxqHeHvr77zOv5uIz65wkt2CQgHMHGe-YZZE00xONxT5gO_FBqhILJK_aem_0FN07TUHhPbC0KuG3tIPOw';
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61567195066725';
@@ -60,7 +61,13 @@ const Footer = () => {
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link href="/about#conditions" className="hover:text-white transition-colors">Services</Link></li>
               <li><Link href="/pft-lab" className="hover:text-white transition-colors">PFT Lab</Link></li>
-              <li><Link href="/insurance-billing" className="hover:text-white transition-colors">Insurance & Billing</Link></li>
+              {resourceLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="hover:text-white transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
               <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
             </ul>

@@ -14,7 +14,16 @@ function toDate(value) {
 
 export default function sitemap() {
   const baseUrl = getSiteUrl();
-  const routes = ["", "/about", "/asthma", "/pft-lab", "/blog"];
+  const routes = [
+    "",
+    "/about",
+    "/asthma",
+    "/pft-lab",
+    "/blog",
+    "/insurance-billing",
+    "/policies",
+    "/self-pay-pricing",
+  ];
   const now = new Date();
 
   const staticRoutes = routes.map((route) => ({

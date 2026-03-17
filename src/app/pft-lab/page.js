@@ -187,6 +187,7 @@ function ImageCard({ images, title, contain = false, stacked = false }) {
 
 export default function PftLabPage() {
   const [openTest, setOpenTest] = useState(testTypes[0].title);
+  const [isPrepOpen, setIsPrepOpen] = useState(false);
 
   return (
     <>
@@ -241,11 +242,10 @@ export default function PftLabPage() {
               <div className="space-y-4">
                 <ImageCard
                   title=""
-                  contain
                   images={[
                     {
-                      src: "/images/PFT Lab Logo-4.png",
-                      alt: "PFT Lab logo",
+                      src: "/images/breathing.png",
+                      alt: "Breathing illustration",
                     },
                   ]}
                 />
@@ -368,7 +368,7 @@ export default function PftLabPage() {
                 Pediatric PFT
               </p>
               <h2 className="mt-3 text-3xl font-black text-secondary tracking-tight">
-                When Should My Child Have PFT?
+                Your child may benefit from pulmonary function testing if they experience:
               </h2>
               <p className="mt-4 text-gray-600 leading-8">
                 Your child may benefit from pulmonary function testing if they are having
@@ -417,58 +417,78 @@ export default function PftLabPage() {
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   How to Prepare
                 </p>
-                <h2 className="mt-3 text-3xl font-black text-secondary tracking-tight">
-                  Before Your Test
-                </h2>
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {prepTiers.map((tier) => (
-                    <div key={tier.label} className="rounded-2xl bg-white border border-slate-200 p-5">
-                      <p className="font-black text-secondary">{tier.label}</p>
-                      <p className="mt-2 text-sm text-gray-600 leading-6">{tier.detail}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-white border border-slate-200 p-5">
-                    <div className="flex items-center gap-3">
-                      <Shirt className="w-5 h-5 text-primary" />
-                      <p className="font-black text-secondary">Wear comfortable clothing</p>
-                    </div>
+                <button
+                  type="button"
+                  className="mt-3 flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left"
+                  onClick={() => setIsPrepOpen((open) => !open)}
+                  aria-expanded={isPrepOpen}
+                  aria-controls="before-your-test-content"
+                >
+                  <div>
+                    <h2 className="text-3xl font-black text-secondary tracking-tight">
+                      Before Your Test
+                    </h2>
                     <p className="mt-2 text-sm text-gray-600">
-                      Choose clothing that allows easy breathing and comfortable movement.
+                      Expand for medication timing, day-of-test preparation, and family tips.
                     </p>
                   </div>
-                  <div className="rounded-2xl bg-white border border-slate-200 p-5">
-                    <div className="flex items-center gap-3">
-                      <Clock3 className="w-5 h-5 text-primary" />
-                      <p className="font-black text-secondary">Arrive early</p>
+                  <ChevronDown
+                    className={`w-6 h-6 text-secondary transition-transform ${isPrepOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {isPrepOpen && (
+                  <div id="before-your-test-content">
+                    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {prepTiers.map((tier) => (
+                        <div key={tier.label} className="rounded-2xl bg-white border border-slate-200 p-5">
+                          <p className="font-black text-secondary">{tier.label}</p>
+                          <p className="mt-2 text-sm text-gray-600 leading-6">{tier.detail}</p>
+                        </div>
+                      ))}
                     </div>
-                    <p className="mt-2 text-sm text-gray-600">
-                      Plan to arrive a little early so you can settle in and ask any questions
-                      before testing begins.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl bg-white border border-slate-200 p-5">
-                    <div className="flex items-center gap-3">
-                      <Landmark className="w-5 h-5 text-primary" />
-                      <p className="font-black text-secondary">Eat lightly</p>
+                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                        <div className="flex items-center gap-3">
+                          <Shirt className="w-5 h-5 text-primary" />
+                          <p className="font-black text-secondary">Wear comfortable clothing</p>
+                        </div>
+                        <p className="mt-2 text-sm text-gray-600">
+                          Choose clothing that allows easy breathing and comfortable movement.
+                        </p>
+                      </div>
+                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                        <div className="flex items-center gap-3">
+                          <Clock3 className="w-5 h-5 text-primary" />
+                          <p className="font-black text-secondary">Arrive early</p>
+                        </div>
+                        <p className="mt-2 text-sm text-gray-600">
+                          Plan to arrive a little early so you can settle in and ask any questions
+                          before testing begins.
+                        </p>
+                      </div>
+                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                        <div className="flex items-center gap-3">
+                          <Landmark className="w-5 h-5 text-primary" />
+                          <p className="font-black text-secondary">Eat lightly</p>
+                        </div>
+                        <p className="mt-2 text-sm text-gray-600">
+                          A light meal is usually best before testing to avoid discomfort with deep
+                          breathing efforts.
+                        </p>
+                      </div>
+                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                        <div className="flex items-center gap-3">
+                          <CalendarClock className="w-5 h-5 text-primary" />
+                          <p className="font-black text-secondary">Parents and guardians</p>
+                        </div>
+                        <p className="mt-2 text-sm text-gray-600">
+                          Helping your child stay calm and relaxed is one of the most important parts
+                          of a successful test.
+                        </p>
+                      </div>
                     </div>
-                    <p className="mt-2 text-sm text-gray-600">
-                      A light meal is usually best before testing to avoid discomfort with deep
-                      breathing efforts.
-                    </p>
                   </div>
-                  <div className="rounded-2xl bg-white border border-slate-200 p-5">
-                    <div className="flex items-center gap-3">
-                      <CalendarClock className="w-5 h-5 text-primary" />
-                      <p className="font-black text-secondary">Parents and guardians</p>
-                    </div>
-                    <p className="mt-2 text-sm text-gray-600">
-                      Helping your child stay calm and relaxed is one of the most important parts
-                      of a successful test.
-                    </p>
-                  </div>
-                </div>
+                )}
               </div>
 
               <div className="space-y-6">
