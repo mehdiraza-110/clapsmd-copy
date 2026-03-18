@@ -37,7 +37,7 @@ const Header = () => {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center space-x-5 xl:space-x-7">
+          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-5">
             {primaryNavLinks.map((link) =>
               link.items ? (
                 <div key={link.name} className="relative group">
@@ -74,8 +74,8 @@ const Header = () => {
             )}
           </nav>
 
-          <div className="hidden lg:flex items-center space-x-3 shrink-0">
-            <a href="tel:9739490270" className="hidden xl:flex items-center text-secondary font-bold whitespace-nowrap">
+          <div className="hidden lg:flex items-center space-x-3 shrink-0 lg:pl-4 xl:pl-5">
+            <a href="tel:9739490270" className="hidden xl:flex items-center border-l border-slate-200 pl-4 text-secondary font-bold whitespace-nowrap">
               <Phone className="w-4 h-4 mr-2" />
               (973) 949-0270
             </a>

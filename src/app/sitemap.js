@@ -22,6 +22,8 @@ export default function sitemap() {
     "/blog",
     "/insurance-billing",
     "/policies",
+    "/privacy-policy",
+    "/terms-and-conditions",
     "/self-pay-pricing",
   ];
   const now = new Date();

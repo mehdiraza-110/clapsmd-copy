@@ -164,7 +164,7 @@ export default function AdminShell({ children }) {
       )}
 
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen w-72 bg-secondary text-white z-40 transition-transform duration-300 ${
+        className={`fixed lg:sticky top-0 left-0 h-screen lg:h-auto lg:min-h-screen lg:self-stretch w-72 bg-secondary text-white z-40 transition-transform duration-300 flex flex-col ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -193,7 +193,7 @@ export default function AdminShell({ children }) {
           </button>
         </div>
 
-        <nav className="px-4 py-6 space-y-2">
+        <nav className="flex-1 px-4 py-6 space-y-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = pathname === item.href;

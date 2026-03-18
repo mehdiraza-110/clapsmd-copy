@@ -18,15 +18,7 @@ export default function Home() {
     { title: 'Respiratory Evaluation', icon: <Stethoscope className="w-6 h-6" />, description: 'Comprehensive clinical assessments for respiratory concerns.' },
     { title: 'Diagnostic Testing', icon: <ShieldCheck className="w-6 h-6" />, description: 'Advanced testing including spirometry and FeNO testing.' },
   ];
-  const reviewSlides = [
-    ...homepageReviews,
-    {
-      author: 'See All',
-      quote: 'Read the full collection of Google reviews from families who have trusted CLAPS MD with their child’s respiratory care.',
-      rating: 5,
-      isSeeAll: true,
-    },
-  ];
+  const reviewSlides = homepageReviews.slice(0, 5);
   const goToPreviousReview = () => {
     setActiveReview((current) => (current === 0 ? reviewSlides.length - 1 : current - 1));
   };
@@ -306,41 +298,22 @@ export default function Home() {
                     transition={{ duration: 0.35 }}
                     className="relative"
                   >
-                    {currentReview.isSeeAll ? (
-                      <div className="text-center">
-                        <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                          <ArrowRight className="w-5 h-5" />
-                        </div>
-                        <p className="text-lg leading-8 text-gray-700">{currentReview.quote}</p>
-                        <a
-                          href={GOOGLE_REVIEWS_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-8 inline-flex items-center justify-center rounded-md bg-secondary px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary/90"
-                        >
-                          See All Reviews
-                        </a>
+                    <div className="mb-6 flex items-center gap-4">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-sm font-black text-primary">
+                        {reviewInitials}
                       </div>
-                    ) : (
-                      <>
-                        <div className="mb-6 flex items-center gap-4">
-                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-sm font-black text-primary">
-                            {reviewInitials}
-                          </div>
-                          <div>
-                            <p className="font-semibold uppercase tracking-[0.18em] text-secondary">
-                              {currentReview.author}
-                            </p>
-                            <p className="mt-1 text-sm text-primary">
-                              {'★'.repeat(currentReview.rating)}
-                            </p>
-                          </div>
-                        </div>
-                        <p className="text-lg leading-8 text-gray-700">
-                          &ldquo;{currentReview.quote}&rdquo;
+                      <div>
+                        <p className="font-semibold uppercase tracking-[0.18em] text-secondary">
+                          {currentReview.author}
                         </p>
-                      </>
-                    )}
+                        <p className="mt-1 text-sm text-primary">
+                          {'★'.repeat(currentReview.rating)}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-lg leading-8 text-gray-700">
+                      &ldquo;{currentReview.quote}&rdquo;
+                    </p>
                   </motion.blockquote>
                 </AnimatePresence>
               </div>
@@ -377,6 +350,17 @@ export default function Home() {
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>
+              </div>
+
+              <div className="mt-8 text-center">
+                <a
+                  href={GOOGLE_REVIEWS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-md bg-secondary px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary/90"
+                >
+                  See All Reviews
+                </a>
               </div>
             </div>
           </div>

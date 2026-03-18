@@ -6,6 +6,13 @@ import { resourceLinks } from '@/lib/navigation';
 const INSTAGRAM_URL = 'https://www.instagram.com/shade.farri/?fbclid=IwY2xjawP5kw9leHRuA2FlbQIxMQBicmlkETE0TXBDR2xyVDlZYVl6VHk0c3J0YwZhcHBfaWQBMAABHnN5NqxqHeHvr77zOv5uIz65wkt2CQgHMHGe-YZZE00xONxT5gO_FBqhILJK_aem_0FN07TUHhPbC0KuG3tIPOw';
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61567195066725';
 const YOUTUBE_URL = 'https://www.youtube.com/@CLAPS_MD';
+const WEBSITE_DISCLAIMER = [
+  'The information provided on this website is for general informational purposes only and is not intended to replace professional medical advice, diagnosis, or treatment.',
+  'Pulmonary Function Testing (PFT) services provided by CLAPS MD require a valid referral from a licensed healthcare provider when required by law or insurance policy.',
+  'Use of this website does not create a doctor-patient relationship.',
+  'While we make every effort to keep website information accurate and up to date, CLAPS MD does not guarantee that all content is complete, current, or free from errors.',
+  'Use of this website is at your own risk.',
+];
 
 const Footer = () => {
   return (
@@ -57,7 +64,7 @@ const Footer = () => {
           </div>
           <div className="md:pl-8">
             <h3 className="font-bold mb-6 text-lg">Quick Links</h3>
-            <ul className="space-y-4 text-gray-400">
+            <ul className="space-y-2 text-sm leading-snug text-gray-400">
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link href="/about#conditions" className="hover:text-white transition-colors">Services</Link></li>
               <li><Link href="/pft-lab" className="hover:text-white transition-colors">PFT Lab</Link></li>
@@ -73,8 +80,16 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
+        <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 px-5 py-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Website Disclaimer</p>
+          <div className="mt-3 space-y-2 text-[11px] leading-[1.35] text-gray-400">
+            {WEBSITE_DISCLAIMER.map((item) => (
+              <p key={item}>{item}</p>
+            ))}
+          </div>
+        </div>
+        <div className="border-t border-gray-700 mt-12 pt-8 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
+          <div className="md:justify-self-start">
             <p className="text-white font-semibold">Follow Us</p>
             <div className="mt-3 flex flex-wrap gap-4 text-gray-400 text-sm">
               <a
@@ -103,7 +118,15 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <p className="text-gray-400">&copy; {new Date().getFullYear()} C.L.A.P.S. MD. All rights reserved.</p>
+          <p className="text-center text-gray-400">&copy; {new Date().getFullYear()} C.L.A.P.S. MD. All rights reserved.</p>
+          <div className="flex items-center justify-center md:justify-self-end gap-5 text-sm text-gray-400">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
+              Terms & Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
