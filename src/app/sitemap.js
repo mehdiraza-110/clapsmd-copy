@@ -20,6 +20,7 @@ export default function sitemap() {
     "/asthma",
     "/pft-lab",
     "/blog",
+    "/contact",
     "/insurance-billing",
     "/policies",
     "/privacy-policy",
