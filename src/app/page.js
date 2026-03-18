@@ -1,42 +1,47 @@
 'use client';
 
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BookingButton from '@/components/BookingButton';
 import PatientActionButtons from '@/components/PatientActionButtons';
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, ClipboardCheck, HeartHandshake, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
+import { GOOGLE_REVIEWS_URL, homepageReviews } from '@/lib/homepageReviews';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, HeartHandshake, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
+  const [activeReview, setActiveReview] = useState(0);
   const services = [
     { title: 'Asthma Management', icon: <Wind className="w-6 h-6" />, description: 'Personalized asthma care and treatment plans for children.' },
     { title: 'Respiratory Evaluation', icon: <Stethoscope className="w-6 h-6" />, description: 'Comprehensive clinical assessments for respiratory concerns.' },
     { title: 'Diagnostic Testing', icon: <ShieldCheck className="w-6 h-6" />, description: 'Advanced testing including spirometry and FeNO testing.' },
   ];
-  const testimonials = [
+  const reviewSlides = [
+    ...homepageReviews,
     {
-      quote: 'The office explained every step clearly and made the test feel much less stressful for our family.',
-      author: 'Parent of pediatric patient',
-    },
-    {
-      quote: 'Having testing done in the clinic instead of the hospital made the process much easier and more comfortable.',
-      author: 'Adult patient',
-    },
-  ];
-  const successStories = [
-    {
-      title: 'From frequent flare-ups to confident school days',
-      summary: 'A parent came to CLAPS MD looking for answers after repeated coughing episodes, urgent visits, and missed class time.',
-      challenge:
-        'Their child was having recurring asthma symptoms during exercise and at night, making routines unpredictable for the entire family.',
-      approach:
-        'After a thorough evaluation, the family received a clearer diagnosis, an individualized treatment plan, and practical education on triggers, inhaler technique, and what to do when symptoms changed.',
-      outcome:
-        'With a structured plan and close follow-up, symptoms became more manageable, school attendance improved, and the parent felt more confident handling flare-ups early.',
+      author: 'See All',
+      quote: 'Read the full collection of Google reviews from families who have trusted CLAPS MD with their child’s respiratory care.',
+      rating: 5,
+      isSeeAll: true,
     },
   ];
+  const goToPreviousReview = () => {
+    setActiveReview((current) => (current === 0 ? reviewSlides.length - 1 : current - 1));
+  };
+
+  const goToNextReview = () => {
+    setActiveReview((current) => (current === reviewSlides.length - 1 ? 0 : current + 1));
+  };
+
+  const currentReview = reviewSlides[activeReview];
+  const reviewInitials = currentReview.author
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || '')
+    .join('');
 
   return (
     <>
@@ -290,86 +295,93 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {testimonials.map((item, index) => (
-                <motion.blockquote
-                  key={item.author}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative h-full rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+            <div className="mx-auto max-w-4xl">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+                <AnimatePresence mode="wait">
+                  <motion.blockquote
+                    key={currentReview.author}
+                    initial={{ opacity: 0, x: 28 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -28 }}
+                    transition={{ duration: 0.35 }}
+                    className="relative"
+                  >
+                    {currentReview.isSeeAll ? (
+                      <div className="text-center">
+                        <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                          <ArrowRight className="w-5 h-5" />
+                        </div>
+                        <p className="text-lg leading-8 text-gray-700">{currentReview.quote}</p>
+                        <a
+                          href={GOOGLE_REVIEWS_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-8 inline-flex items-center justify-center rounded-md bg-secondary px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary/90"
+                        >
+                          See All Reviews
+                        </a>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="mb-6 flex items-center gap-4">
+                          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-sm font-black text-primary">
+                            {reviewInitials}
+                          </div>
+                          <div>
+                            <p className="font-semibold uppercase tracking-[0.18em] text-secondary">
+                              {currentReview.author}
+                            </p>
+                            <p className="mt-1 text-sm text-primary">
+                              {'★'.repeat(currentReview.rating)}
+                            </p>
+                          </div>
+                        </div>
+                        <p className="text-lg leading-8 text-gray-700">
+                          &ldquo;{currentReview.quote}&rdquo;
+                        </p>
+                      </>
+                    )}
+                  </motion.blockquote>
+                </AnimatePresence>
+              </div>
+
+              <div className="mt-6 flex items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={goToPreviousReview}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-secondary transition-colors hover:border-slate-300 hover:bg-slate-50"
+                  aria-label="Previous review"
                 >
-                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Quote className="w-5 h-5" />
-                  </div>
-                  <p className="text-lg leading-8 text-gray-700">&ldquo;{item.quote}&rdquo;</p>
-                  <footer className="mt-6 border-t border-slate-100 pt-5 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
-                    {item.author}
-                  </footer>
-                </motion.blockquote>
-              ))}
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {reviewSlides.map((item, index) => (
+                    <button
+                      key={item.author}
+                      type="button"
+                      onClick={() => setActiveReview(index)}
+                      className={`h-2.5 rounded-full transition-all ${
+                        index === activeReview ? 'w-8 bg-primary' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                      }`}
+                      aria-label={`Go to review ${index + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={goToNextReview}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-secondary transition-colors hover:border-slate-300 hover:bg-slate-50"
+                  aria-label="Next review"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mb-14">
-              <h2 className="text-3xl font-bold text-primary-darker mb-4">Patient Success Stories</h2>
-              <div className="w-20 h-1 bg-primary mb-6"></div>
-              <p className="text-gray-600 text-lg leading-8">
-                Representative care journeys that reflect the kind of support, clarity, and follow-through families look for when their child is dealing with ongoing breathing concerns.
-              </p>
-            </div>
-
-            <div className="space-y-8">
-              {successStories.map((story, index) => (
-                <motion.article
-                  key={story.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  className="rounded-3xl border border-slate-200 bg-slate-50/70 p-8 md:p-10 shadow-sm"
-                >
-                  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,1.4fr] gap-8">
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
-                        Success Story
-                      </p>
-                      <h3 className="text-2xl font-bold text-primary-darker leading-tight mb-4">
-                        {story.title}
-                      </h3>
-                      <p className="text-gray-700 text-lg leading-8">{story.summary}</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
-                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
-                          Challenge
-                        </p>
-                        <p className="text-gray-600 leading-7">{story.challenge}</p>
-                      </div>
-                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
-                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
-                          Approach
-                        </p>
-                        <p className="text-gray-600 leading-7">{story.approach}</p>
-                      </div>
-                      <div className="rounded-2xl bg-white p-5 border border-slate-200">
-                        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary mb-3">
-                          Outcome
-                        </p>
-                        <p className="text-gray-600 leading-7">{story.outcome}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
