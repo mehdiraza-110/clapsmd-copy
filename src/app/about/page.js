@@ -35,6 +35,99 @@ export default function AboutPage() {
         </div>
 
         <section className="bg-white border-b border-slate-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+            <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-8 sm:p-10 shadow-sm">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                About CLAPS MD
+              </p>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                Children&apos;s Lung, Asthma & Pulmonary Specialists
+              </h2>
+              <p className="mt-6 text-lg text-gray-700 leading-8">
+                CLAPS MD is a specialty practice focused on pulmonary and allergy care for
+                children and families in Wayne, New Jersey and surrounding communities. We combine
+                thoughtful clinical evaluation with modern diagnostic testing to identify the root
+                cause of respiratory symptoms and build practical, personalized treatment plans.
+              </p>
+              <p className="mt-5 text-lg text-gray-700 leading-8">
+                Our team is committed to making specialty care feel clear, supportive, and
+                accessible, so patients and caregivers feel informed at every step.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-50 border-b border-slate-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-8 sm:p-10 shadow-sm">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                Mission & Values
+              </p>
+              <div className="mt-6 rounded-[1.5rem] border border-primary/20 bg-[linear-gradient(135deg,rgba(148,209,44,0.12),rgba(0,61,91,0.04))] p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                  Our Mission
+                </h2>
+                <p className="mt-4 text-lg text-gray-700 leading-8 max-w-5xl">
+                  At CLAPS MD, our mission is to provide high-quality, compassionate, and
+                  patient-centered care through accurate diagnosis, advanced pulmonary and allergy
+                  testing, and personalized treatment plans. We are committed to helping every
+                  patient breathe easier, feel better, and live healthier by using modern medical
+                  technology and evidence-based care.
+                </p>
+              </div>
+
+              <h3 className="mt-8 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
+                Our Values
+              </h3>
+              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Compassion</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    We treat every patient with respect, understanding, and kindness, ensuring a
+                    comfortable and supportive healthcare experience.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Excellence</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    We strive to deliver the highest standard of medical care through precise
+                    diagnostic testing, up-to-date treatments, and continuous improvement.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Integrity</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    We believe in honest communication, ethical practice, and putting the
+                    patient&apos;s health and safety first in every decision we make.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Patient-Centered Care</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    Every patient is unique. We focus on individualized care plans tailored to each
+                    patient&apos;s needs, symptoms, and medical history.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Innovation & Technology</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    We utilize modern pulmonary function testing and advanced diagnostic tools to
+                    provide accurate results and effective treatment.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="font-black text-secondary">Collaboration</p>
+                  <p className="mt-2 text-gray-700 leading-7">
+                    We work closely with specialists, primary care providers, and ENT physicians
+                    to ensure coordinated and complete care for our patients.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-10 items-center">
               <div>

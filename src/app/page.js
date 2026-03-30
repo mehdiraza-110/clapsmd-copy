@@ -248,7 +248,7 @@ export default function Home() {
               >
                 <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
                   <Image 
-                    src="/images/SHADE_FARRI.jpg"
+                    src="/images/Dr Farri_white coat.jpeg"
                     alt="Dr. Folashade Farri"
                     fill
                     className="object-cover"
