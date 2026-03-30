@@ -169,8 +169,8 @@ export default function AboutPage() {
         </section>
 
         <section className="bg-slate-50 border-b border-slate-100">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-6 lg:gap-8">
               <div className="rounded-[2rem] border border-slate-200 bg-white p-8 sm:p-10 shadow-sm">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   Our Philosophy of Care
@@ -234,7 +234,7 @@ export default function AboutPage() {
         </section>
 
         <section className="bg-white border-b border-slate-100">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="rounded-[2rem] border border-slate-100 bg-white p-8 sm:p-10 shadow-sm">
                 <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
