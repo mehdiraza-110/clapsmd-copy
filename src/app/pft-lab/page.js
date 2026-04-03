@@ -24,6 +24,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookingButton from "@/components/BookingButton";
+import { GOOGLE_REVIEWS_URL, homepageReviews } from "@/lib/homepageReviews";
 
 const testTypes = [
   {
@@ -150,19 +151,6 @@ const contraindications = [
   "Inability to follow breathing instructions safely",
 ];
 
-const testimonials = [
-  {
-    quote:
-      "The office explained every step clearly and made the test feel much less stressful for our family.",
-    author: "Parent of pediatric patient",
-  },
-  {
-    quote:
-      "Having testing done in the clinic instead of the hospital made the process much easier and more comfortable.",
-    author: "Adult patient",
-  },
-];
-
 function AccordionItem({ item, isOpen, onToggle }) {
   const Icon = item.icon;
 
@@ -266,6 +254,11 @@ function ImageCard({ images, title, contain = false, stacked = false, banner = f
 export default function PftLabPage() {
   const [openTest, setOpenTest] = useState(testTypes[0].title);
   const [isPrepOpen, setIsPrepOpen] = useState(false);
+  const [isSafetyOpen, setIsSafetyOpen] = useState(false);
+  const [expandedReviews, setExpandedReviews] = useState({});
+  const featuredReviews = homepageReviews.slice(0, 2);
+  const truncateReview = (quote, maxLength = 120) =>
+    quote.length > maxLength ? `${quote.slice(0, maxLength).trimEnd()}...` : quote;
 
   return (
     <>
@@ -695,21 +688,41 @@ export default function PftLabPage() {
         <section className="bg-white border-y border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="rounded-3xl border border-rose-100 bg-rose-50 p-6 sm:p-8">
-              <h2 className="text-3xl font-black text-secondary tracking-tight">
-                Contraindications and Safety Screening
-              </h2>
-              <p className="mt-4 text-gray-700 leading-8">
-                Some patients may need to delay pulmonary function testing until medically safe.
-                Our clinical team reviews health history before testing to protect patient safety.
-              </p>
-              <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {contraindications.map((item) => (
-                  <li key={item} className="flex items-start gap-3 rounded-2xl bg-white border border-rose-100 p-4">
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-rose-500 flex-shrink-0" />
-                    <span className="text-gray-700 leading-7">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <button
+                type="button"
+                className="flex w-full items-start justify-between gap-4 text-left"
+                onClick={() => setIsSafetyOpen((open) => !open)}
+                aria-expanded={isSafetyOpen}
+                aria-controls="safety-screening-content"
+              >
+                <div>
+                  <h2 className="text-3xl font-black text-secondary tracking-tight">
+                    Contraindications and Safety Screening
+                  </h2>
+                  <p className="mt-4 text-gray-700 leading-8">
+                    Some patients may need to delay pulmonary function testing until medically safe.
+                    Our clinical team reviews health history before testing to protect patient safety.
+                  </p>
+                </div>
+                <span className="mt-1 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-rose-200 bg-white text-secondary">
+                  <ChevronDown
+                    className={`h-5 w-5 transition-transform ${isSafetyOpen ? "rotate-180" : ""}`}
+                  />
+                </span>
+              </button>
+              {isSafetyOpen && (
+                <ul id="safety-screening-content" className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {contraindications.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl border border-rose-100 bg-white p-4"
+                    >
+                      <span className="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-rose-500" />
+                      <span className="text-gray-700 leading-7">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </section>
@@ -717,10 +730,6 @@ export default function PftLabPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr,1.1fr] gap-8 items-start">
             <div className="space-y-6">
-              <PlaceholderCard
-                title="Mid-page Video Placeholder"
-                description="Clinic introduction, services overview, doctor speaking to families, and behind-the-scenes PFT lab footage."
-              />
               <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
                 <div className="flex items-center gap-3">
                   <PlayCircle className="w-5 h-5 text-primary" />
@@ -782,7 +791,7 @@ export default function PftLabPage() {
 
         <section className="bg-white border-y border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
               <ImageCard
                 title=""
                 stacked
@@ -816,17 +825,43 @@ export default function PftLabPage() {
                   Testimonials
                 </p>
                 <div className="mt-5 space-y-5">
-                  {testimonials.map((item) => (
+                  {featuredReviews.map((item) => (
                     <blockquote
                       key={item.author}
                       className="rounded-2xl border border-white/10 bg-white/10 p-5"
                     >
-                      <p className="text-white/90 leading-7">&ldquo;{item.quote}&rdquo;</p>
+                      <p className="text-white/90 leading-7">
+                        &ldquo;{expandedReviews[item.author] ? item.quote : truncateReview(item.quote)}&rdquo;
+                      </p>
+                      {item.quote.length > 120 ? (
+                        <button
+                          type="button"
+                          className="mt-3 text-sm font-semibold text-white underline underline-offset-4 transition-colors hover:text-primary"
+                          onClick={() =>
+                            setExpandedReviews((current) => ({
+                              ...current,
+                              [item.author]: !current[item.author],
+                            }))
+                          }
+                        >
+                          {expandedReviews[item.author] ? "See less" : "See more"}
+                        </button>
+                      ) : null}
                       <footer className="mt-3 text-sm font-bold text-primary">
                         {item.author}
                       </footer>
                     </blockquote>
                   ))}
+                </div>
+                <div className="mt-6">
+                  <a
+                    href={GOOGLE_REVIEWS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 font-semibold text-secondary transition-colors hover:bg-white/90"
+                  >
+                    See All Reviews
+                  </a>
                 </div>
               </div>
             </div>

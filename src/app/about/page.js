@@ -258,7 +258,7 @@ export default function AboutPage() {
                 <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm">
                   <div className="relative h-full min-h-[320px]">
                     <Image
-                      src="/images/SHADE_FARRI.jpg"
+                      src="/images/Dr Farri_blazer.jpeg"
                       alt="Dr. Farri portrait"
                       fill
                       className="object-cover"

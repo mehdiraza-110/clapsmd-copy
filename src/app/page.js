@@ -128,60 +128,15 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Quick Info Bar */}
         <section className="bg-white border-y border-gray-100 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
-                  <PlayCircle className="w-10 h-10 text-primary" />
-                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-                    Video
-                  </span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="bg-lime-50 p-3 rounded-full text-primary">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-primary-darker text-lg">Board Certified</h3>
-                    <p className="text-gray-500">Pediatric Pulmonology</p>
-                  </div>
-                </div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
-                  <PlayCircle className="w-10 h-10 text-primary" />
-                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-                    Video
-                  </span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="bg-lime-50 p-3 rounded-full text-primary">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-primary-darker text-lg">Personalized Care</h3>
-                    <p className="text-gray-500">Tailored Treatment Plans</p>
-                  </div>
-                </div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <div className="relative mb-4 flex aspect-video items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50">
-                  <PlayCircle className="w-10 h-10 text-primary" />
-                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-                    Video
-                  </span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="bg-lime-50 p-3 rounded-full text-primary">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-primary-darker text-lg">Modern Diagnostics</h3>
-                    <p className="text-gray-500">Advanced Respiratory Testing</p>
-                  </div>
-                </div>
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
+              <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[1.5rem] border border-dashed border-slate-300 bg-slate-50">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,209,44,0.18),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(0,61,91,0.05))]" />
+                <PlayCircle className="relative z-10 h-16 w-16 text-primary" />
+                <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary shadow-sm">
+                  Video
+                </span>
               </div>
             </div>
           </div>
