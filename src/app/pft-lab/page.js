@@ -155,7 +155,7 @@ function AccordionItem({ item, isOpen, onToggle }) {
   const Icon = item.icon;
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
+    <div className="site-surface overflow-hidden rounded-2xl">
       <button
         type="button"
         onClick={onToggle}
@@ -172,7 +172,7 @@ function AccordionItem({ item, isOpen, onToggle }) {
         />
       </button>
       {isOpen ? (
-        <div className="border-t border-slate-100 px-5 py-4">
+        <div className="border-t border-slate-200/80 px-5 py-4">
           <p className="text-gray-600 leading-7">{item.content}</p>
           {item.indications?.length ? (
             <div className="mt-4">
@@ -197,8 +197,8 @@ function AccordionItem({ item, isOpen, onToggle }) {
 
 function PlaceholderCard({ title, description }) {
   return (
-    <div className="rounded-3xl border border-dashed border-primary/35 bg-white p-6 sm:p-8">
-      <div className="aspect-[4/3] rounded-2xl bg-[linear-gradient(135deg,rgba(148,209,44,0.12),rgba(0,61,91,0.06))] border border-slate-200 flex items-center justify-center">
+    <div className="site-surface rounded-3xl p-6 sm:p-8">
+      <div className="soft-gradient-panel flex aspect-[4/3] items-center justify-center rounded-2xl border border-slate-200">
         <div className="text-center px-6">
           <p className="text-secondary font-black text-lg">{title}</p>
           <p className="text-gray-500 mt-2 text-sm">{description}</p>
@@ -210,7 +210,7 @@ function PlaceholderCard({ title, description }) {
 
 function ImageCard({ images, title, contain = false, stacked = false, banner = false }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
+    <div className="glass-card rounded-3xl p-4 sm:p-5 shadow-sm">
       <div
         className={`grid gap-4 ${
           images.length === 1
@@ -263,12 +263,12 @@ export default function PftLabPage() {
   return (
     <>
       <Header />
-      <main className="bg-slate-50">
-        <section className="relative overflow-hidden bg-white border-b border-slate-100">
+      <main className="page-gradient-shell bg-slate-50">
+        <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.14),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,61,91,0.08),transparent_38%)]" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-10 items-center">
-              <div>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr,0.8fr] lg:items-start">
+              <div className="site-surface rounded-[2.25rem] p-8 sm:p-10">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-secondary font-bold text-sm">
                   <HeartPulse className="w-4 h-4 text-primary" />
                   PFT Lab in Wayne, NJ
@@ -294,15 +294,25 @@ export default function PftLabPage() {
                   facility fees.
                 </p>
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-white border border-slate-200 p-5">
-                    <p className="font-black text-secondary">Why it matters</p>
+                  <div className="site-surface-muted rounded-2xl p-5">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
+                        <Activity className="h-5 w-5" />
+                      </span>
+                      <p className="font-black text-secondary">Why it matters</p>
+                    </div>
                     <p className="mt-2 text-sm text-gray-600">
                       Faster diagnosis, clearer treatment decisions, and better tracking of how
                       the lungs respond over time.
                     </p>
                   </div>
-                  <div className="rounded-2xl bg-secondary p-5 text-white">
-                    <p className="font-black">Convenient outpatient testing</p>
+                  <div className="site-dark-panel rounded-2xl p-5 text-white">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-primary">
+                        <Building2 className="h-5 w-5" />
+                      </span>
+                      <p className="font-black">Convenient outpatient testing</p>
+                    </div>
                     <p className="mt-2 text-sm text-white/80">
                       Local pulmonary testing in Wayne, serving Northern New Jersey and the New
                       York metro region.
@@ -332,7 +342,7 @@ export default function PftLabPage() {
                     },
                   ]}
                 />
-                <div className="rounded-3xl bg-secondary text-white p-6 sm:p-8 shadow-lg">
+                <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white shadow-lg">
                   <div className="flex items-center gap-3">
                     <MapPin className="w-5 h-5 text-primary" />
                     <p className="font-black tracking-tight">Wayne, NJ</p>
@@ -341,13 +351,13 @@ export default function PftLabPage() {
                     Serving patients across Northern New Jersey and the New York metro area.
                   </p>
                   <div className="mt-5 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl bg-white/10 p-4">
+                    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
                       <p className="text-2xl font-black text-primary">15-45</p>
                       <p className="text-xs uppercase tracking-widest text-white/70">
                         Minutes for most tests
                       </p>
                     </div>
-                    <div className="rounded-2xl bg-white/10 p-4">
+                    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
                       <p className="text-2xl font-black text-primary">No</p>
                       <p className="text-xs uppercase tracking-widest text-white/70">
                         Hospital facility fees
@@ -362,7 +372,7 @@ export default function PftLabPage() {
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+            <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <Building2 className="w-5 h-5 text-primary" />
                 <h2 className="text-2xl font-black text-secondary tracking-tight">
@@ -381,7 +391,7 @@ export default function PftLabPage() {
                   "Lung capacity",
                   "Gas exchange",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4">
+                  <li key={item} className="site-surface-muted flex items-center gap-3 rounded-2xl p-4">
                     <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold text-secondary">{item}</span>
                   </li>
@@ -389,7 +399,7 @@ export default function PftLabPage() {
               </ul>
             </div>
 
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+            <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <Stethoscope className="w-5 h-5 text-primary" />
                 <h2 className="text-2xl font-black text-secondary tracking-tight">
@@ -428,10 +438,10 @@ export default function PftLabPage() {
           />
         </section>
 
-        <section className="bg-white border-y border-slate-100">
+        <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+              <div className="site-surface rounded-3xl p-6 sm:p-8">
                 <div className="flex items-center gap-3">
                   <TestTube2 className="w-5 h-5 text-primary" />
                   <h2 className="text-2xl font-black text-secondary tracking-tight">
@@ -449,13 +459,18 @@ export default function PftLabPage() {
                   anyone who has trouble with forceful breathing maneuvers.
                 </p>
               </div>
-              <div className="rounded-3xl bg-slate-50 border border-slate-200 p-6 sm:p-8">
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                  Age Guidelines
-                </p>
+              <div className="site-surface-muted rounded-3xl p-6 sm:p-8">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
+                    <CalendarClock className="h-5 w-5" />
+                  </span>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                    Age Guidelines
+                  </p>
+                </div>
                 <div className="mt-4 space-y-4">
                   {ageGuidelines.map((item) => (
-                    <div key={item.label} className="rounded-2xl bg-white border border-slate-200 p-5">
+                    <div key={item.label} className="site-surface rounded-2xl p-5">
                       <p className="font-black text-secondary">{item.label}</p>
                       <p className="mt-2 text-sm text-gray-600 leading-6">{item.detail}</p>
                     </div>
@@ -466,7 +481,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="bg-white border-y border-slate-100">
+        <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="max-w-3xl">
               <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
@@ -497,10 +512,15 @@ export default function PftLabPage() {
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                Pediatric PFT
-              </p>
+            <div className="site-surface rounded-3xl p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <HeartPulse className="h-5 w-5" />
+                </span>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                  Pediatric PFT
+                </p>
+              </div>
               <h2 className="mt-3 text-3xl font-black text-secondary tracking-tight">
                 When Should My Child Have PFT?
               </h2>
@@ -509,7 +529,7 @@ export default function PftLabPage() {
               </p>
               <ul className="mt-6 space-y-3">
                 {pediatricSymptoms.map((item) => (
-                  <li key={item} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4">
+                  <li key={item} className="site-surface-muted flex items-center gap-3 rounded-2xl p-4">
                     <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-semibold text-secondary">{item}</span>
                   </li>
@@ -517,10 +537,15 @@ export default function PftLabPage() {
               </ul>
             </div>
 
-            <div className="rounded-3xl bg-secondary p-6 sm:p-8 shadow-sm text-white">
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                Adult PFT
-              </p>
+            <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-primary">
+                  <Activity className="h-5 w-5" />
+                </span>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                  Adult PFT
+                </p>
+              </div>
               <h2 className="mt-3 text-3xl font-black tracking-tight">
                 Adult Pulmonary Function Testing
               </h2>
@@ -543,16 +568,16 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section id="prepare" className="bg-white border-y border-slate-100">
+        <section id="prepare" className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="grid grid-cols-1 xl:grid-cols-[1.1fr,0.9fr] gap-8">
-              <div className="rounded-3xl bg-slate-50 border border-slate-200 p-6 sm:p-8">
+              <div className="site-surface-muted rounded-3xl p-6 sm:p-8">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   How to Prepare
                 </p>
                 <button
                   type="button"
-                  className="mt-3 flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left"
+                  className="site-surface mt-3 flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left"
                   onClick={() => setIsPrepOpen((open) => !open)}
                   aria-expanded={isPrepOpen}
                   aria-controls="before-your-test-content"
@@ -573,14 +598,14 @@ export default function PftLabPage() {
                   <div id="before-your-test-content">
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                       {prepTiers.map((tier) => (
-                        <div key={tier.label} className="rounded-2xl bg-white border border-slate-200 p-5">
+                        <div key={tier.label} className="site-surface rounded-2xl p-5">
                           <p className="font-black text-secondary">{tier.label}</p>
                           <p className="mt-2 text-sm text-gray-600 leading-6">{tier.detail}</p>
                         </div>
                       ))}
                     </div>
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                      <div className="site-surface rounded-2xl p-5">
                         <div className="flex items-center gap-3">
                           <Shirt className="w-5 h-5 text-primary" />
                           <p className="font-black text-secondary">Wear comfortable clothing</p>
@@ -589,7 +614,7 @@ export default function PftLabPage() {
                           Choose clothing that allows easy breathing and comfortable movement.
                         </p>
                       </div>
-                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                      <div className="site-surface rounded-2xl p-5">
                         <div className="flex items-center gap-3">
                           <Clock3 className="w-5 h-5 text-primary" />
                           <p className="font-black text-secondary">Arrive early</p>
@@ -599,7 +624,7 @@ export default function PftLabPage() {
                           before testing begins.
                         </p>
                       </div>
-                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                      <div className="site-surface rounded-2xl p-5">
                         <div className="flex items-center gap-3">
                           <Landmark className="w-5 h-5 text-primary" />
                           <p className="font-black text-secondary">Eat lightly</p>
@@ -609,7 +634,7 @@ export default function PftLabPage() {
                           breathing efforts.
                         </p>
                       </div>
-                      <div className="rounded-2xl bg-white border border-slate-200 p-5">
+                      <div className="site-surface rounded-2xl p-5">
                         <div className="flex items-center gap-3">
                           <CalendarClock className="w-5 h-5 text-primary" />
                           <p className="font-black text-secondary">Parents and guardians</p>
@@ -625,7 +650,7 @@ export default function PftLabPage() {
               </div>
 
               <div className="space-y-6">
-                <div className="rounded-3xl bg-secondary p-6 sm:p-8 text-white">
+                <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white">
                   <div className="flex items-center gap-3">
                     <Clock3 className="w-5 h-5 text-primary" />
                     <h3 className="text-2xl font-black tracking-tight">Test Duration</h3>
@@ -637,10 +662,15 @@ export default function PftLabPage() {
                   </p>
                 </div>
 
-                <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
-                  <h3 className="text-2xl font-black text-secondary tracking-tight">
-                    After the Test
-                  </h3>
+                <div className="site-surface rounded-3xl p-6 sm:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </span>
+                    <h3 className="text-2xl font-black text-secondary tracking-tight">
+                      After the Test
+                    </h3>
+                  </div>
                   <p className="mt-4 text-gray-600 leading-8">
                     Most patients can resume normal activities immediately after the test unless
                     the doctor provides different instructions.
@@ -653,7 +683,7 @@ export default function PftLabPage() {
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+            <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <Landmark className="w-5 h-5 text-primary" />
                 <h2 className="text-2xl font-black text-secondary tracking-tight">
@@ -669,7 +699,7 @@ export default function PftLabPage() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-3xl bg-secondary p-6 sm:p-8 text-white shadow-sm">
+            <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white">
               <div className="flex items-center gap-3">
                 <CalendarClock className="w-5 h-5 text-primary" />
                 <h2 className="text-2xl font-black tracking-tight">Report Turnaround</h2>
@@ -685,9 +715,9 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="bg-white border-y border-slate-100">
+        <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-            <div className="rounded-3xl border border-rose-100 bg-rose-50 p-6 sm:p-8">
+            <div className="rounded-3xl border border-rose-100 bg-[linear-gradient(180deg,#fff5f5_0%,#ffe9e9_100%)] p-6 sm:p-8 shadow-sm">
               <button
                 type="button"
                 className="flex w-full items-start justify-between gap-4 text-left"
@@ -715,7 +745,7 @@ export default function PftLabPage() {
                   {contraindications.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-3 rounded-2xl border border-rose-100 bg-white p-4"
+                      className="flex items-start gap-3 rounded-2xl border border-rose-100 bg-white/90 p-4"
                     >
                       <span className="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-rose-500" />
                       <span className="text-gray-700 leading-7">{item}</span>
@@ -730,7 +760,7 @@ export default function PftLabPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr,1.1fr] gap-8 items-start">
             <div className="space-y-6">
-              <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
+              <div className="site-surface rounded-3xl p-6 sm:p-8">
                 <div className="flex items-center gap-3">
                   <PlayCircle className="w-5 h-5 text-primary" />
                   <h3 className="text-2xl font-black text-secondary tracking-tight">
@@ -755,10 +785,15 @@ export default function PftLabPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white border border-slate-100 p-6 sm:p-8 shadow-sm">
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                Provider Credibility
-              </p>
+            <div className="site-surface rounded-3xl p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <Stethoscope className="h-5 w-5" />
+                </span>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                  Provider Credibility
+                </p>
+              </div>
               <h2 className="mt-3 text-3xl font-black text-secondary tracking-tight">
                 Dr. Folashade Farri
               </h2>
@@ -789,7 +824,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="bg-white border-y border-slate-100">
+        <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
               <ImageCard
@@ -820,15 +855,20 @@ export default function PftLabPage() {
                   },
                 ]}
               />
-              <div className="rounded-3xl bg-secondary p-6 sm:p-8 text-white">
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                  Testimonials
-                </p>
+              <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-primary">
+                    <PlayCircle className="h-5 w-5" />
+                  </span>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                    Testimonials
+                  </p>
+                </div>
                 <div className="mt-5 space-y-5">
                   {featuredReviews.map((item) => (
                     <blockquote
                       key={item.author}
-                      className="rounded-2xl border border-white/10 bg-white/10 p-5"
+                      className="rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-sm"
                     >
                       <p className="text-white/90 leading-7">
                         &ldquo;{expandedReviews[item.author] ? item.quote : truncateReview(item.quote)}&rdquo;
@@ -869,7 +909,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div className="rounded-[2rem] bg-secondary px-6 py-10 sm:px-10 sm:py-12 text-white shadow-xl">
+          <div className="site-dark-panel rounded-[2rem] px-6 py-10 sm:px-10 sm:py-12 text-white shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-8 items-center">
               <div>
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">

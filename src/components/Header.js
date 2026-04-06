@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
+import { CalendarCheck, ChevronDown, LogIn, Menu, Phone, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { primaryNavLinks } from '@/lib/navigation';
 
@@ -81,15 +81,17 @@ const Header = () => {
             </a>
             <a
               href={PATIENT_PORTAL_URL}
-              className="btn-secondary whitespace-nowrap"
+              className="btn-secondary inline-flex items-center whitespace-nowrap"
             >
+              <LogIn className="mr-2 h-4 w-4" />
               Patient Portal
             </a>
             <button
               type="button"
-              className="btn-primary whitespace-nowrap"
+              className="btn-primary inline-flex items-center whitespace-nowrap"
               onClick={() => setIsBookingOpen(true)}
             >
+              <CalendarCheck className="mr-2 h-4 w-4" />
               Request Appointment
             </button>
           </div>
@@ -147,19 +149,21 @@ const Header = () => {
             )}
             <button
               type="button"
-              className="block w-full text-center mt-4 btn-primary"
+              className="mt-4 flex w-full items-center justify-center text-center btn-primary"
               onClick={() => {
                 setIsOpen(false);
                 setIsBookingOpen(true);
               }}
             >
+              <CalendarCheck className="mr-2 h-4 w-4" />
               Request Appointment
             </button>
             <a
               href={PATIENT_PORTAL_URL}
-              className="block w-full text-center mt-3 btn-secondary"
+              className="mt-3 flex w-full items-center justify-center text-center btn-secondary"
               onClick={() => setIsOpen(false)}
             >
+              <LogIn className="mr-2 h-4 w-4" />
               Patient Portal
             </a>
           </div>

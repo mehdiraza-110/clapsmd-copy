@@ -2,19 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { getServices } from "@/lib/authClient";
+import { Stethoscope } from "lucide-react";
 
 const SKELETON_ITEMS = 6;
 
 function ConditionsSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
       {Array.from({ length: SKELETON_ITEMS }).map((_, index) => (
         <div
           key={index}
-          className="bg-slate-50 border border-slate-100 p-6 rounded-xl animate-pulse"
+          className="site-surface-muted rounded-[1.75rem] p-6 animate-pulse"
         >
-          <div className="flex items-start">
-            <span className="w-2 h-2 bg-slate-200 rounded-full mt-3 mr-4 flex-shrink-0" />
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-2xl bg-slate-200/80" />
             <div className="flex-1 space-y-3">
               <div className="h-6 w-3/4 rounded bg-slate-200" />
               <div className="h-4 w-full rounded bg-slate-200" />
@@ -68,7 +69,9 @@ export default function ConditionsWeTreatSection() {
   }, []);
 
   return (
-    <section id="conditions" className="py-20 bg-white">
+    <section id="conditions" className="relative overflow-hidden py-20">
+      <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+      <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-secondary/8 blur-3xl" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-black text-secondary uppercase tracking-tight mb-4">
@@ -82,15 +85,18 @@ export default function ConditionsWeTreatSection() {
         {loading ? <ConditionsSkeleton /> : null}
 
         {!loading && services.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 max-w-4xl mx-auto">
             {services.map((service) => (
               <div
                 key={service.id ?? service.service_name}
-                className="bg-slate-50 border border-slate-100 p-6 rounded-xl"
+                className="site-surface group relative overflow-hidden rounded-[1.75rem] p-6"
               >
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0" />
-                  <div>
+                <div className="absolute right-4 top-4 h-20 w-20 rounded-full bg-primary/10 blur-2xl transition-transform duration-300 group-hover:scale-125" />
+                <div className="relative flex items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-white shadow-lg">
+                    <Stethoscope className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
                     <h3 className="text-xl font-bold tracking-tight text-secondary">
                       {service.service_name}
                     </h3>
@@ -107,7 +113,7 @@ export default function ConditionsWeTreatSection() {
         ) : null}
 
         {!loading && !services.length ? (
-          <div className="max-w-3xl mx-auto rounded-2xl border border-slate-200 bg-slate-50 px-6 py-8 text-center text-gray-600">
+          <div className="site-surface-muted max-w-3xl mx-auto rounded-[1.75rem] px-6 py-8 text-center text-gray-600">
             {error || "No conditions are available right now."}
           </div>
         ) : null}

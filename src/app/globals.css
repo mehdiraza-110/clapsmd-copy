@@ -5,6 +5,8 @@
 :root {
   --primary: #94d12c;
   --secondary: #003d5b;
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.5);
 }
 
 html,
@@ -16,6 +18,155 @@ body {
 body {
   color: #333;
   background: #fff;
+}
+
+.homepage-gradient-mesh {
+  background:
+    radial-gradient(circle at top left, rgba(148, 209, 44, 0.22), transparent 34%),
+    radial-gradient(circle at 85% 18%, rgba(0, 61, 91, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef6f7 100%);
+}
+
+.soft-gradient-panel {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.64)),
+    radial-gradient(circle at top right, rgba(148, 209, 44, 0.14), transparent 36%);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.page-gradient-shell {
+  background:
+    radial-gradient(circle at top left, rgba(148, 209, 44, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(0, 61, 91, 0.08), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f6fafc 100%);
+}
+
+.site-hero-band {
+  background:
+    radial-gradient(circle at top left, rgba(148, 209, 44, 0.18), transparent 28%),
+    radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.08), transparent 24%),
+    linear-gradient(135deg, #003d5b 0%, #0b5873 100%);
+}
+
+.site-surface {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 255, 0.88)),
+    radial-gradient(circle at top right, rgba(148, 209, 44, 0.1), transparent 38%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+}
+
+.site-surface-muted {
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.92)),
+    radial-gradient(circle at top left, rgba(148, 209, 44, 0.08), transparent 32%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.05);
+}
+
+.site-dark-panel {
+  background:
+    radial-gradient(circle at top left, rgba(148, 209, 44, 0.16), transparent 30%),
+    linear-gradient(145deg, rgba(0, 61, 91, 0.96), rgba(8, 79, 101, 0.94));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 42px rgba(2, 33, 49, 0.22);
+}
+
+.service-reference-card {
+  position: relative;
+  height: 100%;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.96);
+  /* border: 1px solid rgba(226, 232, 240, 0.95); */
+  /* box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07); */
+  padding: 1.75rem 1.75rem 4.75rem;
+}
+
+.service-reference-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 5.5rem;
+  height: 5.5rem;
+  background: #F0F6F8;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.service-reference-cta {
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.9rem;
+  height: 3.9rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: var(--secondary);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.1);
+  transition: transform 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+.service-reference-card:hover .service-reference-cta {
+  transform: translateY(-2px);
+  color: var(--primary);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+}
+
+.service-divider-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 1px;
+  overflow: hidden;
+  background: #d8e0ea;
+}
+
+.service-divider-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 280ms ease;
+}
+
+.service-divider-dot {
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  background: #c7d3e0;
+  overflow: hidden;
+}
+
+.service-divider-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+  transform: scale(0);
+  transition: transform 280ms ease;
+}
+
+.service-reference-card:hover .service-divider-fill {
+  transform: scaleX(1);
+}
+
+.service-reference-card:hover .service-divider-dot::after {
+  transform: scale(1);
 }
 
 .jodit-wysiwyg ul {
@@ -110,6 +261,6 @@ body {
   }
 
   .btn-secondary {
-    @apply bg-primary-darker text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors font-medium;
+    @apply bg-secondary text-white px-6 py-3 rounded-md hover:bg-secondary-dark transition-colors font-medium;
   }
 }

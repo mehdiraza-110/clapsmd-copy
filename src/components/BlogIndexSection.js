@@ -21,7 +21,7 @@ function formatDate(value) {
 
 function BlogCardSkeleton() {
   return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col animate-pulse">
+    <div className="site-surface rounded-3xl overflow-hidden flex flex-col animate-pulse">
       <div className="h-56 w-full bg-slate-100" />
       <div className="p-8 flex flex-col flex-grow">
         <div className="h-4 w-36 rounded bg-slate-200 mb-6" />
@@ -94,7 +94,7 @@ export default function BlogIndexSection() {
 
   if (!blogs.length) {
     return (
-      <div className="bg-white rounded-3xl border border-gray-200 p-12 text-center shadow-sm">
+      <div className="site-surface rounded-3xl p-12 text-center">
         <p className="text-gray-500 text-lg">
           {error || "No resources available at the moment. Please check back soon."}
         </p>
@@ -107,7 +107,7 @@ export default function BlogIndexSection() {
       {blogs.map((blog) => (
         <article
           key={blog.id ?? blog.slug}
-          className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+          className="site-surface rounded-3xl overflow-hidden flex flex-col transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl"
         >
           {blog.featured_image ? (
             <div className="relative h-56 w-full overflow-hidden bg-slate-100">
@@ -121,7 +121,7 @@ export default function BlogIndexSection() {
           ) : null}
 
           <div className="p-8 flex flex-col flex-grow">
-            <div className="flex items-center text-primary-darker/50 text-xs font-black uppercase tracking-widest mb-6">
+            <div className="flex items-center text-primary-darker/60 text-xs font-black uppercase tracking-widest mb-6">
               <Calendar className="w-4 h-4 mr-2" />
               {formatDate(blog.publish_time || blog.created_at) || "Recently Published"}
             </div>

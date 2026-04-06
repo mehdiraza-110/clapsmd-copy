@@ -75,7 +75,7 @@ export default function PatientActionButtons({
         if (!action) return null;
 
         const Icon = action.icon;
-        const buttonClass = `${styles[action.style]} ${compact ? 'px-4 py-2.5 text-sm' : ''}`.trim();
+        const buttonClass = `${styles[action.style]} ${action?.label == "Schedule PFT Testing" ? 'border border-white' : ''} ${compact ? 'px-4 py-2.5 text-sm' : ''}`.trim();
 
         if (action.kind === 'booking') {
           return (

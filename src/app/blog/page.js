@@ -15,39 +15,26 @@ export default function BlogIndexPage() {
   return (
     <>
       <Header />
-      <main className="flex-grow bg-white">
-        {/* Modern Branding Bar */}
-        <div className="bg-secondary py-8 shadow-xl border-b-4 border-primary/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div className="flex flex-col border-l-4 border-primary pl-6">
-                <h2 className="text-white font-black tracking-tight text-xl md:text-3xl leading-tight max-w-xl">
-                  Children's Lung Asthma <br className="hidden lg:block" /> & Pulmonary Specialists
-                </h2>
-              </div>
-              
-              <div className="flex flex-col items-start md:items-end">
-                <p className="text-primary font-black tracking-tight text-4xl md:text-6xl leading-none">
-                  CLAPS MD
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Blog Hero */}
-        <section className="bg-slate-50 py-20">
+      <main className="page-gradient-shell flex-grow overflow-hidden">
+        <section className="relative overflow-hidden border-b border-slate-100/80 py-16 sm:py-20">
+          <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
+          <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-black text-primary-darker mb-8 uppercase tracking-tight">
-              Blog
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
-              Expert advice, educational guides, and the latest updates from our pediatric pulmonology specialists.
-            </p>
+            <div className="site-surface mx-auto max-w-4xl rounded-[2.25rem] p-8 sm:p-10 lg:p-12">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                Health Resources
+              </p>
+              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-black text-primary-darker uppercase tracking-tight">
+                Blog
+              </h1>
+              <p className="mt-6 text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
+                Expert advice, educational guides, and the latest updates from our pediatric pulmonology specialists.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <BlogIndexSection />
           </div>
