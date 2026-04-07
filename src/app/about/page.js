@@ -68,8 +68,8 @@ export default function AboutPage() {
           <div className="absolute -left-12 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
           <div className="absolute right-0 top-8 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.05fr,0.95fr] lg:items-start">
-              <div className="site-surface rounded-[2.25rem] p-8 sm:p-10 lg:p-12">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.05fr,0.95fr] lg:items-stretch">
+              <div className="site-surface h-full rounded-[2.25rem] p-8 sm:p-10 lg:p-12">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   About CLAPS MD
                 </p>
@@ -88,11 +88,11 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="relative">
-                <div className="glass-card rounded-[2.25rem] p-3 shadow-2xl">
-                  <div className="relative h-[360px] overflow-hidden rounded-[1.75rem] sm:h-[520px]">
+              <div className="relative h-full">
+                <div className="glass-card h-full rounded-[2.25rem] p-3 shadow-2xl">
+                  <div className="relative h-[360px] overflow-hidden rounded-[1.75rem] sm:h-[520px] lg:h-full lg:min-h-[520px]">
                     <Image
-                      src="/images/Dr Farri_indoor blazer.jpeg"
+                      src="/images/generated-image-2026-02-17-2.png"
                       alt="Dr. Folashade Farri"
                       fill
                       className="object-cover object-top"
@@ -158,8 +158,8 @@ export default function AboutPage() {
 
         <section className="border-b border-slate-100/80 py-16 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-10 items-start">
-              <div className="site-surface rounded-[2rem] p-8 sm:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-10 items-stretch">
+              <div className="site-surface h-full rounded-[2rem] p-8 sm:p-10">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   Meet Dr. Farri
                 </p>
@@ -182,8 +182,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="glass-card rounded-[2rem] p-4 shadow-xl">
-                <div className="relative h-[420px] sm:h-[520px] w-full overflow-hidden rounded-[1.5rem] bg-white">
+              <div className="glass-card h-full rounded-[2rem] p-4 shadow-xl">
+                <div className="relative h-[420px] w-full overflow-hidden rounded-[1.5rem] bg-white sm:h-[520px] lg:h-full lg:min-h-[520px]">
                   <Image
                     src="/images/Dr Farri_white coat.jpeg"
                     alt="Dr. Folashade Farri"

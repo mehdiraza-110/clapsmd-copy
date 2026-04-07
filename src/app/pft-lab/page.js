@@ -257,7 +257,7 @@ export default function PftLabPage() {
   const [isSafetyOpen, setIsSafetyOpen] = useState(false);
   const [expandedReviews, setExpandedReviews] = useState({});
   const featuredReviews = homepageReviews.slice(0, 2);
-  const truncateReview = (quote, maxLength = 120) =>
+  const truncateReview = (quote, maxLength = 58) =>
     quote.length > maxLength ? `${quote.slice(0, maxLength).trimEnd()}...` : quote;
 
   return (
@@ -267,8 +267,8 @@ export default function PftLabPage() {
         <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.14),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,61,91,0.08),transparent_38%)]" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr,0.8fr] lg:items-start">
-              <div className="site-surface rounded-[2.25rem] p-8 sm:p-10">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr,0.8fr] lg:items-stretch">
+              <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-secondary font-bold text-sm">
                   <HeartPulse className="w-4 h-4 text-primary" />
                   PFT Lab in Wayne, NJ
@@ -293,7 +293,30 @@ export default function PftLabPage() {
                   wheezing, shortness of breath, and other respiratory conditions without hospital
                   facility fees.
                 </p>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="mt-auto flex flex-wrap gap-4 pt-8">
+                  <BookingButton className="btn-primary inline-flex items-center justify-center">
+                    Schedule PFT Testing
+                  </BookingButton>
+                  <Link
+                    href="#prepare"
+                    className="btn-secondary inline-flex items-center justify-center"
+                  >
+                    How to Prepare
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex h-full flex-col gap-4">
+                <ImageCard
+                  title=""
+                  images={[
+                    {
+                      src: "/images/breathing.png",
+                      alt: "Breathing illustration",
+                    },
+                  ]}
+                />
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="site-surface-muted rounded-2xl p-5">
                     <div className="flex items-center gap-3">
                       <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
@@ -319,30 +342,7 @@ export default function PftLabPage() {
                     </p>
                   </div>
                 </div>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <BookingButton className="btn-primary inline-flex items-center justify-center">
-                    Schedule PFT Testing
-                  </BookingButton>
-                  <Link
-                    href="#prepare"
-                    className="btn-secondary inline-flex items-center justify-center"
-                  >
-                    How to Prepare
-                  </Link>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <ImageCard
-                  title=""
-                  images={[
-                    {
-                      src: "/images/breathing.png",
-                      alt: "Breathing illustration",
-                    },
-                  ]}
-                />
-                <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white shadow-lg">
+                <div className="site-dark-panel flex-1 rounded-3xl p-6 sm:p-8 text-white shadow-lg">
                   <div className="flex items-center gap-3">
                     <MapPin className="w-5 h-5 text-primary" />
                     <p className="font-black tracking-tight">Wayne, NJ</p>
@@ -826,36 +826,38 @@ export default function PftLabPage() {
 
         <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
-              <ImageCard
-                title=""
-                stacked
-                images={[
-                  {
-                    src: "/images/generated-image-2026-02-17-3.png",
-                    alt: "PFT testing room photo 1",
-                  },
-                  {
-                    src: "/images/generated-image-2026-02-17-4.png",
-                    alt: "PFT testing room photo 2",
-                  },
-                ]}
-              />
-              <ImageCard
-                title=""
-                stacked
-                images={[
-                  {
-                    src: "/images/generated-image-2026-02-17.png",
-                    alt: "PFT equipment or staff photo 1",
-                  },
-                  {
-                    src: "/images/generated-image-2026-02-17-2.png",
-                    alt: "PFT equipment or staff photo 2",
-                  },
-                ]}
-              />
-              <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-stretch">
+              <div className="grid content-start grid-cols-1 gap-6 sm:grid-cols-2">
+                <ImageCard
+                  title=""
+                  stacked
+                  images={[
+                    {
+                      src: "/images/generated-image-2026-02-17-3.png",
+                      alt: "PFT testing room photo 1",
+                    },
+                    {
+                      src: "/images/generated-image-2026-02-17-4.png",
+                      alt: "PFT testing room photo 2",
+                    },
+                  ]}
+                />
+                <ImageCard
+                  title=""
+                  stacked
+                  images={[
+                    {
+                      src: "/images/generated-image-2026-02-17.png",
+                      alt: "PFT equipment or staff photo 1",
+                    },
+                    {
+                      src: "/images/generated-image-2026-02-17-2.png",
+                      alt: "PFT equipment or staff photo 2",
+                    },
+                  ]}
+                />
+              </div>
+              <div className="site-dark-panel flex flex-col rounded-3xl p-5 text-white">
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-primary">
                     <PlayCircle className="h-5 w-5" />
@@ -864,19 +866,19 @@ export default function PftLabPage() {
                     Testimonials
                   </p>
                 </div>
-                <div className="mt-5 space-y-5">
+                <div className="mt-4 space-y-2">
                   {featuredReviews.map((item) => (
                     <blockquote
                       key={item.author}
-                      className="rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-sm"
+                      className="rounded-2xl border border-white/10 bg-white/10 p-3.5 backdrop-blur-sm"
                     >
-                      <p className="text-white/90 leading-7">
+                      <p className="text-white/90 leading-6">
                         &ldquo;{expandedReviews[item.author] ? item.quote : truncateReview(item.quote)}&rdquo;
                       </p>
-                      {item.quote.length > 120 ? (
+                      {item.quote.length > 58 ? (
                         <button
                           type="button"
-                          className="mt-3 text-sm font-semibold text-white underline underline-offset-4 transition-colors hover:text-primary"
+                          className="mt-2 text-sm font-semibold text-white underline underline-offset-4 transition-colors hover:text-primary"
                           onClick={() =>
                             setExpandedReviews((current) => ({
                               ...current,
@@ -887,18 +889,18 @@ export default function PftLabPage() {
                           {expandedReviews[item.author] ? "See less" : "See more"}
                         </button>
                       ) : null}
-                      <footer className="mt-3 text-sm font-bold text-primary">
+                      <footer className="mt-2 text-sm font-bold text-primary">
                         {item.author}
                       </footer>
                     </blockquote>
                   ))}
                 </div>
-                <div className="mt-6">
+                <div className="mt-2 pt-2">
                   <a
                     href={GOOGLE_REVIEWS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 font-semibold text-secondary transition-colors hover:bg-white/90"
+                    className="inline-flex items-center justify-center rounded-md bg-white px-6 py-2 font-semibold text-secondary transition-colors hover:bg-white/90"
                   >
                     See All Reviews
                   </a>
@@ -930,7 +932,7 @@ export default function PftLabPage() {
                 </BookingButton>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-md border border-white/20 px-6 py-3 font-medium text-white hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center rounded-md border border-white px-6 py-3 font-medium text-white hover:bg-white/10 transition-colors"
                 >
                   Contact the Office
                 </Link>

@@ -66,47 +66,49 @@ export default function Home() {
             <div className="absolute bottom-0 left-1/3 h-56 w-56 rounded-full bg-white/60 blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div className="flex flex-col items-center justify-between gap-12 lg:flex-row lg:items-stretch">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="max-w-2xl lg:w-1/2"
+                className="max-w-2xl lg:flex lg:w-1/2 lg:max-w-none"
               >
-                <h1 className="text-4xl md:text-6xl font-extrabold text-primary-darker leading-tight mb-6">
-                  Helping Kids Breathe Easier&mdash;Every Day
-                </h1>
-                <p className="text-xl text-gray-700 mb-10 leading-relaxed">
-                  At CLAPS MD, we care for children with recurrent breathing problems&mdash;frequent
-                  cough, wheezing, asthma flare-ups, and unexplained respiratory symptoms. We help
-                  families move from repeated urgent care visits and uncertainty to a clear
-                  diagnosis, a personalized treatment plan, and long-term stability. Our goal is
-                  simple: fewer emergencies, fewer oral steroids, stronger lungs, and children who
-                  can breathe easier and play without limits.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <BookingButton className="btn-primary text-lg px-8 py-4 flex items-center justify-center">
-                    Request an Appointment <ArrowRight className="ml-2 w-5 h-5" />
-                  </BookingButton>
-                  <a href="tel:9739490270" className="btn-secondary text-lg px-8 py-4 flex items-center justify-center">
-                    <Phone className="mr-2 h-5 w-5" />
-                    Call Now
-                  </a>
-                </div>
+                <div className="flex h-full flex-col">
+                  <h1 className="mb-6 text-4xl font-extrabold leading-tight text-primary-darker md:text-6xl">
+                    Helping Kids Breathe Easier&mdash;Every Day
+                  </h1>
+                  <p className="mb-10 text-xl leading-relaxed text-gray-700">
+                    At CLAPS MD, we care for children with recurrent breathing problems&mdash;frequent
+                    cough, wheezing, asthma flare-ups, and unexplained respiratory symptoms. We help
+                    families move from repeated urgent care visits and uncertainty to a clear
+                    diagnosis, a personalized treatment plan, and long-term stability. Our goal is
+                    simple: fewer emergencies, fewer oral steroids, stronger lungs, and children who
+                    can breathe easier and play without limits.
+                  </p>
+                  <div className="flex flex-col gap-4 sm:flex-row">
+                    <BookingButton className="btn-primary flex items-center justify-center px-8 py-4 text-lg">
+                      Request an Appointment <ArrowRight className="ml-2 w-5 h-5" />
+                    </BookingButton>
+                    <a href="tel:9739490270" className="btn-secondary flex items-center justify-center px-8 py-4 text-lg">
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call Now
+                    </a>
+                  </div>
 
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="glass-card rounded-xl p-4 flex items-center">
-                    <Stethoscope className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">State-of-the-Art Respiratory Medicine</span>
-                  </div>
-                  <div className="glass-card rounded-xl p-4 flex items-center">
-                    <ClipboardCheck className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">Comprehensive, Root-Cause Evaluations</span>
-                  </div>
-                  <div className="glass-card rounded-xl p-4 flex items-center">
-                    <HeartHandshake className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                    <span className="text-sm font-semibold text-secondary">Compassionate, Family-Centered Support</span>
+                  <div className="mt-auto grid grid-cols-1 gap-3 pt-8 sm:grid-cols-3">
+                    <div className="glass-card flex items-center rounded-xl p-4">
+                      <Stethoscope className="mr-3 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span className="text-sm font-semibold text-secondary">State-of-the-Art Respiratory Medicine</span>
+                    </div>
+                    <div className="glass-card flex items-center rounded-xl p-4">
+                      <ClipboardCheck className="mr-3 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span className="text-sm font-semibold text-secondary">Comprehensive, Root-Cause Evaluations</span>
+                    </div>
+                    <div className="glass-card flex items-center rounded-xl p-4">
+                      <HeartHandshake className="mr-3 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span className="text-sm font-semibold text-secondary">Compassionate, Family-Centered Support</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -116,9 +118,9 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="w-full lg:w-1/2 relative"
+                className="relative w-full lg:w-1/2"
               >
-                <div className="glass-card relative w-full h-[350px] md:h-[500px] rounded-[2rem] overflow-hidden p-3 shadow-2xl">
+                <div className="glass-card relative h-[350px] w-full overflow-hidden rounded-[2rem] p-3 shadow-2xl md:h-[500px] lg:h-full lg:min-h-[500px]">
                   <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
                     <Image 
                       src="/images/hero-image.png"

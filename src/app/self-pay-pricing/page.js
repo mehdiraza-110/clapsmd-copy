@@ -18,8 +18,8 @@ export default function SelfPayPricingPage() {
           <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
           <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-8 items-start">
-              <div className="site-surface rounded-[2.25rem] p-8 sm:p-10">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr,0.9fr] lg:items-stretch">
+              <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                   Self Pay Pricing
                 </p>
@@ -31,7 +31,7 @@ export default function SelfPayPricingPage() {
                   choose not to bill insurance. Placeholder pricing is shown below and can be
                   confirmed by our team before the visit.
                 </p>
-                <div className="mt-8 flex flex-wrap gap-4">
+                <div className="mt-auto flex flex-wrap gap-4 pt-8">
                   <a
                     href="tel:9739490270"
                     className="inline-flex items-center justify-center rounded-md border border-slate-300 px-6 py-3 font-medium text-secondary hover:bg-white transition-colors"
@@ -49,7 +49,7 @@ export default function SelfPayPricingPage() {
                 </div>
               </div>
 
-              <div className="site-dark-panel rounded-3xl p-6 sm:p-8 text-white shadow-lg">
+              <div className="site-dark-panel h-full rounded-3xl p-6 sm:p-8 text-white shadow-lg">
                 <div className="flex items-center gap-3">
                   <CreditCard className="w-5 h-5 text-primary" />
                   <h2 className="text-2xl font-black tracking-tight">Payment Policy</h2>
