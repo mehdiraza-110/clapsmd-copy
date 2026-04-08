@@ -17,7 +17,7 @@ export default function SelfPayPricingPage() {
         <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
           <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr,0.9fr] lg:items-stretch">
               <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">

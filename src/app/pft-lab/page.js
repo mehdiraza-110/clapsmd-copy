@@ -266,7 +266,7 @@ export default function PftLabPage() {
       <main className="page-gradient-shell bg-slate-50">
         <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.14),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,61,91,0.08),transparent_38%)]" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr,0.8fr] lg:items-stretch">
               <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-secondary font-bold text-sm">
@@ -425,7 +425,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 sm:pb-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-14">
           <ImageCard
             title="MiniBox+ pulmonary testing equipment"
             banner
@@ -439,7 +439,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-18">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="site-surface rounded-3xl p-6 sm:p-8">
                 <div className="flex items-center gap-3">
@@ -482,7 +482,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="max-w-3xl">
               <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
                 Types of Tests
@@ -510,7 +510,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
@@ -569,7 +569,7 @@ export default function PftLabPage() {
         </section>
 
         <section id="prepare" className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 xl:grid-cols-[1.1fr,0.9fr] gap-8">
               <div className="site-surface-muted rounded-3xl p-6 sm:p-8">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
@@ -681,7 +681,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
@@ -716,7 +716,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="rounded-3xl border border-rose-100 bg-[linear-gradient(180deg,#fff5f5_0%,#ffe9e9_100%)] p-6 sm:p-8 shadow-sm">
               <button
                 type="button"
@@ -757,7 +757,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr,1.1fr] gap-8 items-start">
             <div className="space-y-6">
               <div className="site-surface rounded-3xl p-6 sm:p-8">
@@ -825,7 +825,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-stretch">
               <div className="grid content-start grid-cols-1 gap-6 sm:grid-cols-2">
                 <ImageCard
@@ -910,7 +910,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="site-dark-panel rounded-[2rem] px-6 py-10 sm:px-10 sm:py-12 text-white shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-8 items-center">
               <div>

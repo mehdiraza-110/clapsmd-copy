@@ -115,7 +115,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-b border-slate-100/80 py-14 sm:py-16">
+        <section className="border-b border-slate-100/80 py-12 sm:py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="site-surface rounded-[2rem] p-8 sm:p-10">
               <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
@@ -156,7 +156,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-b border-slate-100/80 py-16 sm:py-20">
+        <section className="border-b border-slate-100/80 py-10 sm:py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-[1.05fr,0.95fr] gap-10 items-stretch">
               <div className="site-surface h-full rounded-[2rem] p-8 sm:p-10">
@@ -197,7 +197,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-b border-slate-100/80 py-16 sm:py-20">
+        <section className="border-b border-slate-100/80 py-10 sm:py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-6 lg:gap-8">
               <div className="site-surface rounded-[2rem] p-8 sm:p-10">
@@ -262,7 +262,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-b border-slate-100/80 py-16 sm:py-20">
+        <section className="border-b border-slate-100/80 py-10 sm:py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="site-surface rounded-[2rem] p-8 sm:p-10">

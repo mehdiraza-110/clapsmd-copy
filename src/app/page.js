@@ -38,6 +38,16 @@ export default function Home() {
   return (
     <>
       <Header />
+      <div className="bg-secondary border-b border-primary/25 py-4 shadow-sm md:hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="border-l-4 border-primary pl-4">
+            {/* <p className="text-primary text-xs font-black uppercase tracking-[0.24em]">CLAPS MD</p> */}
+            <h2 className="mt-1 text-lg font-black leading-tight text-white">
+              Children&apos;s Lung Asthma & Pulmonary Specialists
+            </h2>
+          </div>
+        </div>
+      </div>
       <main className="flex-grow">
         {/* Modern Branding Bar */}
         {/* <div className="bg-secondary py-8 shadow-xl border-b-4 border-primary/30">
@@ -76,10 +86,10 @@ export default function Home() {
               >
                 <div className="flex h-full flex-col">
                   <h1 className="mb-6 text-4xl font-extrabold leading-tight text-primary-darker md:text-6xl">
-                    Helping Kids Breathe Easier&mdash;Every Day
+                    Helping Kids Breathe Easier Every Day
                   </h1>
                   <p className="mb-10 text-xl leading-relaxed text-gray-700">
-                    At CLAPS MD, we care for children with recurrent breathing problems&mdash;frequent
+                    At CLAPS MD, we care for children with recurrent breathing problems, frequent
                     cough, wheezing, asthma flare-ups, and unexplained respiratory symptoms. We help
                     families move from repeated urgent care visits and uncertainty to a clear
                     diagnosis, a personalized treatment plan, and long-term stability. Our goal is

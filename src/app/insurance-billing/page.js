@@ -28,7 +28,7 @@ export default function InsuranceBillingPage() {
         <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
           <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr,0.85fr] lg:items-stretch">
               <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
@@ -78,7 +78,7 @@ export default function InsuranceBillingPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="site-surface rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div className="max-w-3xl">
               <div className="flex items-center gap-3">
@@ -130,7 +130,7 @@ export default function InsuranceBillingPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 sm:pb-18">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="site-surface rounded-[2rem] p-6 sm:p-8">
               <div className="flex items-center gap-3">
@@ -181,7 +181,7 @@ export default function InsuranceBillingPage() {
         </section>
 
         <section className="border-y border-slate-100/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div className="grid gap-8 lg:grid-cols-[0.36fr,0.64fr] lg:items-stretch">
               <div className="site-dark-panel h-full rounded-[2rem] p-8 text-white">
                 <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
