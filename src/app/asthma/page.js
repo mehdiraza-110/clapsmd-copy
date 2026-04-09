@@ -46,46 +46,6 @@ const faqs = [
     answer:
       "Yes. With proper treatment and good asthma control, children can participate in sports and physical activity. Symptoms during exercise can be a sign that asthma needs better control or an updated plan. Many athletes manage asthma successfully and compete at the highest levels.",
   },
-  {
-    question: "Are pulmonary function tests painful?",
-    answer:
-      "No. Pulmonary function tests are non-invasive and generally not painful. Some patients may feel mildly tired after repeated breathing efforts, but the test is safe and well tolerated.",
-  },
-  {
-    question: "Can I eat or drink before my PFT appointment?",
-    answer:
-      "Yes, but we recommend avoiding heavy meals right before testing. A lighter meal is usually more comfortable for deep breathing. It is also best to avoid smoking and alcohol before the test.",
-  },
-  {
-    question: "Should I use my inhaler before pulmonary function testing?",
-    answer:
-      "Follow your doctor’s instructions. Some patients are asked to hold certain inhalers before testing so results are more accurate, while others may continue regular medications.",
-  },
-  {
-    question: "What should I wear to my PFT appointment?",
-    answer:
-      "Wear loose, comfortable clothing that allows easy breathing. Avoid tight clothing around the chest or abdomen, as it may make deep breathing maneuvers less comfortable.",
-  },
-  {
-    question: "Is pulmonary function testing safe for children and elderly patients?",
-    answer:
-      "Yes. PFT testing is safe when ordered appropriately and performed by trained staff. Modern equipment and coaching help make testing more comfortable for children and older adults.",
-  },
-  {
-    question: "What if I cannot blow hard enough during the test?",
-    answer:
-      "Our respiratory team will guide you step by step and allow practice attempts. The goal is to capture your best effort, and maneuvers can be repeated to improve test quality when needed.",
-  },
-  {
-    question: "Will I get pulmonary function test results the same day?",
-    answer:
-      "Most PFT reports are completed within 24-48 hours and sent to the referring physician after provider review. For urgent interpretation, please inform our team when scheduling.",
-  },
-  {
-    question: "Can I do PFT testing without a doctor’s order?",
-    answer:
-      "No. Pulmonary function testing requires a referral or prescription from a licensed physician before scheduling and testing.",
-  },
 ];
 
 function FaqSchema({ items }) {

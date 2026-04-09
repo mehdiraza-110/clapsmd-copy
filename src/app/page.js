@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BookingButton from '@/components/BookingButton';
 import PatientActionButtons from '@/components/PatientActionButtons';
+import ConditionsWeTreatSection from '@/components/ConditionsWeTreatSection';
 import { GOOGLE_REVIEWS_URL, homepageReviews } from '@/lib/homepageReviews';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, HeartHandshake, Phone, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
@@ -277,6 +278,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <ConditionsWeTreatSection />
 
         <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7fafc_0%,#eef4f8_100%)] py-20">
           <div className="absolute left-0 top-0 h-52 w-52 rounded-full bg-secondary/8 blur-3xl" />

@@ -151,6 +151,59 @@ const contraindications = [
   "Inability to follow breathing instructions safely",
 ];
 
+const pftFaqs = [
+  {
+    question: "Are pulmonary function tests painful?",
+    answer:
+      "No. Pulmonary function tests are not painful. The test only involves breathing through a mouthpiece while following simple instructions. Some patients may feel slightly tired from blowing out forcefully, but the test is safe and well tolerated.",
+  },
+  {
+    question: "Can I eat or drink before my PFT appointment?",
+    answer:
+      "Yes, you may eat and drink before your test, but we recommend avoiding heavy meals right before your appointment. A full stomach may make it harder to take deep breaths comfortably. It is also best to avoid alcohol and smoking before the test.",
+  },
+  {
+    question: "Should I use my inhaler before the test?",
+    answer:
+      "This depends on your doctor’s instructions. Some patients are asked to stop using certain inhalers before testing so the results are more accurate. Please follow the instructions given by your physician or our office before your appointment.",
+  },
+  {
+    question: "What should I wear to my PFT appointment?",
+    answer:
+      "Wear comfortable, loose-fitting clothing that allows you to breathe easily. Avoid tight clothing around your chest or abdomen, as this may affect your breathing during the test.",
+  },
+  {
+    question: "Can elderly patients do pulmonary function testing?",
+    answer:
+      "Yes. Our laboratory uses modern equipment designed to make testing easier for elderly patients. The test is non-invasive and performed with guidance from trained respiratory professionals to ensure comfort and accuracy.",
+  },
+  {
+    question: "What if I cannot blow hard enough during the test?",
+    answer:
+      "Our respiratory staff will guide you step-by-step and allow you to practice before the actual test. The goal is to get the best effort possible, and the test can be repeated if needed to ensure accurate results.",
+  },
+  {
+    question: "Can I take my regular medications before the test?",
+    answer:
+      "You may take your regular medications unless your doctor tells you otherwise. If you are unsure, please contact our office before your appointment for instructions.",
+  },
+  {
+    question: "Is pulmonary function testing safe for children?",
+    answer:
+      "Yes. Pulmonary function testing is safe for children when ordered by a physician. We use advanced equipment that is designed to be more comfortable and easier for pediatric patients to perform.",
+  },
+  {
+    question: "Will I get my results the same day?",
+    answer:
+      "Results are usually reviewed by the physician who ordered the test. In most cases, your doctor will discuss the results with you at your follow-up visit or contact you after reviewing the report.",
+  },
+  {
+    question: "Can I do PFT testing without a doctor’s order?",
+    answer:
+      "No. All pulmonary function tests require a referral from a licensed physician. A prescription must be provided before scheduling and must be presented at the time of your appointment.",
+  },
+];
+
 function AccordionItem({ item, isOpen, onToggle }) {
   const Icon = item.icon;
 
@@ -906,6 +959,43 @@ export default function PftLabPage() {
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                PFT Questions
+              </p>
+              <h2 className="mt-3 text-3xl md:text-4xl font-black text-secondary uppercase tracking-tight">
+                Frequently Asked Questions
+              </h2>
+              <div className="w-20 h-2 bg-primary mx-auto mt-4 rounded-full" />
+              <p className="mt-5 max-w-3xl mx-auto text-gray-600 leading-8">
+                Common answers about preparation, safety, referrals, and what to expect during
+                pulmonary function testing.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {pftFaqs.map((item) => (
+                <details
+                  key={item.question}
+                  className="site-surface group rounded-2xl p-6 transition-shadow hover:shadow-md"
+                >
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+                    <span className="text-lg font-black text-secondary tracking-tight">
+                      {item.question}
+                    </span>
+                    <span className="text-primary text-xl font-black transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="mt-4 text-gray-700 leading-relaxed">{item.answer}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>
