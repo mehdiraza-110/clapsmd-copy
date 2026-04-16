@@ -140,7 +140,7 @@ export default async function BlogIndexPage() {
                           <p className="mt-1 text-[11px] font-black uppercase tracking-[0.2em] text-primary/95">
                             {topic.eyebrow || "Breathing Room"}
                           </p>
-                          <h3 className="mt-3 text-xl font-black leading-tight text-white sm:text-2xl">
+                          <h3 className="mt-3 text-xl font-black leading-tight text-white sm:text-xl">
                             {topic.title}
                           </h3>
                           {topic.description ? (
