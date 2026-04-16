@@ -2,6 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogIndexSection from "@/components/BlogIndexSection";
 import { buildPageMetadata } from "@/lib/seoMetadata";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { getNewsletterTopics, NEWSLETTER_URL } from "@/lib/newsletterTopics";
 
 export const metadata = buildPageMetadata({
   title: "Health Resources & Blog | C.L.A.P.S. MD",
@@ -11,7 +14,23 @@ export const metadata = buildPageMetadata({
   ogImage: "/images/hero-image.webp",
 });
 
-export default function BlogIndexPage() {
+export const revalidate = 21600;
+
+function formatNewsletterDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+export default async function BlogIndexPage() {
+  const newsletterTopics = await getNewsletterTopics();
+
   return (
     <>
       <Header />
@@ -61,7 +80,7 @@ export default function BlogIndexPage() {
 
                 <div className="relative">
                   <a
-                    href="https://claps-newsletter.beehiiv.com/"
+                    href={NEWSLETTER_URL}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-base font-black uppercase tracking-[0.16em] text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#a7e13f] hover:shadow-[0_18px_36px_rgba(148,209,44,0.28)]"
@@ -70,6 +89,71 @@ export default function BlogIndexPage() {
                   </a>
                 </div>
               </div>
+
+              {newsletterTopics.length ? (
+                <div className="relative mt-10 border-t border-white/10 pt-8">
+                  <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">
+                      From Breathing Room
+                    </p>
+                    <a
+                      href={NEWSLETTER_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center text-sm font-black uppercase tracking-[0.16em] text-primary transition-colors hover:text-[#a7e13f]"
+                    >
+                      View Newsletter
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+                    {newsletterTopics.map((topic) => (
+                      <a
+                        key={topic.title}
+                        href={topic.href || NEWSLETTER_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/10"
+                      >
+                        {topic.image ? (
+                          <div className="relative h-40 w-full overflow-hidden bg-white/90">
+                            <Image
+                              src={topic.image}
+                              alt={topic.title}
+                              fill
+                              sizes="(min-width: 1280px) 18vw, (min-width: 768px) 42vw, 100vw"
+                              className="object-cover"
+                            />
+                          </div>
+                        ) : null}
+
+                        <div className="p-5">
+                          {topic.publishedAt || topic.readTime ? (
+                            <p className="text-[11px] font-bold tracking-[0.08em] text-white/55">
+                              {[formatNewsletterDate(topic.publishedAt), topic.readTime]
+                                .filter(Boolean)
+                                .join(" • ")}
+                            </p>
+                          ) : null}
+
+                          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-primary/90">
+                            {topic.eyebrow || "Breathing Room"}
+                          </p>
+                          <h3 className="mt-3 text-lg font-black leading-tight text-white">
+                            {topic.title}
+                          </h3>
+                          {topic.description ? (
+                            <p className="mt-3 text-sm leading-relaxed text-slate-100/75">
+                              {topic.description}
+                            </p>
+                          ) : null}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>

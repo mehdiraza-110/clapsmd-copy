@@ -17,6 +17,21 @@ const nextConfig = {
         hostname: 'clapsmd-storage.s3.ca-central-1.amazonaws.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.beehiiv.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.beehiiv.net',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'beehiiv-images-production.s3.amazonaws.com',
+        pathname: '/**',
+      },
     ],
   },
   // Increase timeout for static page generation (default is 60s)
