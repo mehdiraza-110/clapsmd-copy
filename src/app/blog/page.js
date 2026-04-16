@@ -107,44 +107,44 @@ export default async function BlogIndexPage() {
                     </a>
                   </div>
 
-                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {newsletterTopics.map((topic) => (
                       <a
                         key={topic.title}
                         href={topic.href || NEWSLETTER_URL}
                         target="_blank"
                         rel="noreferrer"
-                        className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/10"
+                        className="group flex h-full min-h-[31rem] flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.08] shadow-[0_14px_36px_rgba(2,33,49,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:bg-white/[0.12] hover:shadow-[0_18px_42px_rgba(2,33,49,0.28)]"
                       >
                         {topic.image ? (
-                          <div className="relative h-40 w-full overflow-hidden bg-white/90">
+                          <div className="relative h-52 w-full overflow-hidden bg-white/90">
                             <Image
                               src={topic.image}
                               alt={topic.title}
                               fill
-                              sizes="(min-width: 1280px) 18vw, (min-width: 768px) 42vw, 100vw"
-                              className="object-cover"
+                              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 48vw, 100vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           </div>
                         ) : null}
 
-                        <div className="p-5">
+                        <div className="flex flex-1 flex-col p-6">
                           {topic.publishedAt || topic.readTime ? (
-                            <p className="text-[11px] font-bold tracking-[0.08em] text-white/55">
+                            <p className="text-xs font-bold tracking-[0.08em] text-white/55">
                               {[formatNewsletterDate(topic.publishedAt), topic.readTime]
                                 .filter(Boolean)
                                 .join(" • ")}
                             </p>
                           ) : null}
 
-                          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-primary/90">
+                          <p className="mt-1 text-[11px] font-black uppercase tracking-[0.2em] text-primary/95">
                             {topic.eyebrow || "Breathing Room"}
                           </p>
-                          <h3 className="mt-3 text-lg font-black leading-tight text-white">
+                          <h3 className="mt-3 text-[1.75rem] font-black leading-[1.08] text-white sm:text-[1.9rem]">
                             {topic.title}
                           </h3>
                           {topic.description ? (
-                            <p className="mt-3 text-sm leading-relaxed text-slate-100/75">
+                            <p className="mt-4 text-base leading-relaxed text-slate-100/80">
                               {topic.description}
                             </p>
                           ) : null}
