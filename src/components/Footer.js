@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { resourceLinks } from '@/lib/navigation';
+import FooterClinicHours from '@/components/FooterClinicHours';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/shade.farri/?fbclid=IwY2xjawP5kw9leHRuA2FlbQIxMQBicmlkETE0TXBDR2xyVDlZYVl6VHk0c3J0YwZhcHBfaWQBMAABHnN5NqxqHeHvr77zOv5uIz65wkt2CQgHMHGe-YZZE00xONxT5gO_FBqhILJK_aem_0FN07TUHhPbC0KuG3tIPOw';
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61567195066725';
@@ -53,14 +54,7 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="font-bold mb-6 text-lg">Hours</h3>
-            <ul className="space-y-3 text-gray-400 text-sm">
-              <li className="flex justify-between"><span>Monday:</span> <span>9:00 AM - 4:00 PM</span></li>
-              <li className="flex justify-between"><span>Tuesday:</span> <span>9:00 AM - 4:00 PM</span></li>
-              <li className="flex justify-between text-gray-500 italic"><span>Wednesday:</span> <span>Closed</span></li>
-              <li className="flex justify-between"><span>Thursday:</span> <span>9:00 AM - 4:00 PM</span></li>
-              <li className="flex justify-between"><span>Friday:</span> <span>9:00 AM - 4:00 PM</span></li>
-              <li className="flex justify-between text-gray-500 italic"><span>Sat - Sun:</span> <span>Closed</span></li>
-            </ul>
+            <FooterClinicHours />
           </div>
           <div className="md:pl-8">
             <h3 className="font-bold mb-6 text-lg">Quick Links</h3>

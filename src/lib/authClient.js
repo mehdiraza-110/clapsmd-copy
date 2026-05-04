@@ -254,6 +254,18 @@ export async function deleteBlog(token, id) {
   });
 }
 
+export async function getClinicHours() {
+  return request("/clinic-hours", { method: "GET" });
+}
+
+export async function bulkUpdateClinicHours(token, hours) {
+  return request("/clinic-hours", {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ hours }),
+  });
+}
+
 export async function getDashboardStats(token) {
   return request("/dashboard/stats", {
     method: "GET",

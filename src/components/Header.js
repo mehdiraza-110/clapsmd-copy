@@ -11,7 +11,7 @@ const PATIENT_PORTAL_URL = 'https://phr.charmtracker.com/login.sas?FACILITY_ID=3
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
     const handleOpenBooking = () => setIsBookingOpen(true);
@@ -113,12 +113,12 @@ const Header = () => {
                   <button
                     type="button"
                     className="flex w-full items-center justify-between py-2 text-left text-secondary hover:text-primary font-medium"
-                    onClick={() => setIsResourcesOpen((open) => !open)}
+                    onClick={() => setOpenDropdown((prev) => prev === link.name ? null : link.name)}
                   >
                     <span>{link.name}</span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${isResourcesOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === link.name ? 'rotate-180' : ''}`} />
                   </button>
-                  {isResourcesOpen && (
+                  {openDropdown === link.name && (
                     <div className="mt-1 rounded-xl bg-slate-50 p-2">
                       {link.items.map((item) => (
                         <Link
@@ -126,7 +126,7 @@ const Header = () => {
                           href={item.href}
                           className="block rounded-lg px-3 py-2 text-sm font-medium text-secondary hover:text-primary"
                           onClick={() => {
-                            setIsResourcesOpen(false);
+                            setOpenDropdown(null);
                             setIsOpen(false);
                           }}
                         >

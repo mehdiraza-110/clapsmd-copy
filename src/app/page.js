@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BookingButton from '@/components/BookingButton';
@@ -11,13 +11,28 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, HeartHandshake, Phone, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import HomepageAnnouncements from '@/components/HomepageAnnouncements';
+
+const heroImages = [
+  { src: '/slider-images/hero-image.png', alt: 'Pediatric Pulmonology Care' },
+  { src: '/slider-images/hero-image.webp', alt: 'Pediatric Pulmonology Care' },
+  { src: '/slider-images/child-athlete.png', alt: 'Child Athlete Care' },
+];
 
 export default function Home() {
   const [activeReview, setActiveReview] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
   const services = [
-    { title: 'Asthma Management', icon: <Wind className="w-6 h-6" />, description: 'Personalized asthma care and treatment plans for children.' },
+    { title: 'Asthma Management', icon: <Wind className="w-6 h-6" />, description: 'Personalized asthma care and treatment plans for children.', href: '/asthma' },
     { title: 'Respiratory Evaluation', icon: <Stethoscope className="w-6 h-6" />, description: 'Comprehensive clinical assessments for respiratory concerns.' },
-    { title: 'Diagnostic Testing', icon: <ShieldCheck className="w-6 h-6" />, description: 'Advanced testing including spirometry and FeNO testing.' },
+    { title: 'Diagnostic Testing', icon: <ShieldCheck className="w-6 h-6" />, description: 'Advanced testing including spirometry and FeNO testing.', href: '/pft-lab' },
   ];
   const reviewSlides = homepageReviews.slice(0, 5);
   const goToPreviousReview = () => {
@@ -133,14 +148,35 @@ export default function Home() {
               >
                 <div className="glass-card relative h-[350px] w-full overflow-hidden rounded-[2rem] p-3 shadow-2xl md:h-[500px] lg:h-full lg:min-h-[500px]">
                   <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
-                    <Image 
-                      src="/images/hero-image.png"
-                      alt="Pediatric Pulmonology Care"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={heroIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={heroImages[heroIndex].src}
+                          alt={heroImages[heroIndex].alt}
+                          fill
+                          className="object-cover"
+                          priority
+                        />
+                      </motion.div>
+                    </AnimatePresence>
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/35 to-transparent" />
+                    {/* Dot indicators */}
+                    <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+                      {heroImages.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setHeroIndex(i)}
+                          className={`h-1.5 rounded-full transition-all duration-300 ${i === heroIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 {/* Decorative blob behind image */}
@@ -150,138 +186,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="relative border-y border-white/50 bg-gradient-to-b from-white to-slate-50 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="glass-card rounded-[2rem] p-5 sm:p-6 lg:p-8">
-              <div className="soft-gradient-panel relative flex aspect-video items-center justify-center overflow-hidden rounded-[1.5rem] border border-dashed border-white/60">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,209,44,0.18),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(0,61,91,0.05))]" />
-                <PlayCircle className="relative z-10 h-16 w-16 text-primary" />
-                <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary shadow-sm">
-                  Video
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Services Highlight */}
-        <section className="relative bg-[linear-gradient(180deg,#f7fafb_0%,#eef5f7_100%)] py-20">
-          <div className="absolute inset-x-0 top-0 h-40 " />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-primary-darker mb-4">Our Specialized Services</h2>
-              {/* <div className="w-20 h-1 bg-primary mx-auto mb-6"></div> */}
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Comprehensive care for children with complex respiratory needs and lung conditions.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {services.map((service) => (
-                <motion.div 
-                  key={service.title}
-                  whileHover={{ y: -5 }}
-                  className="group"
-                >
-                  <div className="service-reference-card">
-                    <div className="text-primary">{service.icon}</div>
-
-                    <div className="mt-5 flex items-center">
-                      <span className="service-divider-track">
-                        <span className="service-divider-fill" />
-                      </span>
-                      <span className="service-divider-dot ml-3" />
-                    </div>
-
-                    <h3 className="mt-4 max-w-[12rem] text-2xl font-bold leading-tight text-primary-darker md:text-[2rem]">
-                      {service.title}
-                    </h3>
-
-                    <p className="mt-9 max-w-[16rem] text-lg leading-8 text-slate-500">
-                      {service.description}
-                    </p>
-
-                    <Link
-                      href="/about#conditions"
-                      className="service-reference-cta"
-                      aria-label={`Learn more about ${service.title}`}
-                    >
-                      <ArrowUpRight className="h-5 w-5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden bg-secondary py-14">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_24%)]" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-2xl">
-                {/* <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">Mid-Page Appointment Options</p> */}
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-white">
-                  Ready to schedule care or speak with the office?
-                </h2>
-                <p className="mt-4 text-white/80 leading-8">
-                  Choose the fastest next step for office visits, pulmonary testing, telehealth scheduling, referrals, or direct phone support.
-                </p>
-              </div>
-              <PatientActionButtons
-                items={['request_appointment', 'schedule_pft']}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Meet the Doctor Section */}
-        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f8fbfd_100%)] py-20">
-          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center gap-16">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="w-full md:w-2/5"
-              >
-                <div className="glass-card relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden p-3 shadow-xl">
-                  <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
-                    <Image 
-                      src="/images/Dr Farri_white coat.jpeg"
-                      alt="Dr. Folashade Farri"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-              <div className="w-full md:w-3/5">
-                <h2 className="text-3xl font-bold text-primary-darker mb-2">Meet Our Specialist</h2>
-                <h3 className="text-2xl font-semibold text-primary mb-6">Folashade Farri, MD</h3>
-                <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  Dr. Folashade Farri is a Board-Certified Pediatric Pulmonologist dedicated to providing exceptional care for children with respiratory and lung conditions. With years of experience and a compassionate approach, she focuses on personalized treatment plans that help every child breathe easier.
-                </p>
-                <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                  At CLAPS MD, we believe in a collaborative approach, working closely with families and primary care physicians to ensure the best possible outcomes for our young patients.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link href="/about" className="btn-primary inline-flex items-center">
-                    Learn More About Dr. Farri <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                  <BookingButton className="btn-secondary inline-flex items-center">
-                    Request Appointment <ArrowRight className="ml-2 w-5 h-5" />
-                  </BookingButton>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <ConditionsWeTreatSection />
-
-        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7fafc_0%,#eef4f8_100%)] py-20">
+       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7fafc_0%,#eef4f8_100%)] py-20">
           <div className="absolute left-0 top-0 h-52 w-52 rounded-full bg-secondary/8 blur-3xl" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
@@ -370,6 +275,139 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="relative border-y border-white/50 bg-gradient-to-b from-white to-slate-50 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="glass-card rounded-[2rem] p-5 sm:p-6 lg:p-8">
+              <div className="soft-gradient-panel relative flex aspect-video items-center justify-center overflow-hidden rounded-[1.5rem] border border-dashed border-white/60">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,209,44,0.18),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(0,61,91,0.05))]" />
+                <PlayCircle className="relative z-10 h-16 w-16 text-primary" />
+                <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary shadow-sm">
+                  Video
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Highlight */}
+        <section className="relative bg-[linear-gradient(180deg,#f7fafb_0%,#eef5f7_100%)] py-20">
+          <div className="absolute inset-x-0 top-0 h-40 " />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-primary-darker mb-4">Our Specialized Services</h2>
+              {/* <div className="w-20 h-1 bg-primary mx-auto mb-6"></div> */}
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive care for children with complex respiratory needs and lung conditions.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <motion.div 
+                  key={service.title}
+                  whileHover={{ y: -5 }}
+                  className="group"
+                >
+                  <div className="service-reference-card">
+                    <div className="text-primary">{service.icon}</div>
+
+                    <div className="mt-5 flex items-center">
+                      <span className="service-divider-track">
+                        <span className="service-divider-fill" />
+                      </span>
+                      <span className="service-divider-dot ml-3" />
+                    </div>
+
+                    <h3 className="mt-4 max-w-[12rem] text-2xl font-bold leading-tight text-primary-darker md:text-[2rem]">
+                      {service.title}
+                    </h3>
+
+                    <p className="mt-9 max-w-[16rem] text-lg leading-8 text-slate-500">
+                      {service.description}
+                    </p>
+
+                    <Link
+                      href={service.href ?? "/about#conditions"}
+                      className="service-reference-cta"
+                      aria-label={`Learn more about ${service.title}`}
+                    >
+                      <ArrowUpRight className="h-5 w-5" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <HomepageAnnouncements />
+
+        <section className="relative overflow-hidden bg-secondary py-14">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_24%)]" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                {/* <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">Mid-Page Appointment Options</p> */}
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-white">
+                  Ready to schedule care or speak with the office?
+                </h2>
+                <p className="mt-4 text-white/80 leading-8">
+                  Choose the fastest next step for office visits, pulmonary testing, telehealth scheduling, referrals, or direct phone support.
+                </p>
+              </div>
+              <PatientActionButtons
+                items={['request_appointment', 'schedule_pft']}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Meet the Doctor Section */}
+        <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f8fbfd_100%)] py-20">
+          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-16">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="w-full md:w-2/5"
+              >
+                <div className="glass-card relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden p-3 shadow-xl">
+                  <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
+                    <Image 
+                      src="/images/Dr Farri_white coat.jpeg"
+                      alt="Dr. Folashade Farri"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+              <div className="w-full md:w-3/5">
+                <h2 className="text-3xl font-bold text-primary-darker mb-2">Meet Our Specialist</h2>
+                <h3 className="text-2xl font-semibold text-primary mb-6">Folashade Farri, MD</h3>
+                <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+                  Dr. Folashade Farri is a Board-Certified Pediatric Pulmonologist dedicated to providing exceptional care for children with respiratory and lung conditions. With years of experience and a compassionate approach, she focuses on personalized treatment plans that help every child breathe easier.
+                </p>
+                <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                  At CLAPS MD, we believe in a collaborative approach, working closely with families and primary care physicians to ensure the best possible outcomes for our young patients.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/about" className="btn-primary inline-flex items-center">
+                    Learn More About Dr. Farri <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                  <BookingButton className="btn-secondary inline-flex items-center">
+                    Request Appointment <ArrowRight className="ml-2 w-5 h-5" />
+                  </BookingButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <ConditionsWeTreatSection />
 
       </main>
 

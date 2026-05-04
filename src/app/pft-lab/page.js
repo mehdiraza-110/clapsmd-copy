@@ -811,34 +811,7 @@ export default function PftLabPage() {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr,1.1fr] gap-8 items-start">
-            <div className="space-y-6">
-              <div className="site-surface rounded-3xl p-6 sm:p-8">
-                <div className="flex items-center gap-3">
-                  <PlayCircle className="w-5 h-5 text-primary" />
-                  <h3 className="text-2xl font-black text-secondary tracking-tight">
-                    Visual Engagement
-                  </h3>
-                </div>
-                <ul className="mt-5 space-y-3 text-gray-700">
-                  {[
-                    "Who you are",
-                    "Clinic introduction",
-                    "Services overview",
-                    "Doctor speaking directly to families",
-                    "Behind-the-scenes of the PFT lab",
-                    "Office interior, staff, equipment, and patient-friendly environment",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                      <span className="leading-7">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="site-surface rounded-3xl p-6 sm:p-8">
+          <div className="site-surface rounded-3xl p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                   <Stethoscope className="h-5 w-5" />
@@ -873,7 +846,6 @@ export default function PftLabPage() {
                   2021 and 2022.
                 </p>
               </div>
-            </div>
           </div>
         </section>
 

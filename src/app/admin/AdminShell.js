@@ -7,6 +7,7 @@ import {
   BarChart3,
   Bell,
   Briefcase,
+  Clock,
   FileText,
   Newspaper,
   LogOut,
@@ -84,6 +85,7 @@ export default function AdminShell({ children }) {
     { label: "Recent Activity", href: "/admin/activity", icon: FileText },
     { label: "Services", href: "/admin/services", icon: Briefcase },
     { label: "Notices", href: "/admin/notices", icon: Bell },
+    { label: "Clinic Hours", href: "/admin/clinic-hours", icon: Clock },
   ].filter((item) => canAccessRoute(item.href));
 
   useEffect(() => {

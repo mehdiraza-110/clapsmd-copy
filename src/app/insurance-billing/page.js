@@ -4,12 +4,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
+  AlertCircle,
   ArrowRight,
   BadgeCheck,
+  Banknote,
+  ChevronDown,
+  Clock,
   CreditCard,
   FileText,
   LogIn,
+  Mail,
   Phone,
   ShieldCheck,
 } from "lucide-react";
@@ -21,6 +27,8 @@ import {
 } from "@/lib/billingContent";
 
 export default function InsuranceBillingPage() {
+  const [carriersOpen, setCarriersOpen] = useState(true);
+
   return (
     <>
       <Header />
@@ -60,19 +68,56 @@ export default function InsuranceBillingPage() {
                 </div>
               </div>
 
-              <div className="site-dark-panel h-full rounded-3xl p-6 sm:p-8 text-white shadow-lg">
+              <div className="site-dark-panel h-full rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col">
+                {/* Header */}
                 <div className="flex items-center gap-3">
-                  <CreditCard className="w-5 h-5 text-primary" />
-                  <h2 className="text-2xl font-black tracking-tight">Payment Policy</h2>
+                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/20">
+                    <CreditCard className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Billing</p>
+                    <h2 className="text-2xl font-black tracking-tight leading-tight">Payment Policy</h2>
+                  </div>
                 </div>
-                <ul className="mt-5 space-y-3 text-white/85 leading-7">
-                  {paymentPolicyItems.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <BadgeCheck className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+
+                <div className="mt-5 h-px bg-white/10" />
+
+                {/* 2-col grid for first two items */}
+                <div className="mt-5 grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-2 rounded-2xl bg-white/[0.07] p-4">
+                    <Clock className="w-4 h-4 text-primary" />
+                    <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/50">Timing</p>
+                    <p className="text-sm text-white/85 leading-6">
+                      Payment is due at the time of service for all self-pay visits.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 rounded-2xl bg-white/[0.07] p-4">
+                    <Banknote className="w-4 h-4 text-primary" />
+                    <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/50">Methods</p>
+                    <p className="text-sm text-white/85 leading-6">
+                      Credit cards, debit cards, and cash accepted.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Rate notice — full width */}
+                <div className="mt-3 flex items-start gap-3 rounded-2xl bg-white/[0.07] p-4">
+                  <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+                  <p className="text-sm text-white/85 leading-6">
+                    Rates are subject to change. Please confirm pricing at the time of visit.
+                  </p>
+                </div>
+
+                {/* Contact CTA — highlighted */}
+                <div className="mt-3 flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 px-4 py-4">
+                  <Mail className="h-4 w-4 flex-shrink-0 text-primary" />
+                  <p className="text-sm text-white/90 leading-6">
+                    For estimates, call us or email{" "}
+                    <a href="mailto:info@clapsmd.org" className="font-bold text-primary hover:underline">
+                      info@clapsmd.org
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -80,52 +125,67 @@ export default function InsuranceBillingPage() {
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
           <div className="site-surface rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div className="max-w-3xl">
+            <button
+              type="button"
+              onClick={() => setCarriersOpen((o) => !o)}
+              className="flex w-full items-center justify-between gap-4 text-left"
+            >
               <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-secondary">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
                   <ShieldCheck className="w-5 h-5 text-primary" />
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
-                  Accepted Insurance Carriers
-                </h2>
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                    Accepted Insurance Carriers
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {carriersOpen ? "Click to collapse" : `${insuranceCarriers.length} carriers — click to expand`}
+                  </p>
+                </div>
               </div>
-              <p className="mt-4 text-gray-600 leading-8">
-                Coverage varies by plan and product. Please verify your benefits directly with
-                your insurance carrier before the visit.
-              </p>
-            </div>
+              <span className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white transition-transform duration-300 ${carriersOpen ? "rotate-180" : ""}`}>
+                <ChevronDown className="h-5 w-5 text-secondary" />
+              </span>
+            </button>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {insuranceCarriers.map((carrier) => (
-                <div
-                  key={carrier.name}
-                  className="site-surface-muted rounded-3xl px-5 py-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  <div className="flex flex-col items-center text-center min-h-[180px]">
-                    {carrier.logo ? (
-                      <div className="relative h-16 w-full max-w-[168px] overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
-                        <Image
-                          src={carrier.logo}
-                          alt={carrier.logoAlt || `${carrier.name} logo`}
-                          fill
-                          className="object-contain p-3"
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex h-16 w-full max-w-[168px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-4">
-                        <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-                          <ShieldCheck className="h-4 w-4 text-primary" />
-                          Insurance
+            <div className={`grid transition-all duration-300 ${carriersOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+              <div className="overflow-hidden">
+                <p className="mt-4 text-gray-600 leading-8">
+                  Coverage varies by plan and product. Please verify your benefits directly with
+                  your insurance carrier before the visit.
+                </p>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {insuranceCarriers.map((carrier) => (
+                    <div
+                      key={carrier.name}
+                      className="site-surface-muted rounded-3xl px-5 py-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                      <div className="flex flex-col items-center text-center min-h-[180px]">
+                        {carrier.logo ? (
+                          <div className="relative h-16 w-full max-w-[168px] overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+                            <Image
+                              src={carrier.logo}
+                              alt={carrier.logoAlt || `${carrier.name} logo`}
+                              fill
+                              className="object-contain p-3"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex h-16 w-full max-w-[168px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-4">
+                            <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+                              <ShieldCheck className="h-4 w-4 text-primary" />
+                              Insurance
+                            </span>
+                          </div>
+                        )}
+                        <span className="mt-4 text-lg font-black leading-snug text-secondary">
+                          {carrier.name}
                         </span>
                       </div>
-                    )}
-
-                    <span className="mt-4 text-lg font-black leading-snug text-secondary">
-                      {carrier.name}
-                    </span>
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>

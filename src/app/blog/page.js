@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import BlogIndexSection from "@/components/BlogIndexSection";
+// import BlogIndexSection from "@/components/BlogIndexSection";
 import { buildPageMetadata } from "@/lib/seoMetadata";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -53,11 +53,11 @@ export default async function BlogIndexPage() {
           </div>
         </section>
 
-        <section className="py-12 pb-20">
+        {/* <section className="py-12 pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <BlogIndexSection />
           </div>
-        </section>
+        </section> */}
 
         <section className="pb-8 pt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
