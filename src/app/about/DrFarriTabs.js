@@ -264,7 +264,7 @@ export default function DrFarriTabs() {
   const [activeTab, setActiveTab] = useState("bio");
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+    <section id="meet-dr-farri" className="scroll-mt-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
       <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(0,61,91,0.98)_0%,rgba(8,79,101,0.94)_46%,rgba(255,255,255,0)_46%)] px-4 pb-4 pt-10 shadow-[0_24px_60px_rgba(15,23,42,0.12)] sm:px-6 sm:pb-6 lg:px-8 lg:pt-12">
         <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,rgba(148,209,44,0.16),transparent_38%)]" />
 

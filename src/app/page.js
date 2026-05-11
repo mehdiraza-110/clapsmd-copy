@@ -392,7 +392,7 @@ export default function Home() {
                   At CLAPS MD, we believe in a collaborative approach, working closely with families and primary care physicians to ensure the best possible outcomes for our young patients.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/about" className="btn-primary inline-flex items-center">
+                  <Link href="/about#meet-dr-farri" className="btn-primary inline-flex items-center">
                     Learn More About Dr. Farri <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                   <BookingButton className="btn-secondary inline-flex items-center">
