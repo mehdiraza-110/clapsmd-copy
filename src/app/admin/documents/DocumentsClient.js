@@ -128,6 +128,19 @@ export default function DocumentsClient() {
     visibility_status: true,
   });
 
+  const usedDocumentTypes = useMemo(() => {
+    return new Set(
+      documents
+        .filter((item) => !editingId || String(item.id) !== String(editingId))
+        .map((item) => item.document_type)
+        .filter(Boolean),
+    );
+  }, [documents, editingId]);
+
+  const availableDocumentTypes = useMemo(() => {
+    return documentTypes.filter((type) => !usedDocumentTypes.has(type));
+  }, [documentTypes, usedDocumentTypes]);
+
   const filteredDocuments = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
     const sortedDocuments = [...documents].sort((left, right) => {
@@ -219,7 +232,7 @@ export default function DocumentsClient() {
   const resetForm = () => {
     setForm({
       document_name: "",
-      document_type: documentTypes[0] || DEFAULT_DOCUMENT_TYPES[0],
+      document_type: availableDocumentTypes[0] || "",
       document_url: "",
       document_file: null,
       notes: "",
@@ -235,6 +248,10 @@ export default function DocumentsClient() {
   };
 
   const openAddModal = () => {
+    if (availableDocumentTypes.length === 0) {
+      setError("All document types already have a document. Edit or delete an existing document first.");
+      return;
+    }
     resetForm();
     setModalOpen(true);
   };
@@ -247,6 +264,14 @@ export default function DocumentsClient() {
     if (!form.document_name.trim()) return "Document name is required.";
     if (!form.document_type) return "Document type is required.";
     if (!documentTypes.includes(form.document_type)) return "Choose a valid document type.";
+    const duplicateType = documents.find(
+      (item) =>
+        item.document_type === form.document_type &&
+        (!editingId || String(item.id) !== String(editingId)),
+    );
+    if (duplicateType) {
+      return `${formatDocumentType(form.document_type)} already has a document. Edit or delete the existing document first.`;
+    }
     if (!editingId && !form.document_file && !form.document_url.trim()) {
       return "Create requires either a file upload or an existing URL.";
     }
@@ -384,8 +409,9 @@ export default function DocumentsClient() {
 
           <button
             type="button"
-            className="btn-primary inline-flex items-center justify-center"
+            className="btn-primary inline-flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-60"
             onClick={openAddModal}
+            disabled={availableDocumentTypes.length === 0}
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Document
@@ -622,11 +648,21 @@ export default function DocumentsClient() {
                   className="w-full h-11 px-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
                 >
                   {documentTypes.map((type) => (
-                    <option key={type} value={type}>
+                    <option key={type} value={type} disabled={usedDocumentTypes.has(type)}>
                       {formatDocumentType(type)}
+                      {usedDocumentTypes.has(type) ? " (already created)" : ""}
                     </option>
                   ))}
                 </select>
+                {!editingId && availableDocumentTypes.length === 0 ? (
+                  <p className="mt-2 text-xs font-semibold text-red-600">
+                    All document types already have a document.
+                  </p>
+                ) : (
+                  <p className="mt-2 text-xs text-gray-500">
+                    Each document type can only have one document.
+                  </p>
+                )}
               </div>
 
               <label className="flex items-center gap-3 rounded-xl border border-gray-200 px-4 py-3">

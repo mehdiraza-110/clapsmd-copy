@@ -11,7 +11,6 @@ import {
   DollarSign,
   Files,
   FileText,
-  Newspaper,
   LogOut,
   Menu,
   ShieldCheck,
@@ -83,13 +82,12 @@ export default function AdminShell({ children }) {
 
   const navItems = [
     { label: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
-    { label: "Blogs", href: "/admin/blogs", icon: Newspaper },
-    { label: "Recent Activity", href: "/admin/activity", icon: FileText },
     { label: "Services", href: "/admin/services", icon: Briefcase },
     { label: "Self Pay Pricing", href: "/admin/self-pay-pricing", icon: DollarSign },
     { label: "Documents", href: "/admin/documents", icon: Files },
     { label: "Notices", href: "/admin/notices", icon: Bell },
     { label: "Clinic Hours", href: "/admin/clinic-hours", icon: Clock },
+    { label: "Recent Activity", href: "/admin/activity", icon: FileText },
   ].filter((item) => canAccessRoute(item.href));
 
   useEffect(() => {
