@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin } from 'lucide-react';
+import { Facebook, MapPin, Twitter, Youtube } from 'lucide-react';
 import { resourceLinks } from '@/lib/navigation';
 import FooterClinicHours from '@/components/FooterClinicHours';
 
-const INSTAGRAM_URL = 'https://www.instagram.com/shade.farri/?fbclid=IwY2xjawP5kw9leHRuA2FlbQIxMQBicmlkETE0TXBDR2xyVDlZYVl6VHk0c3J0YwZhcHBfaWQBMAABHnN5NqxqHeHvr77zOv5uIz65wkt2CQgHMHGe-YZZE00xONxT5gO_FBqhILJK_aem_0FN07TUHhPbC0KuG3tIPOw';
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61567195066725';
+const TWITTER_URL = 'https://twitter.com/CLAPS_MD';
 const YOUTUBE_URL = 'https://www.youtube.com/@CLAPS_MD';
+const SOCIAL_LINKS = [
+  { label: 'Facebook', href: FACEBOOK_URL, icon: Facebook },
+  { label: 'Twitter', href: TWITTER_URL, icon: Twitter },
+  { label: 'YouTube', href: YOUTUBE_URL, icon: Youtube },
+];
 const WEBSITE_DISCLAIMER = [
   'The information provided on this website is for general informational purposes only and is not intended to replace professional medical advice, diagnosis, or treatment.',
   'Pulmonary Function Testing (PFT) services provided by CLAPS MD require a valid referral from a licensed healthcare provider when required by law or insurance policy.',
@@ -42,6 +47,20 @@ const Footer = () => {
                   <p>Wayne, NJ 07470</p>
                 </div>
               </a>
+            </div>
+            <div className="mt-5 flex items-center gap-3">
+              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
             </div>
           </div>
           <div>
@@ -82,37 +101,10 @@ const Footer = () => {
             ))}
           </div>
         </div>
-        <div className="border-t border-gray-700 mt-12 pt-8 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
+        <div className="border-t border-gray-700 mt-12 pt-8 grid grid-cols-1 md:grid-cols-2 items-center gap-6">
           <div className="md:justify-self-start">
-            <p className="text-white font-semibold">Follow Us</p>
-            <div className="mt-3 flex flex-wrap gap-4 text-gray-400 text-sm">
-              <a
-                href={FACEBOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Facebook
-              </a>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Instagram
-              </a>
-              <a
-                href={YOUTUBE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                YouTube
-              </a>
-            </div>
+            <p className="text-gray-400">&copy; {new Date().getFullYear()} C.L.A.P.S. MD. All rights reserved.</p>
           </div>
-          <p className="text-center text-gray-400">&copy; {new Date().getFullYear()} C.L.A.P.S. MD. All rights reserved.</p>
           <div className="flex items-center justify-center md:justify-self-end gap-5 text-sm text-gray-400">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy

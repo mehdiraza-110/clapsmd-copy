@@ -1,5 +1,7 @@
 import {
   Accessibility,
+  ClipboardCheck,
+  CreditCard,
   FileCheck2,
   FileText,
   Globe,
@@ -104,6 +106,30 @@ export const policySections = [
       "Additional testing required during the visit",
     ],
     bulletLabel: "The cost of Pulmonary Function Testing may vary depending on:",
+  },
+  {
+    title: "Consents & Policies",
+    icon: ClipboardCheck,
+    paragraphs: [
+      "CLAPS MD provides patient consent and policy documents so families can review important office information before or after a visit.",
+      "Use the download option below to access the current CLAPS MD consents and policies document.",
+    ],
+    document: {
+      type: "consent_doc",
+      label: "Download CLAPS MD Consents & Policies",
+    },
+  },
+  {
+    title: "Deductible & Coinsurance Notice",
+    icon: CreditCard,
+    paragraphs: [
+      "Patients may have deductible, coinsurance, copayment, or other out-of-pocket responsibilities depending on their insurance plan benefits.",
+      "Use the download option below to review the deductible and coinsurance notice.",
+    ],
+    document: {
+      type: "coinsurance_doc",
+      label: "Download Deductible & Coinsurance Notice",
+    },
   },
   {
     title: "Data Use Statement",

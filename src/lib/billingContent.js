@@ -124,6 +124,29 @@ export const paymentPolicyItems = [
   "For detailed estimates, call the office or send questions to info@clapsmd.org.",
 ];
 
+export const selfPayAgreementItems = [
+  {
+    title: "Self-Pay Responsibility",
+    description:
+      "By choosing self-pay, the patient or responsible party agrees to pay the listed charge directly to CLAPS MD at the time services are provided.",
+  },
+  {
+    title: "Insurance Not Billed",
+    description:
+      "Self-pay services are not submitted to insurance unless separate arrangements are made with the office before the visit.",
+  },
+  {
+    title: "Additional Services",
+    description:
+      "If additional testing, procedures, forms, or follow-up services are needed, separate charges may apply and will be discussed when possible.",
+  },
+  {
+    title: "No Guarantee of Reimbursement",
+    description:
+      "If a patient chooses to submit receipts to an insurance plan independently, reimbursement is not guaranteed and depends on the plan's policies.",
+  },
+];
+
 export const transparencyItems = [
   "Office visits",
   "Telehealth",

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Bell, ChevronRight, Loader2, Megaphone, X } from 'lucide-react';
 import { getActiveAnnouncements } from '@/lib/authClient';
@@ -60,6 +60,7 @@ function persistReadIds(ids) {
 
 export default function AnnouncementsWidget() {
   const pathname = usePathname();
+  const autoOpenedRef = useRef(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [readIds, setReadIds] = useState([]);
@@ -71,6 +72,20 @@ export default function AnnouncementsWidget() {
 
   useEffect(() => {
     setReadIds(loadReadIds());
+  }, []);
+
+  const markAnnouncementRead = useCallback((announcementId) => {
+    const selectedId = String(announcementId);
+
+    setReadIds((currentReadIds) => {
+      if (currentReadIds.includes(selectedId)) {
+        return currentReadIds;
+      }
+
+      const nextReadIds = [...new Set([...currentReadIds, selectedId])];
+      persistReadIds(nextReadIds);
+      return nextReadIds;
+    });
   }, []);
 
   useEffect(() => {
@@ -125,6 +140,22 @@ export default function AnnouncementsWidget() {
     };
   }, [panelOpen]);
 
+  useEffect(() => {
+    if (isAdminRoute || loadingList || autoOpenedRef.current || announcements.length === 0) {
+      return;
+    }
+
+    const firstUnread = announcements.find((item) => !readIds.includes(String(item.id)));
+    if (!firstUnread) {
+      return;
+    }
+
+    autoOpenedRef.current = true;
+    setActiveId(String(firstUnread.id));
+    setPanelOpen(true);
+    markAnnouncementRead(firstUnread.id);
+  }, [announcements, isAdminRoute, loadingList, markAnnouncementRead, readIds]);
+
   if (isAdminRoute) {
     return null;
   }
@@ -140,12 +171,7 @@ export default function AnnouncementsWidget() {
   const handleSelectAnnouncement = async (announcement) => {
     const selectedId = String(announcement.id);
     setActiveId(selectedId);
-
-    if (!readIds.includes(selectedId)) {
-      const nextReadIds = [...new Set([...readIds, selectedId])];
-      setReadIds(nextReadIds);
-      persistReadIds(nextReadIds);
-    }
+    markAnnouncementRead(selectedId);
   };
 
   return (
@@ -165,7 +191,7 @@ export default function AnnouncementsWidget() {
       </button>
 
       {panelOpen ? (
-        <div className="fixed inset-0 z-[80]">
+        <div className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-6">
           <button
             type="button"
             aria-label="Close announcements panel"
@@ -173,7 +199,12 @@ export default function AnnouncementsWidget() {
             onClick={() => setPanelOpen(false)}
           />
 
-          <aside className="absolute bottom-0 right-0 top-0 flex w-full max-w-2xl flex-col overflow-hidden bg-white shadow-2xl">
+          <aside
+            role="dialog"
+            aria-modal="true"
+            aria-label="Practice announcements"
+            className="relative flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl"
+          >
             <div className="border-b border-slate-200 bg-[linear-gradient(135deg,#003d5b_0%,#0c587d_100%)] px-6 py-5 text-white">
               <div className="flex items-start justify-between gap-4">
                 <div>

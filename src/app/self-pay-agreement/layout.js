@@ -8,6 +8,6 @@ export const metadata = buildPageMetadata({
   ogImage: "/images/clapsmd-logo-high-res.jpg",
 });
 
-export default function SelfPayPricingLayout({ children }) {
+export default function SelfPayAgreementLayout({ children }) {
   return children;
 }

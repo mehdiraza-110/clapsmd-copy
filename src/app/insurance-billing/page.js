@@ -33,6 +33,73 @@ export default function InsuranceBillingPage() {
     <>
       <Header />
       <main className="page-gradient-shell bg-slate-50">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
+          <div className="site-surface rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <button
+              type="button"
+              onClick={() => setCarriersOpen((o) => !o)}
+              className="flex w-full items-center justify-between gap-4 text-left"
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                </span>
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
+                    Accepted Insurance Carriers
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {carriersOpen ? "Click to collapse" : `${insuranceCarriers.length} carriers — click to expand`}
+                  </p>
+                </div>
+              </div>
+              <span className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white transition-transform duration-300 ${carriersOpen ? "rotate-180" : ""}`}>
+                <ChevronDown className="h-5 w-5 text-secondary" />
+              </span>
+            </button>
+
+            <div className={`grid transition-all duration-300 ${carriersOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+              <div className="overflow-hidden">
+                <p className="mt-4 text-gray-600 leading-8">
+                  Coverage varies by plan and product. Please verify your benefits directly with
+                  your insurance carrier before the visit.
+                </p>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {insuranceCarriers.map((carrier) => (
+                    <div
+                      key={carrier.name}
+                      className="site-surface-muted rounded-3xl px-5 py-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                      <div className="flex flex-col items-center text-center min-h-[180px]">
+                        {carrier.logo ? (
+                          <div className="relative h-16 w-full max-w-[168px] overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+                            <Image
+                              src={carrier.logo}
+                              alt={carrier.logoAlt || `${carrier.name} logo`}
+                              fill
+                              className="object-contain p-3"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex h-16 w-full max-w-[168px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-4">
+                            <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+                              <ShieldCheck className="h-4 w-4 text-primary" />
+                              Insurance
+                            </span>
+                          </div>
+                        )}
+                        <span className="mt-4 text-lg font-black leading-snug text-secondary">
+                          {carrier.name}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="relative overflow-hidden border-b border-slate-100/80">
           <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
           <div className="absolute right-0 top-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
@@ -123,73 +190,6 @@ export default function InsuranceBillingPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
-          <div className="site-surface rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <button
-              type="button"
-              onClick={() => setCarriersOpen((o) => !o)}
-              className="flex w-full items-center justify-between gap-4 text-left"
-            >
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                </span>
-                <div>
-                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
-                    Accepted Insurance Carriers
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {carriersOpen ? "Click to collapse" : `${insuranceCarriers.length} carriers — click to expand`}
-                  </p>
-                </div>
-              </div>
-              <span className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white transition-transform duration-300 ${carriersOpen ? "rotate-180" : ""}`}>
-                <ChevronDown className="h-5 w-5 text-secondary" />
-              </span>
-            </button>
-
-            <div className={`grid transition-all duration-300 ${carriersOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-              <div className="overflow-hidden">
-                <p className="mt-4 text-gray-600 leading-8">
-                  Coverage varies by plan and product. Please verify your benefits directly with
-                  your insurance carrier before the visit.
-                </p>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {insuranceCarriers.map((carrier) => (
-                    <div
-                      key={carrier.name}
-                      className="site-surface-muted rounded-3xl px-5 py-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      <div className="flex flex-col items-center text-center min-h-[180px]">
-                        {carrier.logo ? (
-                          <div className="relative h-16 w-full max-w-[168px] overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
-                            <Image
-                              src={carrier.logo}
-                              alt={carrier.logoAlt || `${carrier.name} logo`}
-                              fill
-                              className="object-contain p-3"
-                            />
-                          </div>
-                        ) : (
-                          <div className="flex h-16 w-full max-w-[168px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-4">
-                            <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-                              <ShieldCheck className="h-4 w-4 text-primary" />
-                              Insurance
-                            </span>
-                          </div>
-                        )}
-                        <span className="mt-4 text-lg font-black leading-snug text-secondary">
-                          {carrier.name}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="site-surface rounded-[2rem] p-6 sm:p-8">
@@ -226,7 +226,7 @@ export default function InsuranceBillingPage() {
               </div>
               <p className="mt-4 text-gray-600 leading-8">
                 See the current self-pay fee schedule for office visits, telemedicine, and
-                respiratory testing in a separate pricing page.
+                respiratory testing, then access the Self-Pay Agreement if you choose to proceed.
               </p>
               <Link
                 href="/self-pay-pricing"
@@ -237,6 +237,7 @@ export default function InsuranceBillingPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+
           </div>
         </section>
 

@@ -11,7 +11,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, HeartHandshake, Phone, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import HomepageAnnouncements from '@/components/HomepageAnnouncements';
 
 const heroImages = [
   { src: '/slider-images/hero-image.png', alt: 'Pediatric Pulmonology Care' },
@@ -340,8 +339,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <HomepageAnnouncements />
 
         <section className="relative overflow-hidden bg-secondary py-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(148,209,44,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_24%)]" />

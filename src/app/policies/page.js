@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getPublicDocuments } from "@/lib/authClient";
 import { policySections } from "@/lib/policySections";
 
 const visiblePolicySections = policySections.filter(
@@ -12,11 +14,66 @@ const visiblePolicySections = policySections.filter(
     section.title !== "Website Disclaimer"
 );
 
+function getDocumentsList(payload) {
+  if (Array.isArray(payload?.documents)) return payload.documents;
+  return [];
+}
+
+function getDocumentByType(documents, documentType) {
+  if (!documentType) return null;
+  return (
+    documents.find(
+      (document) => document?.document_type === documentType && document?.document_url,
+    ) || null
+  );
+}
+
+function getDocumentFileName(document) {
+  if (!document?.document_name && !document?.document_url) return "document";
+  if (document?.document_name) return document.document_name;
+  try {
+    const path = new URL(document.document_url).pathname;
+    return decodeURIComponent(path.split("/").filter(Boolean).pop() || "document");
+  } catch (_error) {
+    return document.document_url.split("/").filter(Boolean).pop() || "document";
+  }
+}
+
 export default function PoliciesPage() {
   const [activePolicy, setActivePolicy] = useState(visiblePolicySections[0]?.title ?? "");
+  const [publicDocuments, setPublicDocuments] = useState([]);
+  const [documentsLoaded, setDocumentsLoaded] = useState(false);
+  const [documentsError, setDocumentsError] = useState("");
   const currentPolicy =
     visiblePolicySections.find((section) => section.title === activePolicy) ?? visiblePolicySections[0];
   const CurrentIcon = currentPolicy.icon;
+  const currentDocument = getDocumentByType(publicDocuments, currentPolicy.document?.type);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadPublicDocuments() {
+      try {
+        setDocumentsError("");
+        const response = await getPublicDocuments();
+        if (!active) return;
+        setPublicDocuments(getDocumentsList(response));
+      } catch (requestError) {
+        if (active) {
+          setPublicDocuments([]);
+          setDocumentsError(requestError?.message || "Unable to load documents right now.");
+        }
+      } finally {
+        if (active) setDocumentsLoaded(true);
+      }
+    }
+
+    loadPublicDocuments();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <>
@@ -62,7 +119,7 @@ export default function PoliciesPage() {
         </section>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(0,61,91,0.98)_0%,rgba(8,79,101,0.94)_46%,rgba(255,255,255,0)_46%)] px-4 pb-4 pt-8 shadow-[0_24px_60px_rgba(15,23,42,0.12)] sm:px-6 sm:pb-6 lg:px-8 lg:pt-10">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(0,61,91,0.98)_0%,rgba(8,79,101,0.94)_56%,rgba(255,255,255,0)_56%)] px-4 pb-4 pt-8 shadow-[0_24px_60px_rgba(15,23,42,0.12)] sm:px-6 sm:pb-6 lg:px-8 lg:pt-10">
             <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(148,209,44,0.16),transparent_36%)]" />
             <div className="relative">
               <div className="mx-auto max-w-3xl text-center text-white">
@@ -74,30 +131,42 @@ export default function PoliciesPage() {
                 </h2>
               </div>
 
-              <div className="mt-10 overflow-x-auto pb-2">
-                <div className="mx-auto flex min-w-max justify-center gap-3 sm:gap-4">
+              <div className="mt-10">
+                <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {visiblePolicySections.map((section) => {
                     const isActive = section.title === currentPolicy.title;
+                    const TabIcon = section.icon;
 
                     return (
                       <button
                         key={section.title}
                         type="button"
                         onClick={() => setActivePolicy(section.title)}
-                        className={`rounded-t-[1.75rem] px-5 py-4 text-sm font-black tracking-tight transition-all sm:min-w-[180px] sm:px-7 ${
+                        className={`group flex min-h-[76px] items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all ${
                           isActive
-                            ? "bg-white text-secondary shadow-[0_-6px_18px_rgba(255,255,255,0.1)]"
-                            : "bg-white/8 text-white/90 hover:bg-white/12"
+                            ? "border-white bg-white text-secondary shadow-[0_18px_38px_rgba(15,23,42,0.18)]"
+                            : "border-white/15 bg-white/8 text-white/90 hover:border-white/35 hover:bg-white/14"
                         }`}
                       >
-                        {section.title}
+                        <span
+                          className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl transition-colors ${
+                            isActive
+                              ? "bg-primary/12 text-primary"
+                              : "bg-white/10 text-primary group-hover:bg-white/15"
+                          }`}
+                        >
+                          <TabIcon className="h-5 w-5" />
+                        </span>
+                        <span className="min-w-0 text-sm font-black leading-snug tracking-tight">
+                          {section.title}
+                        </span>
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              <article className="site-surface relative rounded-[2.2rem] p-6 sm:p-8 lg:p-10">
+              <article className="site-surface relative mt-8 rounded-[2.2rem] p-6 sm:p-8 lg:p-10">
                 <div className="grid gap-8 lg:grid-cols-[0.34fr,0.66fr] lg:items-start">
                   <div className="site-surface-muted rounded-[1.8rem] p-6">
                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-secondary shadow-sm">
@@ -143,6 +212,42 @@ export default function PoliciesPage() {
                             </li>
                           ))}
                         </ul>
+                      </div>
+                    )}
+
+                    {currentPolicy.document && (
+                      <div className="site-surface mt-6 rounded-2xl p-5">
+                        <p className="font-black text-secondary">Downloadable document</p>
+                        {!documentsLoaded ? (
+                          <p className="mt-2 text-sm leading-7 text-gray-600">
+                            Loading document...
+                          </p>
+                        ) : null}
+                        {documentsLoaded && documentsError ? (
+                          <p className="mt-2 text-sm leading-7 text-gray-600">
+                            {documentsError}
+                          </p>
+                        ) : null}
+                        {documentsLoaded && !documentsError && currentDocument ? (
+                          <>
+                            <p className="mt-2 text-sm leading-7 text-gray-600">
+                              {getDocumentFileName(currentDocument)}
+                            </p>
+                            <a
+                              href={currentDocument.document_url}
+                              download={getDocumentFileName(currentDocument)}
+                              className="mt-4 inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-3 text-sm font-black text-white transition-colors hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                            >
+                              <Download className="h-4 w-4" />
+                              {currentPolicy.document.label}
+                            </a>
+                          </>
+                        ) : null}
+                        {documentsLoaded && !documentsError && !currentDocument ? (
+                          <p className="mt-2 text-sm leading-7 text-gray-600">
+                            This document is not available right now.
+                          </p>
+                        ) : null}
                       </div>
                     )}
                   </div>

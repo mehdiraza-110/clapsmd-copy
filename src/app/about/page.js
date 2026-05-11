@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import ConditionsWeTreatSection from "@/components/ConditionsWeTreatSection";
 import Image from "next/image";
 import { buildPageMetadata } from "@/lib/seoMetadata";
+import { GOOGLE_REVIEWS_URL, homepageReviews } from "@/lib/homepageReviews";
 import {
   HeartHandshake,
   Award,
@@ -10,6 +11,8 @@ import {
   ShieldCheck,
   Users,
   Microscope,
+  Quote,
+  Star,
 } from "lucide-react";
 import DrFarriTabs from "./DrFarriTabs";
 
@@ -22,6 +25,7 @@ export const metadata = buildPageMetadata({
 });
 
 export default function AboutPage() {
+  const testimonials = homepageReviews.slice(0, 3);
   const values = [
     {
       title: "Compassion",
@@ -173,6 +177,60 @@ export default function AboutPage() {
         </section>
 
         <ConditionsWeTreatSection />
+
+        <section className="relative overflow-hidden border-t border-slate-100/80 py-20">
+          <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-secondary/8 blur-3xl" />
+          <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
+                Testimonials
+              </p>
+              <h2 className="mt-4 text-3xl md:text-4xl font-black text-secondary tracking-tight">
+                What Families Are Saying
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-gray-600">
+                Families trust CLAPS MD for clear answers, thoughtful treatment plans, and care that
+                helps children breathe easier.
+              </p>
+            </div>
+
+            <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+              {testimonials.map((testimonial) => (
+                <article
+                  key={testimonial.author}
+                  className="site-surface relative flex h-full flex-col overflow-hidden rounded-[1.75rem] p-6"
+                >
+                  <div className="absolute right-5 top-5 text-primary/15">
+                    <Quote className="h-14 w-14" />
+                  </div>
+                  <div className="relative flex gap-1 text-primary">
+                    {Array.from({ length: testimonial.rating }).map((_, index) => (
+                      <Star key={index} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="relative mt-5 flex-1 text-base leading-7 text-gray-700">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                  <p className="relative mt-6 font-black text-secondary">
+                    {testimonial.author}
+                  </p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <a
+                href={GOOGLE_REVIEWS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-secondary px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary/90"
+              >
+                Read More Reviews
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

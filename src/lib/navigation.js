@@ -6,12 +6,12 @@ export const resourceLinks = [
 
 export const servicesLinks = [
   { name: "Asthma Management", href: "/asthma" },
+  { name: "PFT Lab", href: "/pft-lab" },
 ];
 
 export const primaryNavLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "PFT Lab", href: "/pft-lab" },
   { name: "Services", href: "/about#conditions", items: servicesLinks },
   { name: "Resources", href: "/insurance-billing", items: resourceLinks },
   { name: "Blog", href: "/blog" },

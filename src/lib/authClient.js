@@ -134,6 +134,138 @@ export async function deleteService(token, id) {
   });
 }
 
+export async function getSelfPayPricing(token) {
+  return request("/pricing-items", {
+    method: "GET",
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+  });
+}
+
+export async function getVisibleSelfPayPricing() {
+  return request("/pricing-items/visible", {
+    method: "GET",
+  });
+}
+
+export async function getSelfPayPricingById(token, id) {
+  return request(`/pricing-items/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function createSelfPayPricing(token, payload) {
+  return request("/pricing-items", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateSelfPayPricing(token, id, payload) {
+  return request(`/pricing-items/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteSelfPayPricing(token, id) {
+  return request(`/pricing-items/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function getDocumentTypes(token) {
+  return request("/documents/types", {
+    method: "GET",
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+  });
+}
+
+export async function getPublicDocuments() {
+  return request("/public/documents", {
+    method: "GET",
+  });
+}
+
+export async function getDocuments(token, filters = {}) {
+  const query = new URLSearchParams();
+  if (filters.search) query.set("search", filters.search);
+  if (filters.document_type) query.set("document_type", filters.document_type);
+  if (filters.visibility_status !== "" && filters.visibility_status !== undefined) {
+    query.set("visibility_status", String(filters.visibility_status));
+  }
+
+  const suffix = query.toString() ? `?${query.toString()}` : "";
+
+  return request(`/documents${suffix}`, {
+    method: "GET",
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+  });
+}
+
+export async function getDocumentById(token, id) {
+  return request(`/documents/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function createDocument(token, payload) {
+  const isFormData = typeof FormData !== "undefined" && payload instanceof FormData;
+  return request("/documents", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: isFormData ? payload : JSON.stringify(payload),
+  });
+}
+
+export async function updateDocument(token, id, payload) {
+  const isFormData = typeof FormData !== "undefined" && payload instanceof FormData;
+  return request(`/documents/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: isFormData ? payload : JSON.stringify(payload),
+  });
+}
+
+export async function deleteDocument(token, id) {
+  return request(`/documents/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export async function getAnnouncements(token) {
   return request("/announcements", {
     method: "GET",
