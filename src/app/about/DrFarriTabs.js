@@ -33,7 +33,7 @@ function BioTab() {
           balances medical excellence with genuine warmth. Dr. Farri believes that when parents understand
           what is happening, they feel more confident, children feel more supported, and outcomes improve.
         </p>
-        <div className="site-surface-muted rounded-2xl p-6">
+        <div>
           <p className="text-sm font-black uppercase tracking-[0.2em] text-primary mb-4">Philosophy of Care</p>
           <p className="text-gray-700 leading-8">
             At CLAPS MD, our philosophy of care is simple, yet profound. We care sincerely, treating every
@@ -62,13 +62,13 @@ function BioTab() {
 }
 
 const credentials = [
-  { category: "Medical Degree",                      detail: "Obafemi Awolowo University",                     location: "Nigeria" },
-  { category: "Master of Public Health (MPH)",        detail: "Columbia University",                            location: "New York, USA" },
-  { category: "Pediatric Residency",                  detail: "Bronx Lebanon Hospital",                         location: "New York, USA" },
-  { category: "Pulmonology Fellowship",               detail: "Westchester Medical Center",                     location: "New York, USA" },
-  { category: "Board Certification",                  detail: "American Board of Pediatrics",                   location: "Dual Certified" },
-  { category: "Board Certification",                  detail: "American Board of Pediatric Pulmonology",        location: "Dual Certified" },
-  { category: "Medical Licenses",                     detail: "Active in New Jersey and New York",              location: "" },
+  { category: "Medical Degree",                 detail: "Obafemi Awolowo University",              location: "Nigeria" },
+  { category: "Master of Public Health (MPH)",   detail: "Columbia University",                     location: "New York, USA" },
+  { category: "Pediatric Residency",             detail: "Bronx Lebanon Hospital",                  location: "New York, USA" },
+  { category: "Pulmonology Fellowship",          detail: "Westchester Medical Center",              location: "New York, USA" },
+  { category: "Board Certification",             detail: "American Board of Pediatrics",            location: "Dual Certified" },
+  { category: "Board Certification",             detail: "American Board of Pediatric Pulmonology", location: "Dual Certified" },
+  { category: "Medical Licenses",               detail: "Active in New Jersey and New York",       location: "" },
 ];
 
 function EducationTab() {
@@ -86,36 +86,28 @@ function EducationTab() {
           in both New Jersey and New York.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="space-y-3">
         {credentials.map((c, i) => (
-          <div key={i} className="site-surface-muted rounded-2xl p-5 flex flex-col gap-1">
-            <span className="text-xs font-black uppercase tracking-[0.18em] text-primary">{c.category}</span>
-            <span className="mt-1 text-base font-bold text-secondary leading-tight">{c.detail}</span>
-            {c.location && <span className="text-sm text-gray-500">{c.location}</span>}
-          </div>
+          <li key={i} className="text-gray-700 leading-8">
+            <span className="font-bold text-secondary">{c.category}</span>
+            {" — "}
+            {c.detail}
+            {c.location && <span className="text-gray-500">, {c.location}</span>}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
 
 const roles = [
   {
-    title: "Director",
-    org: "Cystic Fibrosis Foundation Affiliate Center",
-    employer: "RWJ-Barnabas Health",
     description: "Led advanced respiratory care for children with complex chronic needs at a nationally recognized CF program.",
   },
   {
-    title: "Director",
-    org: "Technology Dependent Children's Program",
-    employer: "Montefiore Medical Center",
     description: "Led a multidisciplinary outpatient program serving medically complex pediatric patients.",
   },
   {
-    title: "Chief Medical Advisor",
-    org: "AIRnyc",
-    employer: "",
     description: "Extends clinical impact through asthma quality improvement efforts and respiratory health initiatives across healthcare systems.",
   },
 ];
@@ -123,7 +115,7 @@ const roles = [
 function ExperienceTab() {
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr,0.55fr] lg:items-start">
-      <div className="space-y-6">
+      <div className="space-y-5">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">Career</p>
           <h3 className="mt-3 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
@@ -134,16 +126,9 @@ function ExperienceTab() {
             respiratory care across premier healthcare institutions in the New York metro area.
           </p>
         </div>
-        <div className="space-y-4">
-          {roles.map((role, i) => (
-            <div key={i} className="site-surface-muted rounded-2xl p-5 border-l-4 border-primary">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-primary">{role.title}</p>
-              <p className="mt-1 text-base font-bold text-secondary">{role.org}</p>
-              {role.employer && <p className="text-sm text-gray-500 mt-0.5">{role.employer}</p>}
-              <p className="mt-3 text-sm text-gray-700 leading-7">{role.description}</p>
-            </div>
-          ))}
-        </div>
+        {roles.map((role, i) => (
+          <p key={i} className="text-gray-700 leading-8">{role.description}</p>
+        ))}
       </div>
       <div className="glass-card rounded-[2rem] overflow-hidden shadow-lg">
         <div className="relative h-[360px] w-full lg:h-full lg:min-h-[420px]">
@@ -169,93 +154,58 @@ const affiliations = [
 
 function AwardsTab() {
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr,0.6fr] lg:items-start">
-      <div className="space-y-6">
-        <div>
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">Recognition</p>
-          <h3 className="mt-3 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
-            Awards &amp; Professional Recognition
-          </h3>
-          <p className="mt-4 text-lg text-gray-700 leading-8">
-            Dr. Farri is highly regarded by her peers and the broader medical community, with continued
-            leadership in respiratory advocacy, education, and research.
-          </p>
-        </div>
-        <div>
-          <p className="text-sm font-black text-secondary mb-4">Professional Affiliations</p>
-          <ul className="space-y-3">
-            {affiliations.map((a) => (
-              <li key={a} className="flex items-start gap-3 site-surface-muted rounded-xl px-4 py-3">
-                <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-primary" />
-                <span className="text-gray-700">{a}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">Recognition</p>
+        <h3 className="mt-3 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
+          Awards &amp; Professional Recognition
+        </h3>
+        <p className="mt-4 text-lg text-gray-700 leading-8">
+          Dr. Farri is highly regarded by her peers and the broader medical community, with continued
+          leadership in respiratory advocacy, education, and research.
+        </p>
       </div>
-      <div className="space-y-4">
-        <div className="site-dark-panel rounded-[2rem] p-7 text-white">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Faculty Award</p>
-          <p className="mt-4 text-xl font-black leading-snug">Best Faculty Award</p>
-          <p className="mt-3 text-white/80 leading-7 text-sm">
-            Awarded by the RWJ Barnabas Department of Pediatrics in both{" "}
-            <span className="text-primary font-black">2021</span> and{" "}
-            <span className="text-primary font-black">2022</span> — a meaningful reflection of the
-            respect she has earned as both a clinician and mentor.
-          </p>
-        </div>
-        <div className="site-surface-muted rounded-[2rem] p-7">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-primary mb-3">Standing</p>
-          <p className="text-base font-bold text-secondary leading-snug">
-            Respected clinician, educator, advisor, and advocate in pediatric respiratory care.
-          </p>
-          <p className="mt-3 text-sm text-gray-600 leading-7">
-            Her dedication to academic medicine and trainee development continues to shape the next
-            generation of pediatric pulmonologists.
-          </p>
-        </div>
+      <div>
+        <p className="text-sm font-black text-secondary mb-3">Professional Affiliations</p>
+        <ul className="space-y-2">
+          {affiliations.map((a) => (
+            <li key={a} className="text-gray-700 leading-8">{a}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p className="text-base font-bold text-secondary leading-snug">
+          Respected clinician, educator, advisor, and advocate in pediatric respiratory care.
+        </p>
+        <p className="mt-3 text-gray-700 leading-8">
+          Her dedication to academic medicine and trainee development continues to shape the next
+          generation of pediatric pulmonologists.
+        </p>
       </div>
     </div>
   );
 }
 
-const communityItems = [
-  { label: "Local Volunteer",  detail: "Bethany Community Center, Washington Township, NJ" },
-  { label: "Special Olympics", detail: "Special Olympics of New Jersey" },
-  { label: "International",    detail: "International medical missions" },
-  { label: "Health Systems",   detail: "Asthma quality improvement across healthcare systems" },
-];
-
 function BeyondTab() {
   return (
-    <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-      <div className="space-y-6">
-        <div>
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">Community</p>
-          <h3 className="mt-3 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
-            Beyond the Clinic
-          </h3>
-        </div>
-        <p className="text-lg text-gray-700 leading-8">
-          Dr. Farri believes deeply in community health and meaningful engagement beyond the exam room.
-          In addition to treating patients and helping scale asthma quality improvement efforts across
-          healthcare systems, she volunteers her time locally with the Bethany Community Center in
-          Washington Township and the Special Olympics of New Jersey.
-        </p>
-        <p className="text-lg text-gray-700 leading-8">
-          Her commitment to service also extends internationally through medical missions. That same
-          spirit of outreach, compassion, and advocacy shapes the way she cares for families at CLAPS
-          MD every day.
-        </p>
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">Community</p>
+        <h3 className="mt-3 text-2xl sm:text-3xl font-black text-secondary tracking-tight">
+          Beyond the Clinic
+        </h3>
       </div>
-      <div className="space-y-4">
-        {communityItems.map((item) => (
-          <div key={item.label} className="site-surface-muted rounded-2xl p-5 border-l-4 border-primary">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-primary">{item.label}</p>
-            <p className="mt-1 text-base text-secondary leading-snug">{item.detail}</p>
-          </div>
-        ))}
-      </div>
+      <p className="text-lg text-gray-700 leading-8">
+        Dr. Farri believes deeply in community health and meaningful engagement beyond the exam room.
+        In addition to treating patients and helping scale asthma quality improvement efforts across
+        healthcare systems, she volunteers her time locally with the Bethany Community Center in
+        Washington Township and the Special Olympics of New Jersey.
+      </p>
+      <p className="text-lg text-gray-700 leading-8">
+        Her commitment to service also extends internationally through medical missions. That same
+        spirit of outreach, compassion, and advocacy shapes the way she cares for families at CLAPS
+        MD every day.
+      </p>
     </div>
   );
 }

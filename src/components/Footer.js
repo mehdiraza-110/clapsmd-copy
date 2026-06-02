@@ -79,7 +79,6 @@ const Footer = () => {
             <h3 className="font-bold mb-6 text-lg">Quick Links</h3>
             <ul className="space-y-2 text-sm leading-snug text-gray-400">
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link href="/about#conditions" className="hover:text-white transition-colors">Services</Link></li>
               <li><Link href="/pft-lab" className="hover:text-white transition-colors">PFT Lab</Link></li>
               {resourceLinks.map((link) => (
                 <li key={link.name}>

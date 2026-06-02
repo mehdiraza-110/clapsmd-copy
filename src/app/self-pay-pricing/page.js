@@ -5,48 +5,10 @@ import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { CheckCircle2, CreditCard, Download, FileText, LogIn, Phone, ShieldCheck } from "lucide-react";
 import { PATIENT_PORTAL_URL } from "@/lib/billingContent";
-import { getPublicDocuments, getVisibleSelfPayPricing } from "@/lib/authClient";
+import { getPublicDocuments } from "@/lib/authClient";
 
 const SELF_PAY_AGREEMENT_DOCUMENT_TYPE = "self_pay_agreement_doc";
-
-function getPricingItems(payload) {
-  if (Array.isArray(payload?.pricing_items)) return payload.pricing_items;
-  if (Array.isArray(payload?.pricing)) return payload.pricing;
-  if (Array.isArray(payload?.prices)) return payload.prices;
-  if (Array.isArray(payload?.selfPayPricing)) return payload.selfPayPricing;
-  if (Array.isArray(payload?.items)) return payload.items;
-  return [];
-}
-
-function formatAmount(value) {
-  const amount = Number(value);
-  if (!Number.isFinite(amount)) {
-    return String(value || "");
-  }
-
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
-
-function normalizePricingItem(item) {
-  return {
-    id: item?.id,
-    label: String(
-      item?.pricing_item ||
-        item?.label ||
-        item?.item_name ||
-        item?.service_name ||
-        item?.category ||
-        item?.name ||
-        "",
-    ),
-    amount: formatAmount(item?.amount || item?.price || item?.rate || ""),
-    display_order: Number(item?.display_order ?? item?.sort_order ?? item?.id ?? 0),
-    visibility_status: item?.visibility_status ?? item?.is_active ?? true,
-  };
-}
+const SELF_PAY_PRICING_DOCUMENT_TYPE = "self_pay_pricing_doc";
 
 function getDocumentsList(payload) {
   if (Array.isArray(payload?.documents)) return payload.documents;
@@ -73,46 +35,12 @@ function getDocumentFileName(document) {
 }
 
 export default function SelfPayPricingPage() {
-  const [managedRows, setManagedRows] = useState([]);
-  const [pricingLoaded, setPricingLoaded] = useState(false);
-  const [pricingError, setPricingError] = useState("");
   const [publicDocuments, setPublicDocuments] = useState([]);
   const [documentsLoaded, setDocumentsLoaded] = useState(false);
   const [documentsError, setDocumentsError] = useState("");
-  const selfPayAgreementDocument = getDocumentByType(
-    publicDocuments,
-    SELF_PAY_AGREEMENT_DOCUMENT_TYPE,
-  );
 
-  useEffect(() => {
-    let active = true;
-
-    async function loadManagedPricing() {
-      try {
-        setPricingError("");
-        const response = await getVisibleSelfPayPricing();
-        if (!active) return;
-        const visibleRows = getPricingItems(response)
-          .map(normalizePricingItem)
-          .filter((item) => item.label && item.visibility_status)
-          .sort((left, right) => left.display_order - right.display_order);
-        setManagedRows(visibleRows);
-      } catch (requestError) {
-        if (active) setManagedRows([]);
-        if (active) {
-          setPricingError(requestError?.message || "Unable to load self-pay pricing right now.");
-        }
-      } finally {
-        if (active) setPricingLoaded(true);
-      }
-    }
-
-    loadManagedPricing();
-
-    return () => {
-      active = false;
-    };
-  }, []);
+  const selfPayPricingDocument = getDocumentByType(publicDocuments, SELF_PAY_PRICING_DOCUMENT_TYPE);
+  const selfPayAgreementDocument = getDocumentByType(publicDocuments, SELF_PAY_AGREEMENT_DOCUMENT_TYPE);
 
   useEffect(() => {
     let active = true;
@@ -150,16 +78,13 @@ export default function SelfPayPricingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr,0.9fr] lg:items-stretch">
               <div className="site-surface flex h-full flex-col rounded-[2.25rem] p-8 sm:p-10">
-                {/* <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                  Self Pay Pricing
-                </p> */}
                 <h1 className="mt-4 text-4xl sm:text-5xl font-black text-secondary tracking-tight leading-tight">
                   Self-Pay Fee Schedule for Visits and Testing
                 </h1>
                 <p className="mt-6 text-lg text-gray-700 leading-8 max-w-3xl">
                   Our self-pay options are available for patients without insurance or those who
-                  choose not to bill insurance. Please review the pricing information first, then
-                  review the Self-Pay Agreement if you decide to proceed with booking.
+                  choose not to bill insurance. Download the fee schedule to review current pricing,
+                  then download the Self-Pay Agreement if you decide to proceed with booking.
                 </p>
                 <div className="mt-auto flex flex-wrap gap-4 pt-8">
                   <a
@@ -187,11 +112,11 @@ export default function SelfPayPricingPage() {
                 <div className="mt-5 space-y-4 text-white/85 leading-7">
                   <div className="flex gap-3">
                     <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                    <p>First review the self-pay pricing information on this page.</p>
+                    <p>Download and review the self-pay fee schedule to see current pricing.</p>
                   </div>
                   <div className="flex gap-3">
                     <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                    <p>If you decide to proceed with booking, review the separate Self-Pay Agreement document below.</p>
+                    <p>If you decide to proceed with booking, download and review the Self-Pay Agreement.</p>
                   </div>
                 </div>
               </div>
@@ -201,89 +126,45 @@ export default function SelfPayPricingPage() {
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
           <div className="site-surface rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-              <div className="max-w-3xl">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-secondary">
-                    <FileText className="w-5 h-5 text-primary" />
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl font-black text-secondary tracking-tight">
-                    Self-Pay Fee Schedule
-                  </h2>
-                </div>
-                <p className="mt-4 text-gray-600 leading-8">
-                  Rates are provided for transparency and should be confirmed with the office at
-                  the time of scheduling or check-in.
-                </p>
-              </div>
-
-              <div className="site-surface-muted rounded-2xl px-4 py-3 text-sm font-medium text-slate-600">
-                Rates are subject to confirmation at the time of visit.
-              </div>
-            </div>
-
-            <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 shadow-sm">
-              <table className="min-w-full text-sm sm:text-base">
-                <thead className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(241,245,249,0.96))]">
-                  <tr>
-                    <th className="px-5 py-4 text-left font-black text-secondary">Category</th>
-                    <th className="px-5 py-4 text-left font-black text-secondary">Amount</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 bg-white/95">
-                  {!pricingLoaded ? (
-                    <tr>
-                      <td className="px-5 py-8 text-center text-gray-500" colSpan={2}>
-                        Loading self-pay pricing...
-                      </td>
-                    </tr>
-                  ) : null}
-
-                  {pricingLoaded && pricingError ? (
-                    <tr>
-                      <td className="px-5 py-8 text-center text-gray-500" colSpan={2}>
-                        {pricingError}
-                      </td>
-                    </tr>
-                  ) : null}
-
-                  {pricingLoaded && !pricingError && managedRows.length === 0 ? (
-                    <tr>
-                      <td className="px-5 py-8 text-center text-gray-500" colSpan={2}>
-                        No self-pay pricing is available right now.
-                      </td>
-                    </tr>
-                  ) : null}
-
-                  {pricingLoaded && !pricingError
-                    ? managedRows.map((row) => (
-                        <tr key={row.id ?? row.label} className="transition-colors hover:bg-slate-50/80">
-                          <td className="px-5 py-4 text-gray-700">{row.label}</td>
-                          <td className="px-5 py-4 font-black text-secondary">{row.amount}</td>
-                        </tr>
-                      ))
-                    : null}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <div className="site-surface-muted rounded-3xl p-6">
                 <div className="flex items-start gap-4">
                   <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-secondary">
                     <FileText className="h-5 w-5 text-primary" />
                   </span>
                   <div>
-                    {/* <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">
-                      Document 1
-                    </p> */}
                     <h3 className="mt-2 text-2xl font-black tracking-tight text-secondary">
-                      Self-Pay Pricing Information
+                      Self-Pay Fee Schedule
                     </h3>
                     <p className="mt-3 leading-7 text-gray-700">
-                      Review the current self-pay fee schedule above before deciding whether to
-                      proceed with booking an appointment.
+                      Download the current self-pay fee schedule to review pricing for visits and
+                      testing before deciding to book an appointment.
                     </p>
+                    {!documentsLoaded ? (
+                      <p className="mt-4 text-sm font-medium text-gray-500">
+                        Loading fee schedule...
+                      </p>
+                    ) : null}
+                    {documentsLoaded && documentsError ? (
+                      <p className="mt-4 text-sm font-medium text-gray-500">
+                        {documentsError}
+                      </p>
+                    ) : null}
+                    {documentsLoaded && !documentsError && selfPayPricingDocument ? (
+                      <a
+                        href={selfPayPricingDocument.document_url}
+                        download={getDocumentFileName(selfPayPricingDocument)}
+                        className="mt-5 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-black text-secondary transition-colors hover:bg-slate-50"
+                      >
+                        <Download className="mr-2 h-4 w-4 text-primary" />
+                        Download Fee Schedule
+                      </a>
+                    ) : null}
+                    {documentsLoaded && !documentsError && !selfPayPricingDocument ? (
+                      <p className="mt-4 text-sm font-medium text-gray-500">
+                        The fee schedule is not available right now. Please call us to confirm pricing.
+                      </p>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -294,9 +175,6 @@ export default function SelfPayPricingPage() {
                     <ShieldCheck className="h-5 w-5 text-primary" />
                   </span>
                   <div>
-                    {/* <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">
-                      Document 2
-                    </p> */}
                     <h3 className="mt-2 text-2xl font-black tracking-tight text-secondary">
                       Self-Pay Agreement
                     </h3>
