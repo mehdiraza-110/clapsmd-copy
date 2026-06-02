@@ -8,7 +8,6 @@ import {
   Bell,
   Briefcase,
   Clock,
-  DollarSign,
   Files,
   FileText,
   LogOut,
@@ -83,7 +82,6 @@ export default function AdminShell({ children }) {
   const navItems = [
     { label: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
     { label: "Services", href: "/admin/services", icon: Briefcase },
-    { label: "Self Pay Pricing", href: "/admin/self-pay-pricing", icon: DollarSign },
     { label: "Documents", href: "/admin/documents", icon: Files },
     { label: "Notices", href: "/admin/notices", icon: Bell },
     { label: "Clinic Hours", href: "/admin/clinic-hours", icon: Clock },

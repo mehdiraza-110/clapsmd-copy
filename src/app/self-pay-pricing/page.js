@@ -8,7 +8,7 @@ import { PATIENT_PORTAL_URL } from "@/lib/billingContent";
 import { getPublicDocuments } from "@/lib/authClient";
 
 const SELF_PAY_AGREEMENT_DOCUMENT_TYPE = "self_pay_agreement_doc";
-const SELF_PAY_PRICING_DOCUMENT_TYPE = "self_pay_pricing_doc";
+const SELF_PAY_PRICING_DOCUMENT_TYPE = "self_pay_pricing";
 
 function getDocumentsList(payload) {
   if (Array.isArray(payload?.documents)) return payload.documents;

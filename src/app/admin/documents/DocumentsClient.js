@@ -28,7 +28,7 @@ import {
 import CircularLoader from "@/components/CircularLoader";
 
 const PAGE_SIZE = 10;
-const DEFAULT_DOCUMENT_TYPES = ["consent_doc", "coinsurance_doc", "self_pay_agreement_doc", "self_pay_pricing_doc"];
+const DEFAULT_DOCUMENT_TYPES = ["consent_doc", "coinsurance_doc", "self_pay_agreement_doc", "self_pay_pricing"];
 
 function formatDateTime(value) {
   if (!value) return "-";
