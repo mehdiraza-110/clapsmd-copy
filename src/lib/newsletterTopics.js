@@ -1,6 +1,8 @@
 const NEWSLETTER_URL = "https://claps-newsletter.beehiiv.com/";
 const NEWSLETTER_DATA_URL = "https://claps-newsletter.beehiiv.com/?_data=routes%2Findex";
 
+const BEEHIIV_API_BASE = "https://api.beehiiv.com/v2";
+
 const FALLBACK_TOPICS = [
   {
     title: "What a March Madness Scare Teaches Us About Athlete Breathing",
@@ -92,6 +94,56 @@ function buildPostUrl(slug) {
   if (!slug) return NEWSLETTER_URL;
   return `${NEWSLETTER_URL}p/${String(slug).replace(/^\/+/, "")}`;
 }
+
+// --- Beehiiv official API ---
+
+async function fetchTopicsFromBeehiivApi() {
+  const apiKey = process.env.BEEHIIV_API_KEY;
+  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
+
+  if (!apiKey || !publicationId) {
+    throw new Error("Beehiiv API credentials not configured");
+  }
+
+  const url = `${BEEHIIV_API_BASE}/publications/${publicationId}/posts?status=confirmed&limit=20&order_by=publish_date&direction=desc`;
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    next: { revalidate: 21600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Beehiiv API returned ${response.status}`);
+  }
+
+  const json = await response.json();
+  const posts = json?.data;
+
+  if (!Array.isArray(posts) || !posts.length) {
+    return [];
+  }
+
+  return posts.map((post) => {
+    const publishMs = post.publish_date ? post.publish_date * 1000 : null;
+    // authors is an array of strings in the API response
+    const authorName = Array.isArray(post.authors) ? post.authors[0] : post.authors?.[0]?.name;
+
+    return {
+      title: stripTags(post.title),
+      description: stripTags(post.subtitle || post.preview_text || ""),
+      href: post.web_url || buildPostUrl(post.slug),
+      eyebrow: post.content_tags?.[0]?.display || authorName || "Breathing Room",
+      image: normalizeImageSrc(post.thumbnail_url || ""),
+      publishedAt: publishMs ? new Date(publishMs).toISOString() : "",
+      readTime: "",
+    };
+  });
+}
+
+// --- Legacy scraping fallbacks ---
 
 function findPostBlock(node) {
   if (!node || typeof node !== "object") return null;
@@ -248,13 +300,24 @@ async function fetchTopicsFromDataUrl() {
 }
 
 export async function getNewsletterTopics() {
+  // Try the official Beehiiv API first.
+  try {
+    const topics = await fetchTopicsFromBeehiivApi();
+    if (topics.length) {
+      return topics;
+    }
+  } catch (_error) {
+    // Fall through to legacy scraping.
+  }
+
+  // Legacy: try the Remix data endpoint.
   try {
     const topics = await fetchTopicsFromDataUrl();
     if (topics.length) {
       return topics;
     }
   } catch (_error) {
-    // Fall through to the HTML scrape attempts and then static fallback.
+    // Fall through to HTML scrape attempts.
   }
 
   const candidateUrls = [

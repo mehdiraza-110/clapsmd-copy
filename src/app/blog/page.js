@@ -2,9 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 // import BlogIndexSection from "@/components/BlogIndexSection";
 import { buildPageMetadata } from "@/lib/seoMetadata";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { getNewsletterTopics, NEWSLETTER_URL } from "@/lib/newsletterTopics";
+import NewsletterGrid from "@/components/NewsletterGrid";
 
 export const metadata = buildPageMetadata({
   title: "Health Resources & Blog | C.L.A.P.S. MD",
@@ -15,18 +15,6 @@ export const metadata = buildPageMetadata({
 });
 
 export const revalidate = 21600;
-
-function formatNewsletterDate(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(date);
-}
 
 export default async function BlogIndexPage() {
   const newsletterTopics = await getNewsletterTopics();
@@ -107,51 +95,7 @@ export default async function BlogIndexPage() {
                     </a>
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {newsletterTopics.map((topic) => (
-                      <a
-                        key={topic.title}
-                        href={topic.href || NEWSLETTER_URL}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex h-full min-h-[31rem] flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.08] shadow-[0_14px_36px_rgba(2,33,49,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:bg-white/[0.12] hover:shadow-[0_18px_42px_rgba(2,33,49,0.28)]"
-                      >
-                        {topic.image ? (
-                          <div className="relative h-52 w-full overflow-hidden bg-white/90">
-                            <Image
-                              src={topic.image}
-                              alt={topic.title}
-                              fill
-                              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 48vw, 100vw"
-                              className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                        ) : null}
-
-                        <div className="flex flex-1 flex-col p-6">
-                          {topic.publishedAt || topic.readTime ? (
-                            <p className="text-xs font-bold tracking-[0.08em] text-white/55">
-                              {[formatNewsletterDate(topic.publishedAt), topic.readTime]
-                                .filter(Boolean)
-                                .join(" • ")}
-                            </p>
-                          ) : null}
-
-                          <p className="mt-1 text-[11px] font-black uppercase tracking-[0.2em] text-primary/95">
-                            {topic.eyebrow || "Breathing Room"}
-                          </p>
-                          <h3 className="mt-3 text-xl font-black leading-tight text-white sm:text-xl">
-                            {topic.title}
-                          </h3>
-                          {topic.description ? (
-                            <p className="mt-3 text-sm leading-relaxed text-slate-100/80 sm:text-[0.95rem]">
-                              {topic.description}
-                            </p>
-                          ) : null}
-                        </div>
-                      </a>
-                    ))}
-                  </div>
+                  <NewsletterGrid topics={newsletterTopics} newsletterUrl={NEWSLETTER_URL} />
                 </div>
               ) : null}
             </div>
