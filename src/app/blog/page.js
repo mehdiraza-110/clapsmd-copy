@@ -13,7 +13,7 @@ export const metadata = buildPageMetadata({
   path: "/blog",
   ogImage: "/images/hero-image.webp",
 });
-
+    
 export const revalidate = 21600;
 
 export default async function BlogIndexPage() {
@@ -29,13 +29,13 @@ export default async function BlogIndexPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="site-surface mx-auto max-w-4xl rounded-[2.25rem] p-8 sm:p-10 lg:p-12">
               <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                Health Resources
+                The CLAPS Family Health Guide
               </p>
-              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-black text-primary-darker uppercase tracking-tight">
+              {/* <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-black text-primary-darker uppercase tracking-tight">
                 Blog
-              </h1>
+              </h1> */}
               <p className="mt-6 text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
-                Expert advice, educational guides, and the latest updates from our pediatric pulmonology specialists.
+                Insights from Dr. Farri, "The Breathing Dr." to help keep your child active, healthy, and breathing easy.
               </p>
             </div>
           </div>

@@ -35,7 +35,7 @@ export const insuranceCarriers = [
     logoAlt: "United Healthcare logo",
   },
   {
-    name: "Wellpoint / Amerigroup (Medicaid)",
+    name: "Wellpoint / Amerigroup",
     logo: "/logos/wellpoint.webp",
     logoAlt: "Wellpoint logo",
   },

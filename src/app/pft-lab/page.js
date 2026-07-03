@@ -478,19 +478,7 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-14">
-          <ImageCard
-            title="MiniBox+ pulmonary testing equipment"
-            banner
-            images={[
-              {
-                src: "/images/equipment.png",
-                alt: "MiniBox+ pulmonary function testing equipment",
-              },
-            ]}
-          />
-        </section>
-
+        
         <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-18">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -498,11 +486,11 @@ export default function PftLabPage() {
                 <div className="flex items-center gap-3">
                   <TestTube2 className="w-5 h-5 text-primary" />
                   <h2 className="text-2xl font-black text-secondary tracking-tight">
-                    Equipment and Testing Comfort
+                   Testing Comfort
                   </h2>
                 </div>
                 <p className="mt-5 text-gray-700 leading-8">
-                  Testing is performed using the MiniBox+ system, designed to provide reliable
+                  PFT is performed to provide Testing is performed using the MiniBox+ system, designed to provide reliable
                   pulmonary measurements in a more comfortable, patient-friendly way. Many
                   patients find it easier than older methods that can feel more physically
                   demanding.
@@ -810,44 +798,6 @@ export default function PftLabPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
-          <div className="site-surface rounded-3xl p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <Stethoscope className="h-5 w-5" />
-                </span>
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                  Provider Credibility
-                </p>
-              </div>
-              <h2 className="mt-3 text-3xl font-black text-secondary tracking-tight">
-                Dr. Folashade Farri
-              </h2>
-              <div className="mt-6 space-y-5 text-gray-700 leading-8">
-                <p>
-                  Dr. Folashade Farri is a double board-certified Pediatric Pulmonologist and the
-                  founder of Children&apos;s Lung, Asthma & Pulmonary Specialists in Wayne, NJ.
-                </p>
-                <p>
-                  Before establishing private practice, she served as an Assistant Professor of
-                  Pediatric Pulmonology at Montefiore Medical Center and directed the Technology
-                  Dependent Children&apos;s Program. She has also served as Clinical Assistant
-                  Professor at Rutgers NJMS and Director of the Cystic Fibrosis Foundation
-                  affiliate center at RWJ-Barnabas Health.
-                </p>
-                <p>
-                  Her care philosophy is rooted in making sure families feel heard and understood.
-                  She also holds a Master of Public Health from Columbia University and serves as
-                  Chief Medical Advisor for AIRnyc.
-                </p>
-                <p>
-                  Dr. Farri is a Board Member of the Asthma & Allergy Foundation of America and a
-                  recipient of the RWJ Barnabas Department of Pediatrics Best Faculty Award in
-                  2021 and 2022.
-                </p>
-              </div>
-          </div>
-        </section>
 
         <section className="border-y border-slate-100/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">

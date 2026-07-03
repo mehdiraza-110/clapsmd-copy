@@ -155,7 +155,7 @@ export default function InsuranceBillingPage() {
                     <Clock className="w-4 h-4 text-primary" />
                     <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/50">Timing</p>
                     <p className="text-sm text-white/85 leading-6">
-                      Payment is due at the time of service for all self-pay visits.
+                      I understand that all patient responsibility costs (including, but not limited to, copays, coinsurance, deductibles, etc.) are due at the time of service.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2 rounded-2xl bg-white/[0.07] p-4">
@@ -167,13 +167,7 @@ export default function InsuranceBillingPage() {
                   </div>
                 </div>
 
-                {/* Rate notice — full width */}
-                <div className="mt-3 flex items-start gap-3 rounded-2xl bg-white/[0.07] p-4">
-                  <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
-                  <p className="text-sm text-white/85 leading-6">
-                    Rates are subject to change. Please confirm pricing at the time of visit.
-                  </p>
-                </div>
+                
 
                 {/* Contact CTA — highlighted */}
                 <div className="mt-3 flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 px-4 py-4">
