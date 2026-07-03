@@ -20,7 +20,7 @@ export const insuranceCarriers = [
     logoAlt: "Horizon BCBS logo",
   },
   {
-    name: "Horizon NJ Health (Medicaid)",
+    name: "Horizon NJ Health ",
     logo: "/logos/HNJH.webp",
     logoAlt: "Horizon NJ Health logo",
   },

@@ -29,7 +29,7 @@ export default async function BlogIndexPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="site-surface mx-auto max-w-4xl rounded-[2.25rem] p-8 sm:p-10 lg:p-12">
               <p className="text-sm font-black uppercase tracking-[0.24em] text-primary">
-                The CLAPS Family Health Guide
+                Breathing Room : The CLAPS Family Health Guide
               </p>
               {/* <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-black text-primary-darker uppercase tracking-tight">
                 Blog

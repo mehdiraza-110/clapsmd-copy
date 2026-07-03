@@ -153,7 +153,6 @@ export default function InsuranceBillingPage() {
                 <div className="mt-5 grid grid-cols-2 gap-3">
                   <div className="flex flex-col gap-2 rounded-2xl bg-white/[0.07] p-4">
                     <Clock className="w-4 h-4 text-primary" />
-                    <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/50">Timing</p>
                     <p className="text-sm text-white/85 leading-6">
                       I understand that all patient responsibility costs (including, but not limited to, copays, coinsurance, deductibles, etc.) are due at the time of service.
                     </p>

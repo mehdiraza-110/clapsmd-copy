@@ -157,7 +157,7 @@ export default function SelfPayPricingPage() {
                         className="mt-5 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-black text-secondary transition-colors hover:bg-slate-50"
                       >
                         <Download className="mr-2 h-4 w-4 text-primary" />
-                      CLAPS MD Self-Pay Fee
+                        Download Fee Schedule
                       </a>
                     ) : null}
                     {documentsLoaded && !documentsError && !selfPayPricingDocument ? (
@@ -199,7 +199,7 @@ export default function SelfPayPricingPage() {
                         className="mt-5 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-black text-secondary transition-colors hover:bg-slate-50"
                       >
                         <Download className="mr-2 h-4 w-4 text-primary" />
-                       CLAPS MD Self-Pay Agreement
+                        Download Agreement
                       </a>
                     ) : null}
                     {documentsLoaded && !documentsError && !selfPayAgreementDocument ? (
