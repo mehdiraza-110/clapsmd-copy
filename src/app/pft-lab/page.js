@@ -490,7 +490,7 @@ export default function PftLabPage() {
                   </h2>
                 </div>
                 <p className="mt-5 text-gray-700 leading-8">
-                  PFT is performed to provide Testing is performed using the MiniBox+ system, designed to provide reliable
+                  PFT is performed to provide using the MiniBox+ system, designed to provide reliable
                   pulmonary measurements in a more comfortable, patient-friendly way. Many
                   patients find it easier than older methods that can feel more physically
                   demanding.
