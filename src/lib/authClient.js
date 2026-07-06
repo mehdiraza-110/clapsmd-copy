@@ -416,6 +416,105 @@ export async function getPublishedBlogsLast6Months(token) {
   });
 }
 
+export async function getGalleryPlacements() {
+  return request("/gallery/placements", { method: "GET" });
+}
+
+export async function getGalleryImages(token, placement = "") {
+  const suffix = placement ? `?placement=${encodeURIComponent(placement)}` : "";
+  return request(`/gallery${suffix}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function getPublicGalleryImages(options = {}) {
+  return request("/public/gallery", { method: "GET", ...options });
+}
+
+export async function createGalleryImage(token, formData) {
+  return request("/gallery", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+}
+
+export async function updateGalleryImage(token, id, formData) {
+  return request(`/gallery/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+}
+
+export async function deleteGalleryImage(token, id) {
+  return request(`/gallery/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function reorderGalleryImages(token, placement, orderedIds) {
+  return request("/gallery/reorder", {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ placement, ordered_ids: orderedIds }),
+  });
+}
+
+export async function getHomepageVideo(token) {
+  return request("/homepage-video", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function getPublicHomepageVideo(options = {}) {
+  return request("/public/homepage-video", { method: "GET", ...options });
+}
+
+export async function uploadHomepageVideo(token, formData) {
+  return request("/homepage-video", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+}
+
+export async function updateHomepageVideo(token, id, payload) {
+  return request(`/homepage-video/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteHomepageVideo(token, id) {
+  return request(`/homepage-video/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export function setSession({ token, user }) {
   if (typeof window === "undefined") return;
   localStorage.setItem(TOKEN_KEY, token);

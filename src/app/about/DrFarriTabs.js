@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Award, Briefcase, GraduationCap, Globe, User } from "lucide-react";
+import { getPublicGalleryImages } from "@/lib/authClient";
 
 const tabs = [
   { id: "bio",        label: "Bio",              icon: User },
@@ -12,7 +13,34 @@ const tabs = [
   { id: "beyond",     label: "Beyond the Clinic", icon: Globe },
 ];
 
+const FALLBACK_BIO_PHOTO = {
+  src: "/images/Dr Farri_white coat.jpeg",
+  alt: "Dr. Folashade Farri",
+};
+
 function BioTab() {
+  const [bioPhoto, setBioPhoto] = useState(FALLBACK_BIO_PHOTO);
+
+  useEffect(() => {
+    let active = true;
+
+    getPublicGalleryImages()
+      .then((response) => {
+        if (!active) return;
+        const placement = response?.placements?.about_bio_photo;
+        if (Array.isArray(placement) && placement.length > 0) {
+          setBioPhoto({ src: placement[0].image_url, alt: placement[0].alt_text });
+        }
+      })
+      .catch(() => {
+        // Keep fallback image if the gallery API is unavailable
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr,0.8fr] lg:items-start">
       <div className="space-y-6">
@@ -50,8 +78,8 @@ function BioTab() {
       <div className="glass-card rounded-[2rem] overflow-hidden shadow-lg">
         <div className="relative h-[400px] w-full lg:h-full lg:min-h-[540px]">
           <Image
-            src="/images/Dr Farri_white coat.jpeg"
-            alt="Dr. Folashade Farri"
+            src={bioPhoto.src}
+            alt={bioPhoto.alt}
             fill
             className="object-cover object-top"
           />
@@ -112,7 +140,34 @@ const roles = [
   },
 ];
 
+const FALLBACK_EXPERIENCE_PHOTO = {
+  src: "/images/Dr Farri_blazer.jpeg",
+  alt: "Dr. Farri",
+};
+
 function ExperienceTab() {
+  const [experiencePhoto, setExperiencePhoto] = useState(FALLBACK_EXPERIENCE_PHOTO);
+
+  useEffect(() => {
+    let active = true;
+
+    getPublicGalleryImages()
+      .then((response) => {
+        if (!active) return;
+        const placement = response?.placements?.about_experience_photo;
+        if (Array.isArray(placement) && placement.length > 0) {
+          setExperiencePhoto({ src: placement[0].image_url, alt: placement[0].alt_text });
+        }
+      })
+      .catch(() => {
+        // Keep fallback image if the gallery API is unavailable
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr,0.55fr] lg:items-start">
       <div className="space-y-5">
@@ -133,8 +188,8 @@ function ExperienceTab() {
       <div className="glass-card rounded-[2rem] overflow-hidden shadow-lg">
         <div className="relative h-[360px] w-full lg:h-full lg:min-h-[420px]">
           <Image
-            src="/images/Dr Farri_blazer.jpeg"
-            alt="Dr. Farri"
+            src={experiencePhoto.src}
+            alt={experiencePhoto.alt}
             fill
             className="object-cover object-top"
           />

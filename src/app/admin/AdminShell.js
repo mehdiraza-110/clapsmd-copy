@@ -10,10 +10,12 @@ import {
   Clock,
   Files,
   FileText,
+  ImageIcon,
   LogOut,
   Menu,
   ShieldCheck,
   User,
+  VideoIcon,
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -81,6 +83,8 @@ export default function AdminShell({ children }) {
 
   const navItems = [
     { label: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
+    { label: "Gallery", href: "/admin/gallery", icon: ImageIcon },
+    { label: "Homepage Video", href: "/admin/video", icon: VideoIcon },
     { label: "Services", href: "/admin/services", icon: Briefcase },
     { label: "Documents", href: "/admin/documents", icon: Files },
     { label: "Notices", href: "/admin/notices", icon: Bell },

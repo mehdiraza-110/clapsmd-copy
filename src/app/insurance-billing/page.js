@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -25,9 +25,44 @@ import {
   insuranceTerms,
   paymentPolicyItems,
 } from "@/lib/billingContent";
+import { getPublicGalleryImages } from "@/lib/authClient";
+
+const FALLBACK_LOGO_CARRIERS = insuranceCarriers
+  .filter((carrier) => carrier.logo)
+  .map((carrier) => ({ name: carrier.name, logo: carrier.logo, logoAlt: carrier.logoAlt }));
+
+const TEXT_ONLY_CARRIERS = insuranceCarriers.filter((carrier) => !carrier.logo);
 
 export default function InsuranceBillingPage() {
   const [carriersOpen, setCarriersOpen] = useState(true);
+  const [logoCarriers, setLogoCarriers] = useState(FALLBACK_LOGO_CARRIERS);
+  const allCarriers = [...logoCarriers, ...TEXT_ONLY_CARRIERS];
+
+  useEffect(() => {
+    let active = true;
+
+    getPublicGalleryImages()
+      .then((response) => {
+        if (!active) return;
+        const placement = response?.placements?.insurance_logos;
+        if (Array.isArray(placement) && placement.length > 0) {
+          setLogoCarriers(
+            placement.map((image) => ({
+              name: image.caption || image.alt_text,
+              logo: image.image_url,
+              logoAlt: image.alt_text,
+            })),
+          );
+        }
+      })
+      .catch(() => {
+        // Keep fallback carrier logos if the gallery API is unavailable
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <>
@@ -49,7 +84,7 @@ export default function InsuranceBillingPage() {
                     Accepted Insurance Carriers
                   </h2>
                   <p className="mt-1 text-sm text-gray-500">
-                    {carriersOpen ? "Click to collapse" : `${insuranceCarriers.length} carriers — click to expand`}
+                    {carriersOpen ? "Click to collapse" : `${allCarriers.length} carriers — click to expand`}
                   </p>
                 </div>
               </div>
@@ -65,7 +100,7 @@ export default function InsuranceBillingPage() {
                   your insurance carrier before the visit.
                 </p>
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {insuranceCarriers.map((carrier) => (
+                  {allCarriers.map((carrier) => (
                     <div
                       key={carrier.name}
                       className="site-surface-muted rounded-3xl px-5 py-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { getPublicGalleryImages } from "@/lib/authClient";
 import {
   Activity,
   CalendarClock,
@@ -304,14 +305,60 @@ function ImageCard({ images, title, contain = false, stacked = false, banner = f
   );
 }
 
+const FALLBACK_PFT_LAB_IMAGES = [
+  { src: "/images/generated-image-2026-02-17-3.png", alt: "PFT testing room photo 1" },
+  { src: "/images/generated-image-2026-02-17-4.png", alt: "PFT testing room photo 2" },
+  { src: "/images/generated-image-2026-02-17.png", alt: "PFT equipment or staff photo 1" },
+  { src: "/images/generated-image-2026-02-17-2.png", alt: "PFT equipment or staff photo 2" },
+];
+
+const FALLBACK_PFT_LAB_LOGO = { src: "/images/PFT Lab Logo-4-transparent.png", alt: "PFT Lab logo" };
+const FALLBACK_PFT_LAB_HERO_PHOTO = { src: "/images/breathing.png", alt: "Breathing illustration" };
+
 export default function PftLabPage() {
   const [openTest, setOpenTest] = useState(testTypes[0].title);
   const [isPrepOpen, setIsPrepOpen] = useState(false);
   const [isSafetyOpen, setIsSafetyOpen] = useState(false);
   const [expandedReviews, setExpandedReviews] = useState({});
+  const [pftLabImages, setPftLabImages] = useState(FALLBACK_PFT_LAB_IMAGES);
+  const [pftLabLogo, setPftLabLogo] = useState(FALLBACK_PFT_LAB_LOGO);
+  const [pftLabHeroPhoto, setPftLabHeroPhoto] = useState(FALLBACK_PFT_LAB_HERO_PHOTO);
   const featuredReviews = homepageReviews.slice(0, 2);
   const truncateReview = (quote, maxLength = 58) =>
     quote.length > maxLength ? `${quote.slice(0, maxLength).trimEnd()}...` : quote;
+
+  useEffect(() => {
+    let active = true;
+
+    getPublicGalleryImages()
+      .then((response) => {
+        if (!active) return;
+
+        const galleryPlacement = response?.placements?.pft_lab_gallery;
+        if (Array.isArray(galleryPlacement) && galleryPlacement.length > 0) {
+          setPftLabImages(
+            galleryPlacement.map((image) => ({ src: image.image_url, alt: image.alt_text })),
+          );
+        }
+
+        const logoPlacement = response?.placements?.pft_lab_logo;
+        if (Array.isArray(logoPlacement) && logoPlacement.length > 0) {
+          setPftLabLogo({ src: logoPlacement[0].image_url, alt: logoPlacement[0].alt_text });
+        }
+
+        const heroPhotoPlacement = response?.placements?.pft_lab_hero_photo;
+        if (Array.isArray(heroPhotoPlacement) && heroPhotoPlacement.length > 0) {
+          setPftLabHeroPhoto({ src: heroPhotoPlacement[0].image_url, alt: heroPhotoPlacement[0].alt_text });
+        }
+      })
+      .catch(() => {
+        // Keep fallback images if the gallery API is unavailable
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <>
@@ -328,8 +375,8 @@ export default function PftLabPage() {
                 </div>
                 <div className="mt-6">
                   <Image
-                    src="/images/PFT Lab Logo-4-transparent.png"
-                    alt="PFT Lab logo"
+                    src={pftLabLogo.src}
+                    alt={pftLabLogo.alt}
                     width={300}
                     height={167}
                     className="h-auto w-[180px] sm:w-[240px] lg:w-[300px]"
@@ -360,15 +407,7 @@ export default function PftLabPage() {
               </div>
 
               <div className="flex h-full flex-col gap-4">
-                <ImageCard
-                  title=""
-                  images={[
-                    {
-                      src: "/images/breathing.png",
-                      alt: "Breathing illustration",
-                    },
-                  ]}
-                />
+                <ImageCard title="" images={[pftLabHeroPhoto]} />
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="site-surface-muted rounded-2xl p-5">
                     <div className="flex items-center gap-3">
@@ -803,34 +842,8 @@ export default function PftLabPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-10">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-stretch">
               <div className="grid content-start grid-cols-1 gap-6 sm:grid-cols-2">
-                <ImageCard
-                  title=""
-                  stacked
-                  images={[
-                    {
-                      src: "/images/generated-image-2026-02-17-3.png",
-                      alt: "PFT testing room photo 1",
-                    },
-                    {
-                      src: "/images/generated-image-2026-02-17-4.png",
-                      alt: "PFT testing room photo 2",
-                    },
-                  ]}
-                />
-                <ImageCard
-                  title=""
-                  stacked
-                  images={[
-                    {
-                      src: "/images/generated-image-2026-02-17.png",
-                      alt: "PFT equipment or staff photo 1",
-                    },
-                    {
-                      src: "/images/generated-image-2026-02-17-2.png",
-                      alt: "PFT equipment or staff photo 2",
-                    },
-                  ]}
-                />
+                <ImageCard title="" stacked images={pftLabImages.slice(0, 2)} />
+                <ImageCard title="" stacked images={pftLabImages.slice(2, 4)} />
               </div>
               <div className="site-dark-panel flex flex-col rounded-3xl p-5 text-white">
                 <div className="flex items-center gap-3">

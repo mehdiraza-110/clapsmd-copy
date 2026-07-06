@@ -11,23 +11,74 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, HeartHandshake, Phone, PlayCircle, Quote, ShieldCheck, Stethoscope, Wind } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getPublicGalleryImages, getPublicHomepageVideo } from '@/lib/authClient';
 
-const heroImages = [
+const FALLBACK_HERO_IMAGES = [
   { src: '/slider-images/hero-image.png', alt: 'Pediatric Pulmonology Care' },
   { src: '/slider-images/hero-image.webp', alt: 'Pediatric Pulmonology Care' },
   { src: '/slider-images/child-athlete.png', alt: 'Child Athlete Care' },
 ];
 
+const FALLBACK_MEET_THE_DOCTOR_IMAGE = {
+  src: '/images/Dr Farri_white coat.jpeg',
+  alt: 'Dr. Folashade Farri',
+};
+
 export default function Home() {
   const [activeReview, setActiveReview] = useState(0);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
+  const [meetTheDoctorImage, setMeetTheDoctorImage] = useState(FALLBACK_MEET_THE_DOCTOR_IMAGE);
+  const [homepageVideo, setHomepageVideo] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+
+    getPublicGalleryImages()
+      .then((response) => {
+        if (!active) return;
+        const heroPlacement = response?.placements?.hero_slideshow;
+        if (Array.isArray(heroPlacement) && heroPlacement.length > 0) {
+          setHeroImages(
+            heroPlacement.map((image) => ({ src: image.image_url, alt: image.alt_text })),
+          );
+          setHeroIndex(0);
+        }
+
+        const doctorPlacement = response?.placements?.meet_the_doctor;
+        if (Array.isArray(doctorPlacement) && doctorPlacement.length > 0) {
+          setMeetTheDoctorImage({
+            src: doctorPlacement[0].image_url,
+            alt: doctorPlacement[0].alt_text,
+          });
+        }
+      })
+      .catch(() => {
+        // Keep fallback images if the gallery API is unavailable
+      });
+
+    getPublicHomepageVideo()
+      .then((response) => {
+        if (!active) return;
+        if (response?.video?.video_url) {
+          setHomepageVideo(response.video);
+        }
+      })
+      .catch(() => {
+        // Keep the decorative placeholder if the video API is unavailable
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setHeroIndex((i) => (i + 1) % heroImages.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [heroImages.length]);
   const services = [
     { title: 'Asthma Management', icon: <Wind className="w-6 h-6" />, description: 'Personalized asthma care and treatment plans for children.', href: '/asthma' },
     { title: 'Respiratory Evaluation', icon: <Stethoscope className="w-6 h-6" />, description: 'Comprehensive clinical assessments for respiratory concerns.' },
@@ -278,13 +329,23 @@ export default function Home() {
         <section className="relative border-y border-white/50 bg-gradient-to-b from-white to-slate-50 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="glass-card rounded-[2rem] p-5 sm:p-6 lg:p-8">
-              <div className="soft-gradient-panel relative flex aspect-video items-center justify-center overflow-hidden rounded-[1.5rem] border border-dashed border-white/60">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,209,44,0.18),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(0,61,91,0.05))]" />
-                <PlayCircle className="relative z-10 h-16 w-16 text-primary" />
-                <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary shadow-sm">
-                  Video
-                </span>
-              </div>
+              {homepageVideo ? (
+                <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+                  <video
+                    src={homepageVideo.video_url}
+                    controls
+                    className="h-full w-full"
+                  />
+                </div>
+              ) : (
+                <div className="soft-gradient-panel relative flex aspect-video items-center justify-center overflow-hidden rounded-[1.5rem] border border-dashed border-white/60">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,209,44,0.18),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(0,61,91,0.05))]" />
+                  <PlayCircle className="relative z-10 h-16 w-16 text-primary" />
+                  <span className="absolute bottom-4 right-4 rounded-full bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary shadow-sm">
+                    Video
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -373,9 +434,9 @@ export default function Home() {
               >
                 <div className="glass-card relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden p-3 shadow-xl">
                   <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
-                    <Image 
-                      src="/images/Dr Farri_white coat.jpeg"
-                      alt="Dr. Folashade Farri"
+                    <Image
+                      src={meetTheDoctorImage.src}
+                      alt={meetTheDoctorImage.alt}
                       fill
                       className="object-cover"
                     />

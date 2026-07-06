@@ -4,6 +4,7 @@ import ConditionsWeTreatSection from "@/components/ConditionsWeTreatSection";
 import Image from "next/image";
 import { buildPageMetadata } from "@/lib/seoMetadata";
 import { GOOGLE_REVIEWS_URL, homepageReviews } from "@/lib/homepageReviews";
+import { getPublicGalleryImages } from "@/lib/authClient";
 import {
   HeartHandshake,
   Award,
@@ -24,7 +25,26 @@ export const metadata = buildPageMetadata({
   ogImage: "/images/SHADE_FARRI.jpg",
 });
 
-export default function AboutPage() {
+const FALLBACK_ABOUT_DOCTOR_IMAGE = {
+  src: "/images/generated-image-2026-02-17-2.png",
+  alt: "Dr. Folashade Farri",
+};
+
+async function getAboutDoctorImage() {
+  try {
+    const response = await getPublicGalleryImages({ cache: "no-store" });
+    const placement = response?.placements?.about_doctor;
+    if (Array.isArray(placement) && placement.length > 0) {
+      return { src: placement[0].image_url, alt: placement[0].alt_text };
+    }
+  } catch (_error) {
+    // Keep fallback image if the gallery API is unavailable
+  }
+  return FALLBACK_ABOUT_DOCTOR_IMAGE;
+}
+
+export default async function AboutPage() {
+  const aboutDoctorImage = await getAboutDoctorImage();
   const testimonials = homepageReviews.slice(0, 3);
   const values = [
     {
@@ -97,8 +117,8 @@ export default function AboutPage() {
                 <div className="glass-card h-full rounded-[2.25rem] p-3 shadow-2xl">
                   <div className="relative h-[360px] overflow-hidden rounded-[1.75rem] sm:h-[520px] lg:h-full lg:min-h-[520px]">
                     <Image
-                      src="/images/generated-image-2026-02-17-2.png"
-                      alt="Dr. Folashade Farri"
+                      src={aboutDoctorImage.src}
+                      alt={aboutDoctorImage.alt}
                       fill
                       className="object-cover object-top"
                       priority
