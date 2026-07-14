@@ -1,0 +1,6 @@
+{
+  "crons": [
+    { "path": "/api/cron/announcements", "schedule": "* * * * *" },
+    { "path": "/api/cron/blogs", "schedule": "* * * * *" }
+  ]
+}

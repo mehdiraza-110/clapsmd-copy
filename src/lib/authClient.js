@@ -1,15 +1,6 @@
 const TOKEN_KEY = "auth_token";
 const USER_KEY = "auth_user";
 
-function getApiBaseUrl() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_URL;
-  if (!baseUrl) {
-    throw new Error("Missing NEXT_PUBLIC_API_BASE_URL (or NEXT_PUBLIC_API_URL)");
-  }
-  return baseUrl.replace(/\/+$/, "");
-}
-
 function toErrorMessage(payload, fallback) {
   if (!payload) return fallback;
   if (typeof payload === "string") return payload;
@@ -19,7 +10,7 @@ function toErrorMessage(payload, fallback) {
 }
 
 async function request(path, options = {}) {
-  const url = `${getApiBaseUrl()}${path}`;
+  const url = `/api${path}`;
   const isFormData = typeof FormData !== "undefined" && options.body instanceof FormData;
   const headers = {
     ...(isFormData ? {} : { "Content-Type": "application/json" }),
